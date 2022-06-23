@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { UsercentricsContext } from '../context'
+import { UsercentricsContext } from '../context.js'
 
 /**
  * Returns `true` if Usercentrics failed to load inside the

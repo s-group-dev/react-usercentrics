@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { UsercentricsContext } from '../context'
+import { UsercentricsContext } from '../context.js'
 
 /** Returns `true` if Usercentrics has been initialized and consents can be given. */
 export const useIsInitialized = (): boolean => {

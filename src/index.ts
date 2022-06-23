@@ -1,15 +1,15 @@
-export { UsercentricsDialogToggle } from './components/UsercentricsDialogToggle'
-export { UsercentricsProvider } from './components/UsercentricsProvider'
-export { UsercentricsScript } from './components/UsercentricsScript'
+export { UsercentricsDialogToggle } from './components/UsercentricsDialogToggle.js'
+export { UsercentricsProvider } from './components/UsercentricsProvider.js'
+export { UsercentricsScript } from './components/UsercentricsScript.js'
 
-export { useHasServiceConsent } from './hooks/use-has-service-consent'
-export { useIsFailed } from './hooks/use-is-failed'
-export { useIsInitialized } from './hooks/use-is-initialized'
-export { useIsOpen } from './hooks/use-is-open'
-export { useServiceFullInfo, useServiceInfo } from './hooks/use-service-info'
+export { useHasServiceConsent } from './hooks/use-has-service-consent.js'
+export { useIsFailed } from './hooks/use-is-failed.js'
+export { useIsInitialized } from './hooks/use-is-initialized.js'
+export { useIsOpen } from './hooks/use-is-open.js'
+export { useServiceFullInfo, useServiceInfo } from './hooks/use-service-info.js'
 
-export { UsercentricsContext } from './context'
+export { UsercentricsContext } from './context.js'
 
-export * from './types'
+export * from './types.js'
 
-export * from './utils'
+export * from './utils.js'

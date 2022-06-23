@@ -1,9 +1,9 @@
 import type { FC, ReactNode } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 
-import { UsercentricsContext } from '../context'
-import type { UCUICMPEvent, UCWindow } from '../types'
-import { UCUICMPEventType } from '../types'
+import { UsercentricsContext } from '../context.js'
+import type { UCUICMPEvent, UCWindow } from '../types.js'
+import { UCUICMPEventType } from '../types.js'
 
 const isUCUICMPEvent = (event: Event): event is UCUICMPEvent => event.type === 'UC_UI_CMP_EVENT'
 

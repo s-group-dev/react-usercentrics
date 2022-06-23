@@ -1,6 +1,6 @@
 const IS_BROWSER = typeof window !== 'undefined'
 
-import type { ConsentType, ServiceFullInfo, ServiceInfo, UCWindow } from './types'
+import type { ConsentType, ServiceFullInfo, ServiceInfo, UCWindow } from './types.js'
 
 /**
  * Programmatic way to show First Layer.

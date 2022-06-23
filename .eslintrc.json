@@ -8,8 +8,6 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@typescript-eslint/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
         "plugin:prettier/recommended",
         "plugin:react-hooks/recommended",
         "plugin:react/recommended",
@@ -19,8 +17,6 @@
     "root": true,
     "rules": {
         "arrow-body-style": ["error", "as-needed"],
-        "import/no-unused-modules": "error",
-        "import/no-unassigned-import": "error",
         "react/prop-types": "off",
         "simple-import-sort/imports": "error"
     },

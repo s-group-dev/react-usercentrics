@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { UsercentricsContext } from '../context'
+import { UsercentricsContext } from '../context.js'
 
 /** Returns `true` if the Usercentrics dialog is currently open on the page. */
 export const useIsOpen = (): boolean => {

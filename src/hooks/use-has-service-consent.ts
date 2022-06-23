@@ -1,6 +1,6 @@
-import { hasServiceConsent } from '../utils'
-import { useServiceDebug } from './use-service-debug'
-import { useServiceInfo } from './use-service-info'
+import { hasServiceConsent } from '../utils.js'
+import { useServiceDebug } from './use-service-debug.js'
+import { useServiceInfo } from './use-service-info.js'
 
 /**
  * Returns `true` if the specific Usercentrics service has been given consent.

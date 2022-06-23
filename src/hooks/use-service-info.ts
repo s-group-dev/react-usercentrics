@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { UsercentricsContext } from '../context'
-import type { ServiceFullInfo, ServiceInfo } from '../types'
-import { getServicesBaseInfo, getServicesFullInfo } from '../utils'
-import { useServiceDebug } from './use-service-debug'
+import { UsercentricsContext } from '../context.js'
+import type { ServiceFullInfo, ServiceInfo } from '../types.js'
+import { getServicesBaseInfo, getServicesFullInfo } from '../utils.js'
+import { useServiceDebug } from './use-service-debug.js'
 
 /**
  * Returns basic info for specific Usercentrics service, or null if not found.

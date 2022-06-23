@@ -1,8 +1,8 @@
 import type { ButtonHTMLAttributes, FC, MouseEventHandler, ReactNode } from 'react'
 import React, { useCallback } from 'react'
 
-import { useIsInitialized } from '../hooks/use-is-initialized'
-import { showFirstLayer } from '../utils'
+import { useIsInitialized } from '../hooks/use-is-initialized.js'
+import { showFirstLayer } from '../utils.js'
 
 interface UsercentricsDialogToggleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode
