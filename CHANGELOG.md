@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.0.0...v1.0.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* add `*.js` file extensions to ESM imports ([f476727](https://github.com/s-group-dev/react-usercentrics/commit/f4767274ddcbfe7a1639914109205eccae3412ff))
+
 ## 1.0.0 (2022-06-23)
 
 
