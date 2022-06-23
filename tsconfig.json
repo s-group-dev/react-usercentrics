@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "incremental": true,
+        "isolatedModules": true,
+        "jsx": "react",
+        "lib": ["dom", "ESNext"],
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "noEmit": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "ESNext"
+    },
+    "include": ["**/*.cjs", "**/*.js", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"]
+}
