@@ -1,6 +1,40 @@
+/**
+ * Service-specific code needs to target a specific `serviceId`, for example
+ * to check its consent status. You can augment a special interface to override
+ * the default `string` type with an `enum` to support stricted type-level
+ * checks in your application code. You should create an enum containing
+ * all your configured `serviceId`s.
+ *
+ * @example
+ *
+ * ```
+ * import '@s-group/react-usercentrics'
+ *
+ * enum MyServiceIdEnum {
+ *   Service1 = 'service-id-1'
+ *   Service2 = 'service-id-2'
+ * }
+ *
+ * declare module '@s-group/react-usercentrics' {
+ *   export interface Augmented {
+ *     serviceId: MyServiceIdEnum
+ *   }
+ * }
+ * ```
+ *
+ * @default string
+ *
+ * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+ */
+export interface Augmented {
+    serviceId: string
+}
+
+export type ServiceId = Augmented['serviceId']
+
 /** Partial type for a service's base info. Unused values are left out. */
 export type ServiceInfo = {
-    id: string
+    id: ServiceId
     name: string
     consent: {
         status: boolean
@@ -59,13 +93,13 @@ type UC_UI = {
      *
      * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showsecondlayer
      */
-    showSecondLayer?: (serviceId?: string) => void
+    showSecondLayer?: (serviceId?: ServiceId) => void
 
     /**
      * A method for accepting a single service.
      * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=acceptservice
      */
-    acceptService?: (serviceId: string, consentType?: ConsentType) => Promise<void>
+    acceptService?: (serviceId: ServiceId, consentType?: ConsentType) => Promise<void>
 }
 
 /**
