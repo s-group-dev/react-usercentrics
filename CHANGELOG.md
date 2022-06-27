@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.1...v1.1.2) (2022-06-27)
+
+
+### Bug Fixes
+
+* read type from `augmented.d.ts` to enable augmentation ([8b41d79](https://github.com/s-group-dev/react-usercentrics/commit/8b41d79b3e62a37164db8aaebcfdf9ce591f9d55))
+
 ## [1.1.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.0...v1.1.1) (2022-06-27)
 
 
