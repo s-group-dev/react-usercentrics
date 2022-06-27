@@ -15,7 +15,8 @@
     },
     "types": "./dist/index.d.ts",
     "files": [
-        "dist/*"
+        "dist/*",
+        "augmented.d.ts"
     ],
     "sideEffects": false,
     "scripts": {
