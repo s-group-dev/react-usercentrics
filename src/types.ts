@@ -1,36 +1,8 @@
 /**
- * Service-specific code needs to target a specific `serviceId`, for example
- * to check its consent status. You can augment a special interface to override
- * the default `string` type with an `enum` to support stricted type-level
- * checks in your application code. You should create an enum containing
- * all your configured `serviceId`s.
- *
- * @example
- *
- * ```
- * import '@s-group/react-usercentrics'
- *
- * enum MyServiceIdEnum {
- *   Service1 = 'service-id-1'
- *   Service2 = 'service-id-2'
- * }
- *
- * declare module '@s-group/react-usercentrics' {
- *   export interface Augmented {
- *     serviceId: MyServiceIdEnum
- *   }
- * }
- * ```
- *
- * @default string
- *
- * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+ * This uses self-referenced import so that it can be augmented/re-declared in the target project
+ * @see augmented.d.ts
  */
-export interface Augmented {
-    serviceId: string
-}
-
-export type ServiceId = Augmented['serviceId']
+export type ServiceId = import('@s-group/react-usercentrics/augmented').ServiceId
 
 /** Partial type for a service's base info. Unused values are left out. */
 export type ServiceInfo = {
