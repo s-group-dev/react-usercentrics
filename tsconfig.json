@@ -10,6 +10,9 @@
         "module": "ESNext",
         "moduleResolution": "node",
         "noEmit": true,
+        "paths": {
+            "@s-group/react-usercentrics/augmented": ["./augmented.d.ts"]
+        },
         "skipLibCheck": true,
         "strict": true,
         "target": "ESNext"
