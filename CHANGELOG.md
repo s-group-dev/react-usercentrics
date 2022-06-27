@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.0...v1.1.1) (2022-06-27)
+
+
+### Bug Fixes
+
+* move type augmentation to separate file to make it easier ([931673b](https://github.com/s-group-dev/react-usercentrics/commit/931673bc7cac2ae8db540da51999f54bb2c72dbe))
+
 ## [1.1.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.0.1...v1.1.0) (2022-06-27)
 
 
