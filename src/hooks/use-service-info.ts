@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import type { ServiceFullInfo, ServiceInfo } from '../types.js'
+import type { ServiceFullInfo, ServiceId, ServiceInfo } from '../types.js'
 import { getServicesBaseInfo, getServicesFullInfo } from '../utils.js'
 import { useServiceDebug } from './use-service-debug.js'
 
@@ -16,7 +16,7 @@ import { useServiceDebug } from './use-service-debug.js'
  *
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesbaseinfo
  */
-export const useServiceInfo = (serviceId: string): ServiceInfo | null => {
+export const useServiceInfo = (serviceId: ServiceId): ServiceInfo | null => {
     useServiceDebug(serviceId)
     return getServicesBaseInfo().find(({ id }) => serviceId === id) || null
 }
@@ -34,7 +34,7 @@ export const useServiceInfo = (serviceId: string): ServiceInfo | null => {
  *
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesfullinfo
  */
-export const useServiceFullInfo = (serviceId: string): ServiceFullInfo | null => {
+export const useServiceFullInfo = (serviceId: ServiceId): ServiceFullInfo | null => {
     useServiceDebug(serviceId)
 
     const { ping } = useContext(UsercentricsContext)

@@ -1,6 +1,6 @@
 const IS_BROWSER = typeof window !== 'undefined'
 
-import type { ConsentType, ServiceFullInfo, ServiceInfo, UCWindow } from './types.js'
+import type { ConsentType, ServiceFullInfo, ServiceId, ServiceInfo, UCWindow } from './types.js'
 
 /**
  * Programmatic way to show First Layer.
@@ -25,7 +25,7 @@ export const showFirstLayer = (): void => {
  *
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showsecondlayer
  */
-export const showSecondLayer = (serviceId?: string): void => {
+export const showSecondLayer = (serviceId?: ServiceId): void => {
     if (IS_BROWSER) {
         ;(window as UCWindow).UC_UI?.showSecondLayer?.(serviceId)
     }
@@ -56,7 +56,7 @@ export const hasServiceConsent = (service: ServiceInfo | null): boolean => !!ser
  * A method for accepting a single service.
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=acceptservice
  */
-export const acceptService = async (serviceId: string, consentType?: ConsentType) => {
+export const acceptService = async (serviceId: ServiceId, consentType?: ConsentType) => {
     if (IS_BROWSER) {
         await (window as UCWindow).UC_UI?.acceptService?.(serviceId, consentType)
     }

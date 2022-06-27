@@ -43,6 +43,29 @@ ReactDOM.render(
 )
 ```
 
+### Type-checks for service id
+
+Service-specific code needs to target a specific `serviceId`, for example
+to check its consent status. You can augment this interface to override
+the default `string` type with an `enum` to support stricted type-level
+checks in your application code. You should create an enum containing
+all your configured `serviceId`s.
+
+```ts
+import '@s-group/react-usercentrics'
+
+enum MyServiceIdEnum {
+  Service1 = 'service-id-1'
+  Service2 = 'service-id-2'
+}
+
+declare module '@s-group/react-usercentrics' {
+  export interface Augmented {
+    serviceId: MyServiceIdEnum
+  }
+}
+```
+
 ## API
 
 ### Components
