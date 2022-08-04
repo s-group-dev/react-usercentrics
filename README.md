@@ -71,6 +71,18 @@ declare module '@s-group/react-usercentrics/augmented' {
 
 ## API
 
+### Types
+
+#### `ConsentType`
+
+When giving consent using the API (instead of customer clicking the Dialog),
+consent can be either explicit (e.g. when clicking some custom button) or implicit.
+
+#### `UCWindow`
+
+Augmented window type, possibly including the `UC_UI` API.
+Do not declare this globally, but prefer to use the included utility functions instead.
+
 ### Components
 
 #### `UsercentricsScript`
@@ -176,7 +188,7 @@ so no services can be used.
 
 ```tsx
 () => {
-  const isFailed = useIsFailed('my-service-id')
+  const isFailed = useIsFailed()
 
   useEffect(() => {
     if (isFailed) {
@@ -270,4 +282,91 @@ See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesfullinfo
     }
   }, [serviceInfo])
 }
+```
+
+### Utils
+
+#### `showFirstLayer`
+
+Programmatic way to show First Layer.
+
+See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showfirstlayer
+
+```tsx
+showFirstLayer()
+```
+
+#### `showSecondLayer`
+
+Programmatic way to show Second Layer. If a service/vendor Id value is passed,
+Second Layer will open the right tab, scroll to the given service/vendor entry and expand it.
+If no Id is passed, Second Layer will be shown without srcolling to any specific service/vendor.
+
+See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showsecondlayer
+
+```tsx
+showSecondLayer()
+```
+
+```tsx
+showSecondLayer('my-service-id')
+```
+
+#### `getServicesBaseInfo`
+
+A method to get array of all services with their basic information
+
+See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesbaseinfo
+
+```tsx
+const services = getServicesBaseInfo()
+
+const myService = services.find((service) => service.id === 'my-service-id')
+```
+
+#### `getServicesFullInfo`
+
+A method to get array of all services with their full information.
+An extra api request will be made, therefore the return represents
+the eventual completion (or failure) of an asynchronous operation
+and its returning value.
+
+See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesfullinfo
+
+```tsx
+const services = await getServicesFullInfo()
+
+const myService = services.find((service) => service.id === 'my-service-id')
+```
+
+#### `hasServiceConsent`
+
+Returns true if Usercentrics service has been given consent
+
+```tsx
+const services = getServicesBaseInfo()
+const myService = services.find((service) => service.id === 'my-service-id')
+const hasConsent = hasServiceConsent(myService)
+
+if (hasConsent) {
+  loadMyService()
+}
+```
+
+#### `acceptService`
+
+A method for accepting a single service.
+
+See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=acceptservice
+
+```tsx
+await acceptService('my-service-id')
+```
+
+```tsx
+await acceptService('my-service-id', ConsentType.Explicit)
+```
+
+```tsx
+await acceptService('my-service-id', ConsentType.Implicit)
 ```

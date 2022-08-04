@@ -5,6 +5,8 @@ import type { ConsentType, ServiceFullInfo, ServiceId, ServiceInfo, UCWindow } f
 /**
  * Programmatic way to show First Layer.
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showfirstlayer
+ *
+ * @example showFirstLayer()
  */
 export const showFirstLayer = (): void => {
     if (IS_BROWSER) {
@@ -24,6 +26,9 @@ export const showFirstLayer = (): void => {
  * If no Id is passed, Second Layer will be shown without srcolling to any specific service/vendor.
  *
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showsecondlayer
+ *
+ * @example showSecondLayer('my-service-id')
+ * @example showSecondLayer()
  */
 export const showSecondLayer = (serviceId?: ServiceId): void => {
     if (IS_BROWSER) {
@@ -34,6 +39,10 @@ export const showSecondLayer = (serviceId?: ServiceId): void => {
 /**
  * A method to get array of all services with their basic information
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesbaseinfo
+ *
+ * @example
+ * const services = getServicesBaseInfo()
+ * const myService = services.find((service) => service.id === 'my-service-id')
  */
 export const getServicesBaseInfo = (): ServiceInfo[] =>
     (IS_BROWSER && (window as UCWindow).UC_UI?.getServicesBaseInfo?.()) || []
@@ -45,11 +54,26 @@ export const getServicesBaseInfo = (): ServiceInfo[] =>
  * and its returning value.
  *
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesfullinfo
+ *
+ * @example
+ * const services = await getServicesFullInfo()
+ * const myService = services.find((service) => service.id === 'my-service-id')
  */
 export const getServicesFullInfo = async (): Promise<ServiceFullInfo[]> =>
     (IS_BROWSER && (window as UCWindow).UC_UI?.getServicesFullInfo?.()) || []
 
-/** Returns true if Usercentrics service has been given consent */
+/**
+ * Returns true if Usercentrics service has been given consent
+ *
+ * @example
+ * const services = getServicesBaseInfo()
+ * const myService = services.find((service) => service.id === 'my-service-id')
+ * const hasConsent = hasServiceConsent(myService)
+ *
+ * if (hasConsent) {
+ *   loadMyService()
+ * }
+ */
 export const hasServiceConsent = (service: ServiceInfo | null): boolean => !!service?.consent.status
 
 /**
