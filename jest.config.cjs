@@ -8,6 +8,19 @@ module.exports = {
         '^.+\\.(t|j)sx?$': [
             '@swc/jest',
             {
+                jsc: {
+                    experimental: {
+                        plugins: [['jest_workaround', {}]],
+                    },
+                    transform: {
+                        react: {
+                            runtime: 'automatic',
+                        },
+                    },
+                },
+                module: {
+                    type: 'commonjs',
+                },
                 sourceMaps: true,
             },
         ],
