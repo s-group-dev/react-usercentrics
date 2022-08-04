@@ -71,6 +71,18 @@ declare module '@s-group/react-usercentrics/augmented' {
 
 ## API
 
+### Types
+
+#### `ConsentType`
+
+When giving consent using the API (instead of customer clicking the Dialog),
+consent can be either explicit (e.g. when clicking some custom button) or implicit.
+
+#### `UCWindow`
+
+Augmented window type, possibly including the `UC_UI` API.
+Do not declare this globally, but prefer to use the included utility functions instead.
+
 ### Components
 
 #### `UsercentricsScript`
