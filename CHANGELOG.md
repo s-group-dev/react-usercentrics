@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.2...v1.1.3) (2022-08-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependencies ([b830bad](https://github.com/s-group-dev/react-usercentrics/commit/b830badba769ddfc20e173888218f69a8d7d073d))
+
 ## [1.1.2](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.1...v1.1.2) (2022-06-27)
 
 
