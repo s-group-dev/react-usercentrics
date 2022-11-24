@@ -1,6 +1,14 @@
 const IS_BROWSER = typeof window !== 'undefined'
 
-import type { ConsentType, ServiceFullInfo, ServiceId, ServiceInfo, UCWindow } from './types.js'
+import type {
+    ConsentType,
+    ServiceFullInfo,
+    ServiceId,
+    ServiceInfo,
+    ServiceInfoFromLocalStorage,
+    ucSettingsFromLocalStorage,
+    UCWindow,
+} from './types.js'
 
 /**
  * Programmatic way to show First Layer.
@@ -46,6 +54,26 @@ export const showSecondLayer = (serviceId?: ServiceId): void => {
  */
 export const getServicesBaseInfo = (): ServiceInfo[] =>
     (IS_BROWSER && (window as UCWindow).UC_UI?.getServicesBaseInfo?.()) || []
+
+/**
+ * A method to get array of all services from local storage
+ *
+ * @example
+ * const services = getServicesFromLocalStorage()
+ * const myService = services.find((service) => service.id === 'my-service-id')
+ */
+export const getServicesFromLocalStorage = (): ServiceInfoFromLocalStorage[] => {
+    const ucSettings = IS_BROWSER && localStorage?.getItem('uc_settings')
+    if (ucSettings) {
+        try {
+            const ucSettingsObj = JSON.parse(ucSettings) as ucSettingsFromLocalStorage
+            return ucSettingsObj.services
+        } catch {
+            // fails and do nothing
+        }
+    }
+    return []
+}
 
 /**
  * A method to get array of all services with their full information.

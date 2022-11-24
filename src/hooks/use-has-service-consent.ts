@@ -1,5 +1,5 @@
 import type { ServiceId } from '../types.js'
-import { hasServiceConsent } from '../utils.js'
+import { getServicesFromLocalStorage, hasServiceConsent } from '../utils.js'
 import { useServiceDebug } from './use-service-debug.js'
 import { useServiceInfo } from './use-service-info.js'
 
@@ -10,5 +10,13 @@ import { useServiceInfo } from './use-service-info.js'
 export const useHasServiceConsent = (serviceId: ServiceId): boolean => {
     useServiceDebug(serviceId)
     const serviceInfo = useServiceInfo(serviceId)
+    const serviceFromLocalStorage = getServicesFromLocalStorage().find(({ id }) => serviceId === id)
+    if (serviceFromLocalStorage) {
+        try {
+            return serviceFromLocalStorage.status
+        } catch {
+            // fails and do nothing
+        }
+    }
     return hasServiceConsent(serviceInfo)
 }
