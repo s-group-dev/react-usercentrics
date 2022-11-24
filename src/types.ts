@@ -18,6 +18,17 @@ export type ServiceFullInfo = ServiceInfo & {
     description: string
 }
 
+/** Partial type for uc settings read from local storage, if available. Unused values are left out. */
+export type ucSettingsFromLocalStorage = {
+    services: ServiceInfoFromLocalStorage[]
+}
+
+/** Partial type for service info read from local storage, if available. Unused values are left out. */
+export type ServiceInfoFromLocalStorage = {
+    id: string
+    status: boolean
+}
+
 /** When giving consent using the API (instead of customer clicking the Dialog),
  * consent can be either explicit (e.g. when clicking some custom button) or implicit. */
 export enum ConsentType {
