@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.4...v1.1.5) (2022-11-24)
+
+
+### Performance Improvements
+
+* try to read consent from localStorage before window.UC_UI ([ce012d0](https://github.com/s-group-dev/react-usercentrics/commit/ce012d0673b2cfbe8d0cfd07721d7cfd17055931))
+
 ## [1.1.4](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.3...v1.1.4) (2022-08-11)
 
 
