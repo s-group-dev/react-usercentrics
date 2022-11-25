@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.6...v1.1.7) (2022-11-25)
+
+
+### Bug Fixes
+
+* **ci:** update GitHub Actions ([f3ad936](https://github.com/s-group-dev/react-usercentrics/commit/f3ad93639a8b3cb0808605e5a99de558a84275cb))
+
 ## [1.1.6](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.5...v1.1.6) (2022-11-25)
 
 
