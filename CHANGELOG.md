@@ -1,3 +1,15 @@
+## [1.1.6](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.5...v1.1.6) (2022-11-25)
+
+
+### Bug Fixes
+
+* only read from localStorage when CMP has not loaded ([fbc5151](https://github.com/s-group-dev/react-usercentrics/commit/fbc51511768a1bba803af886ee63d056ffd3233e))
+
+
+### Performance Improvements
+
+* read consents from localStorage only once in the Provider ([acf1a2c](https://github.com/s-group-dev/react-usercentrics/commit/acf1a2ca2a2c7871ab36544555db8468dc2a4d9f))
+
 ## [1.1.5](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.4...v1.1.5) (2022-11-24)
 
 
