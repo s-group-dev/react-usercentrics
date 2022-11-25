@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.7...v1.2.0) (2022-11-25)
+
+
+### Features
+
+* the `useHasServiceConsent` hook returns `null` if consent status is unknown (not yet loaded) ([69d0917](https://github.com/s-group-dev/react-usercentrics/commit/69d0917cd43109cf3859eb2fcbce4b230c8f3ef0))
+
 ## [1.1.7](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.6...v1.1.7) (2022-11-25)
 
 
