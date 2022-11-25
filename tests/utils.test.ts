@@ -1,4 +1,4 @@
-import type { UCWindow } from '../src/types'
+import type { ServiceInfoFromLocalStorage, SettingsFromLocalStorage, UCWindow } from '../src/types'
 import { ConsentType } from '../src/types'
 import * as utils from '../src/utils'
 
@@ -53,6 +53,29 @@ describe('Usercentrics', () => {
             utils.showSecondLayer('test-id')
             expect((window as UCWindow).UC_UI?.showSecondLayer).toHaveBeenCalledTimes(2)
             expect((window as UCWindow).UC_UI?.showSecondLayer).toHaveBeenCalledWith('test-id')
+        })
+
+        describe('getServicesFromLocalStorage', () => {
+            const mockGetItem = jest.spyOn(localStorage.__proto__, 'getItem')
+
+            it('should return empty array when no data', () => {
+                const services = utils.getServicesFromLocalStorage()
+                expect(mockGetItem).toHaveBeenCalledTimes(1)
+                expect(services).toEqual([])
+            })
+
+            it('should return empty array when invalid data', () => {
+                mockGetItem.mockReturnValueOnce('foobar')
+                expect(utils.getServicesFromLocalStorage()).toEqual([])
+            })
+
+            it('should return service from localStorage', () => {
+                const service: ServiceInfoFromLocalStorage = { id: 'test-id', status: true }
+                const settings: SettingsFromLocalStorage = { services: [service] }
+
+                mockGetItem.mockReturnValueOnce(JSON.stringify(settings))
+                expect(utils.getServicesFromLocalStorage()).toEqual([service])
+            })
         })
     })
 })

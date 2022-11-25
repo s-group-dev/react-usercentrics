@@ -1,5 +1,8 @@
+import { useContext } from 'react'
+
+import { UsercentricsContext } from '../context.js'
 import type { ServiceId } from '../types.js'
-import { getServicesFromLocalStorage, hasServiceConsent } from '../utils.js'
+import { hasServiceConsent } from '../utils.js'
 import { useServiceDebug } from './use-service-debug.js'
 import { useServiceInfo } from './use-service-info.js'
 
@@ -10,13 +13,12 @@ import { useServiceInfo } from './use-service-info.js'
 export const useHasServiceConsent = (serviceId: ServiceId): boolean => {
     useServiceDebug(serviceId)
     const serviceInfo = useServiceInfo(serviceId)
-    const serviceFromLocalStorage = getServicesFromLocalStorage().find(({ id }) => serviceId === id)
-    if (serviceFromLocalStorage) {
-        try {
-            return serviceFromLocalStorage.status
-        } catch {
-            // fails and do nothing
-        }
+    const { isInitialized, localStorageState } = useContext(UsercentricsContext)
+
+    /** Until Usercentrics CMP has loaded, try to get consent status from localStorage */
+    if (!isInitialized) {
+        return !!localStorageState.find((service) => service.id === serviceId)?.status
     }
+
     return hasServiceConsent(serviceInfo)
 }
