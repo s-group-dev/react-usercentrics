@@ -69,9 +69,10 @@ export const getServicesFromLocalStorage = (): ServiceInfoFromLocalStorage[] => 
             const ucSettingsObj = JSON.parse(ucSettings) as ucSettingsFromLocalStorage
             return ucSettingsObj.services
         } catch {
-            // fails and do nothing
+            /** Ignore failures */
         }
     }
+
     return []
 }
 
