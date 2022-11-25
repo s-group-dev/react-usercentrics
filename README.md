@@ -164,8 +164,10 @@ interface UsercentricsDialogToggleProps extends ButtonHTMLAttributes<HTMLButtonE
 
 #### `useHasServiceConsent`
 
-Returns `true` if the specific Usercentrics service has been given consent.
-If it returns `false`, the service should not be loaded or used.
+Whether the specific Usercentrics service has been given consent.
+Returns `true` or `false` based on consent status, or `null` when unknown (not yet loaded).
+
+ **Warning:** it's best to assume no consent until this hook returns `true`
 
 ```tsx
 () => {

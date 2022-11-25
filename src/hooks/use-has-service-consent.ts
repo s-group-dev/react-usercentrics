@@ -7,17 +7,23 @@ import { useServiceDebug } from './use-service-debug.js'
 import { useServiceInfo } from './use-service-info.js'
 
 /**
- * Returns `true` if the specific Usercentrics service has been given consent.
- * If it returns `false`, the service should not be loaded or used.
+ * Whether the specific Usercentrics service has been given consent.
+ * Returns `true` or `false` based on consent status, or `null` when unknown (not yet loaded).
+ *
+ * @warn it's best to assume no consent until this hook returns `true`
  */
-export const useHasServiceConsent = (serviceId: ServiceId): boolean => {
+export const useHasServiceConsent = (serviceId: ServiceId): boolean | null => {
     useServiceDebug(serviceId)
     const serviceInfo = useServiceInfo(serviceId)
     const { isInitialized, localStorageState } = useContext(UsercentricsContext)
 
-    /** Until Usercentrics CMP has loaded, try to get consent status from localStorage */
+    /**
+     * Until Usercentrics CMP has loaded, try to get consent status from localStorage.
+     * If it's not loaded, and there's nothing in localStorage, this will return `null`
+     */
     if (!isInitialized) {
-        return !!localStorageState.find((service) => service.id === serviceId)?.status
+        const saved = localStorageState.find((service) => service.id === serviceId)
+        return saved ? saved.status : null
     }
 
     return hasServiceConsent(serviceInfo)

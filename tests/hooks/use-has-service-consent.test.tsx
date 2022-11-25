@@ -34,14 +34,14 @@ describe('Usercentrics', () => {
                         </UsercentricsContext.Provider>
                     )
 
-            it('should read from localStorage and return false when not initialized', () => {
+            it('should read from localStorage and return null when not initialized and no data', () => {
                 mockUseServiceInfo.mockReturnValue(null)
 
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
                     wrapper: getWrapper({ isInitialized: false, localStorageState: [] }),
                 })
 
-                expect(result.current).toEqual(false)
+                expect(result.current).toEqual(null)
             })
 
             it('should read from localStorage and return true when not initialized', () => {
