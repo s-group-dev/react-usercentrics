@@ -6,7 +6,7 @@ import type {
     ServiceId,
     ServiceInfo,
     ServiceInfoFromLocalStorage,
-    ucSettingsFromLocalStorage,
+    SettingsFromLocalStorage,
     UCWindow,
 } from './types.js'
 
@@ -66,8 +66,9 @@ export const getServicesFromLocalStorage = (): ServiceInfoFromLocalStorage[] => 
     const ucSettings = IS_BROWSER && localStorage?.getItem('uc_settings')
     if (ucSettings) {
         try {
-            const ucSettingsObj = JSON.parse(ucSettings) as ucSettingsFromLocalStorage
-            return ucSettingsObj.services
+            const ucSettingsObj = JSON.parse(ucSettings) as SettingsFromLocalStorage
+            /** Leave out any other untyped fields */
+            return ucSettingsObj.services.map(({ id, status }) => ({ id, status }))
         } catch {
             /** Ignore failures */
         }

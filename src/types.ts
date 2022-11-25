@@ -19,7 +19,7 @@ export type ServiceFullInfo = ServiceInfo & {
 }
 
 /** Partial type for uc settings read from local storage, if available. Unused values are left out. */
-export type ucSettingsFromLocalStorage = {
+export type SettingsFromLocalStorage = {
     services: ServiceInfoFromLocalStorage[]
 }
 

@@ -1,9 +1,10 @@
-import type { FC, ReactNode } from 'react'
+import { FC, ReactNode, useMemo } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 
 import { UsercentricsContext } from '../context.js'
 import type { UCUICMPEvent, UCWindow } from '../types.js'
 import { UCUICMPEventType } from '../types.js'
+import { getServicesFromLocalStorage } from '../utils.js'
 
 const isUCUICMPEvent = (event: Event): event is UCUICMPEvent => event.type === 'UC_UI_CMP_EVENT'
 
@@ -138,12 +139,19 @@ export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({
         }
     }, [initializedCallback, isFailed, isInitialized, timeout, ucEventCallback, ucUIEventCallback, windowEventName])
 
+    /**
+     * Try to read current setting from localStorage. These are only used until the CMP has been loaded,
+     * and after window.UC_UI is preferred. There should be no need to refresh the values.
+     */
+    const localStorageState = useMemo(getServicesFromLocalStorage, [])
+
     return (
         <UsercentricsContext.Provider
             value={{
                 isFailed,
                 isInitialized,
                 isOpen,
+                localStorageState,
                 ping,
                 strictMode,
             }}
