@@ -390,3 +390,21 @@ await acceptService('my-service-id', ConsentType.Explicit)
 ```tsx
 await acceptService('my-service-id', ConsentType.Implicit)
 ```
+
+#### `hasUserInteracted`
+
+A method to check if user has interacted with the consent prompt and given consent information.
+
+```tsx
+const userInteracted = hasUserInteracted()
+if (userInteracted) {
+  actionRequiredConsentInfoGiven()
+}
+```
+
+#### `getServicesFromLocalStorage`
+A method to get array of all services from local storage
+```tsx
+const services = getServicesFromLocalStorage()
+const myService = services.find((service) => service.id === 'my-service-id')
+```
