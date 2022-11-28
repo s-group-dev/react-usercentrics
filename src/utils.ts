@@ -80,7 +80,11 @@ export const getServicesFromLocalStorage = (): ServiceInfoFromLocalStorage[] => 
 /**
  * A method to check if user has interacted with the consent prompt and given consent information.
  *
- * @example hasUserInteracted()
+ * @example
+ * const userInteracted = hasUserInteracted()
+ * if (userInteracted) {
+ *  actionRequiredConsentInfoGiven()
+ * }
  */
 export const hasUserInteracted = (): boolean => {
     const userInteraction = IS_BROWSER && localStorage?.getItem('uc_user_interaction')
