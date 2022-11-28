@@ -234,6 +234,24 @@ Returns `true` if the Usercentrics dialog is currently open on the page.
 }
 ```
 
+#### `useHasUserInteracted`
+
+Returns `true` if the user has interacted with the Usercentrics dialog and given consent information.
+
+```tsx
+() => {
+  const hasUserInteracted = useHasUserInteracted()
+
+  useEffect(() => {
+    if (hasUserInteracted) {
+      console.debug('User has interacted with the Usercentrics dialog and given consent information')
+    } else {
+      console.debug('User has not interacted with the Usercentrics dialog and not given consent information')
+    }
+  }, [hasUserInteracted])
+}
+```
+
 #### `useServiceInfo`
 
 Returns basic info for specific Usercentrics service, or null if not found.
@@ -371,4 +389,22 @@ await acceptService('my-service-id', ConsentType.Explicit)
 
 ```tsx
 await acceptService('my-service-id', ConsentType.Implicit)
+```
+
+#### `hasUserInteracted`
+
+A method to check if user has interacted with the consent prompt and given consent information.
+
+```tsx
+const userInteracted = hasUserInteracted()
+if (userInteracted) {
+  actionRequiredConsentInfoGiven()
+}
+```
+
+#### `getServicesFromLocalStorage`
+A method to get array of all services from local storage
+```tsx
+const services = getServicesFromLocalStorage()
+const myService = services.find((service) => service.id === 'my-service-id')
 ```
