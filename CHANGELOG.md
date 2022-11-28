@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.2.0...v1.3.0) (2022-11-28)
+
+
+### Features
+
+* add hook to check if user has interacted with the CMP ([ea889eb](https://github.com/s-group-dev/react-usercentrics/commit/ea889ebca4dc69beba38c5b97ef3f543cb7be610))
+
 ## [1.2.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.1.7...v1.2.0) (2022-11-25)
 
 
