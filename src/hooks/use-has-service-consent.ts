@@ -15,7 +15,12 @@ import { useServiceInfo } from './use-service-info.js'
 export const useHasServiceConsent = (serviceId: ServiceId): boolean | null => {
     useServiceDebug(serviceId)
     const serviceInfo = useServiceInfo(serviceId)
-    const { isInitialized, localStorageState } = useContext(UsercentricsContext)
+    const { isClientSide, isInitialized, localStorageState } = useContext(UsercentricsContext)
+
+    /** Consent status is unknown during SSR because CMP is only available client-side */
+    if (!isClientSide) {
+        return null
+    }
 
     /**
      * Until Usercentrics CMP has loaded, try to get consent status from localStorage.
