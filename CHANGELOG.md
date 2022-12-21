@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.3.0...v1.3.1) (2022-12-21)
+
+
+### Bug Fixes
+
+* the `useHasServiceConsent` hook works better with SSR hydration ([d6372bb](https://github.com/s-group-dev/react-usercentrics/commit/d6372bbc702aed98e0be4d120108d5bfb22f6feb))
+
 ## [1.3.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.2.0...v1.3.0) (2022-11-28)
 
 
