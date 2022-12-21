@@ -16,6 +16,7 @@ describe('Usercentrics', () => {
     describe('hooks', () => {
         describe('useHasServiceConsent', () => {
             const CONTEXT: ContextType<typeof UsercentricsContext> = {
+                isClientSide: true,
                 isFailed: false,
                 isInitialized: true,
                 isOpen: false,
@@ -34,7 +35,21 @@ describe('Usercentrics', () => {
                         </UsercentricsContext.Provider>
                     )
 
-            it('should read from localStorage and return null when not initialized and no data', () => {
+            it('should return null during SSR', () => {
+                mockUseServiceInfo.mockReturnValue({
+                    id: 'test-id',
+                    name: 'Salesforce',
+                    consent: { status: true },
+                })
+
+                const { result } = renderHook(() => useHasServiceConsent('test-id'), {
+                    wrapper: getWrapper({ isClientSide: false }),
+                })
+
+                expect(result.current).toEqual(null)
+            })
+
+            it('should return null when not initialized and no localStorage data', () => {
                 mockUseServiceInfo.mockReturnValue(null)
 
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
@@ -44,7 +59,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(null)
             })
 
-            it('should read from localStorage and return true when not initialized', () => {
+            it('should return true when not initialized but localStorage has data', () => {
                 mockUseServiceInfo.mockReturnValue(null)
 
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {

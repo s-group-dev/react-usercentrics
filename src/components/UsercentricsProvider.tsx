@@ -44,6 +44,11 @@ export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({
     timeout = 5000,
     windowEventName,
 }) => {
+    const [isClientSide, setIsClientSide] = useState(false)
+    useEffect(() => {
+        setIsClientSide(true)
+    }, [])
+
     /**
      * A trivial unique value that should be updated whenever
      * Usercentrics data is updated. This is for making sure
@@ -148,6 +153,7 @@ export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({
     return (
         <UsercentricsContext.Provider
             value={{
+                isClientSide,
                 isFailed,
                 isInitialized,
                 isOpen,
