@@ -4,6 +4,7 @@ module.exports = {
         '^(\\.{1,2}/.*)\\.js$': '$1',
     },
     testEnvironment: 'jsdom',
+    testMatch: ['**/*.(spec|test).(ts|tsx|?js)'],
     transform: {
         '^.+\\.(t|j)sx?$': [
             '@swc/jest',
