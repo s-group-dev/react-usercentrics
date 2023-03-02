@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.3.1...v1.4.0) (2023-03-02)
+
+
+### Features
+
+* detect Usercentrics events earlier by extracting singleton service ([#13](https://github.com/s-group-dev/react-usercentrics/issues/13)) ([74cffd6](https://github.com/s-group-dev/react-usercentrics/commit/74cffd608a16a3f04c650a229bec588069ddc6be))
+
 ## [1.3.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.3.0...v1.3.1) (2022-12-21)
 
 
