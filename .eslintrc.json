@@ -1,7 +1,9 @@
 {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "extraFileExtensions": [".mjs"],
+        "extraFileExtensions": [
+            ".mjs"
+        ],
         "project": "tsconfig.json"
     },
     "extends": [
@@ -13,17 +15,37 @@
         "plugin:react/recommended",
         "prettier"
     ],
-    "plugins": ["@typescript-eslint", "prettier", "simple-import-sort"],
+    "plugins": [
+        "@typescript-eslint",
+        "prettier",
+        "simple-import-sort",
+        "import"
+    ],
     "root": true,
     "rules": {
-        "arrow-body-style": ["error", "as-needed"],
+        "arrow-body-style": [
+            "error",
+            "as-needed"
+        ],
         "react/prop-types": "off",
-        "simple-import-sort/imports": "error"
+        "simple-import-sort/imports": "error",
+        "import/extensions": [
+            "error",
+            "always",
+            {
+                "js": "always"
+            }
+        ]
     },
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
             }
         },
         "react": {

@@ -2,9 +2,9 @@ import { renderHook } from '@testing-library/react'
 import type { ContextType, FC, ReactNode } from 'react'
 import React from 'react'
 
-import { UsercentricsContext } from '../../src/context'
-import { useHasServiceConsent } from '../../src/hooks/use-has-service-consent'
-import { useServiceInfo } from '../../src/hooks/use-service-info'
+import { UsercentricsContext } from '../../src/context.js'
+import { useHasServiceConsent } from '../../src/hooks/use-has-service-consent.js'
+import { useServiceInfo } from '../../src/hooks/use-service-info.js'
 
 jest.mock('../../src/hooks/use-service-info', () => ({
     useServiceInfo: jest.fn(),

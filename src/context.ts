@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import { ServiceInfoFromLocalStorage } from './types'
+import { ServiceInfoFromLocalStorage } from './types.js'
 
 interface UsercentricsContextType {
     isClientSide: boolean
