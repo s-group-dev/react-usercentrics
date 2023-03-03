@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.4.0...v1.4.1) (2023-03-03)
+
+
+### Bug Fixes
+
+* add missing import extensions, add ESLint rule for detection ([#14](https://github.com/s-group-dev/react-usercentrics/issues/14)) ([c512451](https://github.com/s-group-dev/react-usercentrics/commit/c5124512525b131c2fb4cc191b4c39fca08143e2))
+
 ## [1.4.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.3.1...v1.4.0) (2023-03-02)
 
 
