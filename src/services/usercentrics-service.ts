@@ -1,6 +1,6 @@
 /** State management singleton for internal use. This should not be used directly in applications. */
 
-import { UCUICMPEvent, UCUICMPEventType } from '../types'
+import { UCUICMPEvent, UCUICMPEventType } from '../types.js'
 
 export type ServiceState = {
     initialized: boolean

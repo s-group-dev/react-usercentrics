@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 
-import { UCUICMPEventType } from '../src'
-import { ServiceState, UsercentericsService } from '../src/services/usercentrics-service'
+import { UCUICMPEventType } from '../src/index.js'
+import { ServiceState, UsercentericsService } from '../src/services/usercentrics-service.js'
 
 describe('User centrics service', () => {
     it('should subscribe to window events and trigger callback', () => {
