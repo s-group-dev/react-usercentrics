@@ -1,5 +1,3 @@
-const IS_BROWSER = typeof window !== 'undefined'
-
 import type {
     ConsentType,
     ServiceFullInfo,
@@ -9,6 +7,8 @@ import type {
     SettingsFromLocalStorage,
     UCWindow,
 } from './types.js'
+
+export const IS_BROWSER = typeof window !== 'undefined'
 
 /**
  * Programmatic way to show First Layer.

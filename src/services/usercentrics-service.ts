@@ -1,6 +1,7 @@
 /** State management singleton for internal use. This should not be used directly in applications. */
 
 import { UCUICMPEvent, UCUICMPEventType } from '../types.js'
+import { IS_BROWSER } from '../utils.js'
 
 export type ServiceState = {
     initialized: boolean
@@ -10,11 +11,11 @@ export type ServiceState = {
 const isUCUICMPEvent = (event: Event): event is UCUICMPEvent => event.type === 'UC_UI_CMP_EVENT'
 
 /**
- * value needs to be immutable, ie. this cannot be a const as react will need a new object instance to update its state
+ * Value needs to be immutable, ie. this cannot be a const as react will need a new object instance to update its state
  * or this would need to be refactored as part of class or an object
  */
 let state: ServiceState = {
-    initialized: false,
+    initialized: IS_BROWSER && 'UC_UI' in window /** might be initialized before loading this code */,
     isOpen: false,
 }
 
@@ -53,7 +54,10 @@ const onEvent = (event: Event) => {
 
 if (typeof window !== 'undefined') {
     window.addEventListener('UC_UI_CMP_EVENT', onEvent)
-    window.addEventListener('UC_UI_INITIALIZED', () => setIsInitialized(true))
+
+    if (!state.initialized) {
+        window.addEventListener('UC_UI_INITIALIZED', () => setIsInitialized(true), { once: true })
+    }
 }
 
 export const UsercentericsService = {
