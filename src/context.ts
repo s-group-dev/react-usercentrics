@@ -3,6 +3,7 @@ import { createContext } from 'react'
 import { ServiceInfoFromLocalStorage } from './types.js'
 
 interface UsercentricsContextType {
+    hasInteracted: boolean
     isClientSide: boolean
     isFailed: boolean
     isInitialized: boolean
@@ -13,6 +14,7 @@ interface UsercentricsContextType {
 }
 
 const INITIAL_STATE: UsercentricsContextType = {
+    hasInteracted: false,
     isClientSide: false,
     isFailed: false,
     isInitialized: false,

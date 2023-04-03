@@ -1,10 +1,11 @@
 /** State management singleton for internal use. This should not be used directly in applications. */
 
 import { UCUICMPEvent, UCUICMPEventType } from '../types.js'
-import { IS_BROWSER } from '../utils.js'
+import { hasUserInteracted, IS_BROWSER } from '../utils.js'
 
 export type ServiceState = {
-    initialized: boolean
+    hasInteracted: boolean
+    isInitialized: boolean
     isOpen: boolean
 }
 
@@ -15,7 +16,8 @@ const isUCUICMPEvent = (event: Event): event is UCUICMPEvent => event.type === '
  * or this would need to be refactored as part of class or an object
  */
 let state: ServiceState = {
-    initialized: IS_BROWSER && 'UC_UI' in window /** might be initialized before loading this code */,
+    hasInteracted: false,
+    isInitialized: false,
     isOpen: false,
 }
 
@@ -28,12 +30,8 @@ const subscribe = (x: (x: ServiceState) => void): (() => void) => {
     }
 }
 
-const setIsOpen = (isOpen: boolean) => {
-    state = { ...state, isOpen }
-    update()
-}
-const setIsInitialized = (initialized: boolean) => {
-    state = { ...state, initialized }
+const setState = (next: Partial<ServiceState>) => {
+    state = { ...state, ...next }
     update()
 }
 
@@ -41,26 +39,45 @@ const onEvent = (event: Event) => {
     if (isUCUICMPEvent(event)) {
         switch (event.detail.type) {
             case UCUICMPEventType.CMP_SHOWN:
-                setIsOpen(true)
+                setState({ isOpen: true })
                 break
+
             case UCUICMPEventType.ACCEPT_ALL:
             case UCUICMPEventType.DENY_ALL:
             case UCUICMPEventType.SAVE:
-                setIsOpen(false)
+                setState({ isOpen: false, hasInteracted: true })
                 break
         }
     }
 }
 
-if (typeof window !== 'undefined') {
-    window.addEventListener('UC_UI_CMP_EVENT', onEvent)
+const initializeState = () => {
+    let shouldUpdate = false
 
-    if (!state.initialized) {
-        window.addEventListener('UC_UI_INITIALIZED', () => setIsInitialized(true), { once: true })
+    if (!state.isInitialized && IS_BROWSER && 'UC_UI' in window) {
+        shouldUpdate = true
+        state = { ...state, isInitialized: true }
+    }
+
+    const hasInteracted = hasUserInteracted()
+    /** one of these is true, so user has interacted */
+    if (state.hasInteracted !== hasInteracted) {
+        shouldUpdate = true
+        state = { ...state, hasInteracted: true }
+    }
+
+    if (shouldUpdate) {
+        update()
     }
 }
 
+if (typeof window !== 'undefined') {
+    window.addEventListener('UC_UI_CMP_EVENT', onEvent)
+    window.addEventListener('UC_UI_INITIALIZED', () => setState({ isInitialized: true }), { once: true })
+}
+
 export const UsercentericsService = {
+    initializeState,
     getState: () => state,
     subscribe,
 }

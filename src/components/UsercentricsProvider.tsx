@@ -49,16 +49,17 @@ export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({
     useEffect(() => {
         setIsClientSide(true)
 
+        const unsubscribe = UsercentericsService.subscribe(setState)
+        UsercentericsService.initializeState()
+
         /**
          * The event name is arbitrary and has to configured in the Admin UI
          * @see https://docs.usercentrics.com/#/v2-events?id=usage-as-window-event
          */
         window.addEventListener(windowEventName, ucEventCallback)
 
-        const unsubscribe = UsercentericsService.subscribe(setState)
-
         const t = setTimeout(() => {
-            if (!state.initialized) {
+            if (!state.isInitialized) {
                 setIsFailed(true)
             }
         }, timeout)
@@ -68,7 +69,7 @@ export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({
             unsubscribe()
             clearTimeout(t)
         }
-    }, [state.initialized, timeout, ucEventCallback, windowEventName])
+    }, [state.isInitialized, timeout, ucEventCallback, windowEventName])
 
     /**
      * Try to read current setting from localStorage. These are only used until the CMP has been loaded,
@@ -79,9 +80,10 @@ export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({
     return (
         <UsercentricsContext.Provider
             value={{
+                hasInteracted: state.hasInteracted,
                 isClientSide,
                 isFailed,
-                isInitialized: state.initialized,
+                isInitialized: state.isInitialized,
                 isOpen: state.isOpen,
                 localStorageState,
                 ping,

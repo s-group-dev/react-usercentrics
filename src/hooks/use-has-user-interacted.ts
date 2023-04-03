@@ -1,7 +1,6 @@
-import { useContext, useMemo } from 'react'
+import { useContext } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import { hasUserInteracted } from '../utils.js'
 
 /**
  * Returns `true` if the user has interacted with the Usercentrics dialog and given consent information.
@@ -18,7 +17,4 @@ import { hasUserInteracted } from '../utils.js'
  *  }, [hasUserInteracted])
  * }
  */
-export const useHasUserInteracted = (): boolean => {
-    const { ping } = useContext(UsercentricsContext)
-    return useMemo(hasUserInteracted, [ping])
-}
+export const useHasUserInteracted = (): boolean => useContext(UsercentricsContext).hasInteracted
