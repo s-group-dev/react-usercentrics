@@ -76,44 +76,43 @@ describe('User centrics service', () => {
         expect(f).toHaveBeenCalledWith(createState({ isOpen: true }))
     })
 
-    it('should set state to closed', () => {
+    it('should set state to closed on "UCUICMPEventType.ACCEPT_ALL"', () => {
         const f = jest.fn()
 
         UsercentericsService.subscribe(f)
 
         fireEvent(window, createEvent(UCUICMPEventType.ACCEPT_ALL))
-        expect(f).toHaveBeenCalledWith(createState({ isOpen: false }))
+        expect(f).toHaveBeenCalledWith(createState({ hasInteracted: true, isOpen: false }))
     })
 
-    it('should set state to closed', () => {
+    it('should set state to closed on "UCUICMPEventType.DENY_ALL"', () => {
         const f = jest.fn()
 
         UsercentericsService.subscribe(f)
 
         fireEvent(window, createEvent(UCUICMPEventType.DENY_ALL))
-        expect(f).toHaveBeenCalledWith(createState({ isOpen: false }))
+        expect(f).toHaveBeenCalledWith(createState({ hasInteracted: true, isOpen: false }))
     })
 
-    it('should set state to closed', () => {
+    it('should set state to closed "UCUICMPEventType.SAVE"', () => {
         const f = jest.fn()
 
         UsercentericsService.subscribe(f)
 
         fireEvent(window, createEvent(UCUICMPEventType.SAVE))
-        expect(f).toHaveBeenCalledWith(createState({ isOpen: false }))
+        expect(f).toHaveBeenCalledWith(createState({ hasInteracted: true, isOpen: false }))
     })
 })
 
 const createEvent = (type: UCUICMPEventType) => {
     const e = new Event('UC_UI_CMP_EVENT') as Event & { detail: { type: UCUICMPEventType } }
-    e.detail = {
-        type,
-    }
+    e.detail = { type }
     return e
 }
 
 const createState = (x: Partial<ServiceState>): ServiceState => ({
-    initialized: false,
+    hasInteracted: false,
+    isInitialized: false,
     isOpen: false,
     ...x,
 })

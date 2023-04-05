@@ -16,6 +16,7 @@ describe('Usercentrics', () => {
     describe('hooks', () => {
         describe('useHasServiceConsent', () => {
             const CONTEXT: ContextType<typeof UsercentricsContext> = {
+                hasInteracted: false,
                 isClientSide: true,
                 isFailed: false,
                 isInitialized: true,
