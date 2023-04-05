@@ -1,6 +1,6 @@
 {
     "name": "@s-group/react-usercentrics",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "React utils for interacting with the Usercentrics Browser CMP",
     "author": "Iiro Jäppinen <iiro.jappinen@sok.fi>",
     "license": "MIT",

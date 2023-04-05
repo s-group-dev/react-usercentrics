@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/s-group-dev/react-usercentrics/compare/v1.4.1...v1.4.2) (2023-04-05)
+
+
+### Bug Fixes
+
+* check if Usercentrics is initialized before loading self ([3f143bd](https://github.com/s-group-dev/react-usercentrics/commit/3f143bd12baee98d66e7ff7c2807f6cf0ccf85e3))
+* detect change of "has user interacted" status during runtime ([78a1f69](https://github.com/s-group-dev/react-usercentrics/commit/78a1f692b766f9f47fd0968ccaf5f658a7d88c37))
+
 ## [1.4.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.4.0...v1.4.1) (2023-03-03)
 
 
