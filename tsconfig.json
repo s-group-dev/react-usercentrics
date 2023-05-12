@@ -17,6 +17,6 @@
         "strict": true,
         "target": "ESNext"
     },
-    "include": ["**/*.cjs", "**/*.js", "**/*.ts", "**/*.tsx"],
+    "include": ["**/*.cjs", "**/*.js", "**/*.ts", "**/*.tsx", "./jest-setup.ts"],
     "exclude": ["node_modules"]
 }

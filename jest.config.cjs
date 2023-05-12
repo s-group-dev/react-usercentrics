@@ -3,6 +3,7 @@ module.exports = {
     moduleNameMapper: {
         '^(\\.{1,2}/.*)\\.js$': '$1',
     },
+    setupFilesAfterEnv: ['./jest-setup.ts'],
     testEnvironment: 'jsdom',
     testMatch: ['**/*.(spec|test).(ts|tsx|?js)'],
     transform: {
