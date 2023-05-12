@@ -8,15 +8,11 @@ React utils for interacting with the [Usercentrics Browser CMP](https://docs.use
 npm install --save @s-group/react-usercentrics
 ```
 
-This code is used in production:
-
-- ✅ https://www.s-kaupat.fi
-
 ## Motivation
 
 While the official `@usercentrics/cmp-browser-sdk` npm module is very useful, it is unnecessarily large and would still require some utility functions built around it to be really useful when working in a React application. It has 10 dependencies and an unpacked filesize size of 1.7 MB.
 
-This package aims to be tiny and simple, and has 0 dependencies and an unpacked filesize of 32.7 KB.
+This package aims to be tiny and simple, and has 0 dependencies and an unpacked filesize of 47.2 kB KB.
 
 ## Setup
 
@@ -33,13 +29,13 @@ import { USERCENTRICS_SETTINGS_ID, USERCENTRICS_EVENT_NAME } from './config'
 import MyApplication from './app'
 
 ReactDOM.render(
-  <>
-    <UsercentricsScript settingsId={USERCENTRICS_SETTINGS_ID} />
-    <UsercentricsProvider windowEventName={USERCENTRICS_EVENT_NAME}>
-      <MyApplication /** You can interact with Usercentrics inside the provider */ />
-    </UsercentricsProvider>
-  </>,
-  document.body
+    <>
+        <UsercentricsScript settingsId={USERCENTRICS_SETTINGS_ID} />
+        <UsercentricsProvider windowEventName={USERCENTRICS_EVENT_NAME}>
+            <MyApplication /** You can interact with Usercentrics inside the provider */ />
+        </UsercentricsProvider>
+    </>,
+    document.body
 )
 ```
 
@@ -65,7 +61,7 @@ or even import the type from another file:
 
 ```ts
 declare module '@s-group/react-usercentrics/augmented' {
-  export type ServiceId = import('../config/usercentrics').ServiceId
+    export type ServiceId = import('../config/usercentrics').ServiceId
 }
 ```
 
@@ -87,19 +83,24 @@ Do not declare this globally, but prefer to use the included utility functions i
 
 #### `UsercentricsScript`
 
-The script tag that loads the Usercentrics Browser API.
+The script tag that loads the Usercentrics Browser UI and API.
 
 ```tsx
-interface UsercentricsScriptProps {
+interface UsercentricsScriptProps
+    extends React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement> {
     settingsId: string
+    uiVersion?: string
     version?: 'production' | 'preview'
 }
 
 /** Default production mode */
-() => <UsercentricsScript settingsId="1234" />
+;() => <UsercentricsScript settingsId="1234" />
 
 /** Preview mode for development */
-() => <UsercentricsScript settingsId="1234" version="preview" />
+;() => <UsercentricsScript settingsId="1234" version="preview" />
+
+/* Fixed UI version instead of latest */
+;() => <UsercentricsScript settingsId="1234" uiVersion="3.21.1" />
 ```
 
 #### `UsercentricsProvider`
@@ -157,7 +158,7 @@ interface UsercentricsDialogToggleProps extends ButtonHTMLAttributes<HTMLButtonE
 }
 
 /** Basic usage */
-() => <UsercentricsDialogToggle>Manage my consents</UsercentricsDialogToggle>
+;() => <UsercentricsDialogToggle>Manage my consents</UsercentricsDialogToggle>
 ```
 
 ### Hooks
@@ -167,17 +168,17 @@ interface UsercentricsDialogToggleProps extends ButtonHTMLAttributes<HTMLButtonE
 Whether the specific Usercentrics service has been given consent.
 Returns `true` or `false` based on consent status, or `null` when unknown (not yet loaded).
 
- **Warning:** it's best to assume no consent until this hook returns `true`
+**Warning:** it's best to assume no consent until this hook returns `true`
 
 ```tsx
-() => {
-  const hasConsent = useHasServiceConsent('my-service-id')
+;() => {
+    const hasConsent = useHasServiceConsent('my-service-id')
 
-  useEffect(() => {
-    if (hasConsent) {
-      loadMyService()
-    }
-  }, [hasConsent])
+    useEffect(() => {
+        if (hasConsent) {
+            loadMyService()
+        }
+    }, [hasConsent])
 }
 ```
 
@@ -189,14 +190,14 @@ consent status is unknown and will default to `false`,
 so no services can be used.
 
 ```tsx
-() => {
-  const isFailed = useIsFailed()
+;() => {
+    const isFailed = useIsFailed()
 
-  useEffect(() => {
-    if (isFailed) {
-      console.error('Failed to load consents! This site might not work properly.')
-    }
-  }, [isFailed])
+    useEffect(() => {
+        if (isFailed) {
+            console.error('Failed to load consents! This site might not work properly.')
+        }
+    }, [isFailed])
 }
 ```
 
@@ -205,14 +206,14 @@ so no services can be used.
 Returns `true` if Usercentrics has been initialized and consents can be given.
 
 ```tsx
-() => {
-  const isInitialized = useIsInitialized()
+;() => {
+    const isInitialized = useIsInitialized()
 
-  useEffect(() => {
-    if (isInitialized) {
-      console.info('Usercentrics has initialized!')
-    }
-  }, [isInitialized])
+    useEffect(() => {
+        if (isInitialized) {
+            console.info('Usercentrics has initialized!')
+        }
+    }, [isInitialized])
 }
 ```
 
@@ -221,16 +222,16 @@ Returns `true` if Usercentrics has been initialized and consents can be given.
 Returns `true` if the Usercentrics dialog is currently open on the page.
 
 ```tsx
-() => {
-  const isOpen = useIsOpen()
+;() => {
+    const isOpen = useIsOpen()
 
-  useEffect(() => {
-    if (isOpen) {
-      console.debug('Usercentrics dialog is open and probably covers the whole screen')
-    } else {
-      console.debug('Usercentrics dialog is now closed')
-    }
-  }, [isOpen])
+    useEffect(() => {
+        if (isOpen) {
+            console.debug('Usercentrics dialog is open and probably covers the whole screen')
+        } else {
+            console.debug('Usercentrics dialog is now closed')
+        }
+    }, [isOpen])
 }
 ```
 
@@ -239,16 +240,16 @@ Returns `true` if the Usercentrics dialog is currently open on the page.
 Returns `true` if the user has interacted with the Usercentrics dialog and given consent information.
 
 ```tsx
-() => {
-  const hasUserInteracted = useHasUserInteracted()
+;() => {
+    const hasUserInteracted = useHasUserInteracted()
 
-  useEffect(() => {
-    if (hasUserInteracted) {
-      console.debug('User has interacted with the Usercentrics dialog and given consent information')
-    } else {
-      console.debug('User has not interacted with the Usercentrics dialog and not given consent information')
-    }
-  }, [hasUserInteracted])
+    useEffect(() => {
+        if (hasUserInteracted) {
+            console.debug('User has interacted with the Usercentrics dialog and given consent information')
+        } else {
+            console.debug('User has not interacted with the Usercentrics dialog and not given consent information')
+        }
+    }, [hasUserInteracted])
 }
 ```
 
@@ -256,25 +257,25 @@ Returns `true` if the user has interacted with the Usercentrics dialog and given
 
 Returns basic info for specific Usercentrics service, or null if not found.
 
-The typing is *not complete* and contains only the info used internally:
+The typing is _not complete_ and contains only the info used internally:
 
-- `id` of the service, autogenerated by Usercentrics
-- `name` of the service, configured in the admin interface
-- `consent.status` of the service
+-   `id` of the service, autogenerated by Usercentrics
+-   `name` of the service, configured in the admin interface
+-   `consent.status` of the service
 
 See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesbaseinfo
 
 ```tsx
-() => {
-  const serviceInfo = useServiceInfo('my-service-id')
+;() => {
+    const serviceInfo = useServiceInfo('my-service-id')
 
-  useEffect(() => {
-    if (!serviceInfo) {
-      console.error('Service not found for "my-service-id"')
-    } else {
-      console.info(`Consent for ${serviceInfo.name}: ${serviceInfo.consent.status}`)
-    }
-  }, [serviceInfo])
+    useEffect(() => {
+        if (!serviceInfo) {
+            console.error('Service not found for "my-service-id"')
+        } else {
+            console.info(`Consent for ${serviceInfo.name}: ${serviceInfo.consent.status}`)
+        }
+    }, [serviceInfo])
 }
 ```
 
@@ -283,24 +284,24 @@ See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesbaseinfo
 Returns full info for specific Usercentrics service, or null if not found.
 This triggers an extra API call and also returns `null` while loading.
 
-The typing is *not complete* and contains only the info used internally:
+The typing is _not complete_ and contains only the info used internally:
 
-- `id` of the service, autogenerated by Usercentrics
-- `name` of the service, configured in the admin interface
-- `consent.status` of the service
-- `description` text of the service
+-   `id` of the service, autogenerated by Usercentrics
+-   `name` of the service, configured in the admin interface
+-   `consent.status` of the service
+-   `description` text of the service
 
 See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesfullinfo
 
 ```tsx
-() => {
-  const serviceInfo = useServiceFullInfo('my-service-id')
+;() => {
+    const serviceInfo = useServiceFullInfo('my-service-id')
 
-  useEffect(() => {
-    if (serviceInfo) {
-      console.info(`The ${serviceInfo.name} service is used to ${serviceInfo.description}`)
-    }
-  }, [serviceInfo])
+    useEffect(() => {
+        if (serviceInfo) {
+            console.info(`The ${serviceInfo.name} service is used to ${serviceInfo.description}`)
+        }
+    }, [serviceInfo])
 }
 ```
 
@@ -369,7 +370,7 @@ const myService = services.find((service) => service.id === 'my-service-id')
 const hasConsent = hasServiceConsent(myService)
 
 if (hasConsent) {
-  loadMyService()
+    loadMyService()
 }
 ```
 
@@ -398,12 +399,14 @@ A method to check if user has interacted with the consent prompt and given conse
 ```tsx
 const userInteracted = hasUserInteracted()
 if (userInteracted) {
-  actionRequiredConsentInfoGiven()
+    actionRequiredConsentInfoGiven()
 }
 ```
 
 #### `getServicesFromLocalStorage`
+
 A method to get array of all services from local storage
+
 ```tsx
 const services = getServicesFromLocalStorage()
 const myService = services.find((service) => service.id === 'my-service-id')

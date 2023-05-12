@@ -1,9 +1,12 @@
 import type { FC } from 'react'
 import React from 'react'
 
-interface UsercentricsScriptProps {
+interface UsercentricsScriptProps
+    extends React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement> {
     settingsId: string
+    uiVersion?: string
     version?: 'production' | 'preview'
+    src?: never
 }
 
 /**
@@ -14,13 +17,23 @@ interface UsercentricsScriptProps {
  *
  * @example <caption>Preview mode for development</caption>
  * () => <UsercentricsScript settingsId="1234" version="preview" />
+ *
+ * @example <caption>Fixed UI version instead of latest</caption>
+ * () => <UsercentricsScript settingsId="1234" uiVersion="3.21.1" />
  */
-export const UsercentricsScript: FC<UsercentricsScriptProps> = ({ settingsId, version }) => (
+export const UsercentricsScript: FC<UsercentricsScriptProps> = ({
+    id = 'usercentrics-cmp',
+    settingsId,
+    uiVersion = 'latest',
+    version,
+    ...rest
+}) => (
     <script
-        async
+        {...rest}
+        async={'async' in rest ? rest.async : true}
         data-settings-id={settingsId}
         data-version={version}
-        id="usercentrics-cmp"
-        src="https://app.usercentrics.eu/browser-ui/latest/loader.js"
+        id={id}
+        src={`https://app.usercentrics.eu/browser-ui/${uiVersion}/loader.js`}
     />
 )
