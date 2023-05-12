@@ -1,3 +1,16 @@
+## [1.5.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.4.2...v1.5.0) (2023-05-12)
+
+
+### Features
+
+* add `uiVersion?: string` prop to `UsercentricsScript` component ([ea076a6](https://github.com/s-group-dev/react-usercentrics/commit/ea076a61a7a3992cb602a31235d57cc6c900fa65))
+
+
+### Bug Fixes
+
+* make sure `UsercentricsScript` component doesn't allow `src` prop ([7521275](https://github.com/s-group-dev/react-usercentrics/commit/7521275cb48a1d0574493e7363f7848f7fbc08c9))
+* pass script tag props through `UsercentricsScript` component ([09ed846](https://github.com/s-group-dev/react-usercentrics/commit/09ed8468df67709401e1808088ced4a7278df9d8))
+
 ## [1.4.2](https://github.com/s-group-dev/react-usercentrics/compare/v1.4.1...v1.4.2) (2023-04-05)
 
 
