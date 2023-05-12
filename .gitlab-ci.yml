@@ -2,19 +2,19 @@
 ## This package is mirrored to an internal NPM registry
 #
 
-image: node:16-alpine
+image: node:18-alpine
 
 stages:
-  - release
+    - release
 
 workflow:
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^v\d+.\d+.\d+/'
-    - if: '$CI_MANUAL_TRIGGER'
+    rules:
+        - if: '$CI_COMMIT_TAG =~ /^v\d+.\d+.\d+/'
+        - if: '$CI_MANUAL_TRIGGER'
 
 release:
-  stage: release
-  script:
-    - npm ci
-    - npm run build
-    - npm publish
+    stage: release
+    script:
+        - npm ci
+        - npm run build
+        - npm publish
