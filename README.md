@@ -89,8 +89,20 @@ The script tag that loads the Usercentrics Browser UI and API.
 interface UsercentricsScriptProps
     extends React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement> {
     settingsId: string
+    /**
+     * The specific version of Usercentrics UI to load instead of "latest", as a string value
+     *
+     * @default "latest"
+     * @example "3.21.1"
+     * @see https://releases.usercentrics.com/en?category=browser+ui&role=cmpv1%3Bcmpv2%3B
+     */
     uiVersion?: string
+    /**
+     * Whether to run Usercentrics in "production" or "preview" mode
+     * @default "production"
+     */
     version?: 'production' | 'preview'
+    src?: never
 }
 
 /** Default production mode */
