@@ -6,6 +6,7 @@ interface UsercentricsScriptProps
     settingsId: string
     uiVersion?: string
     version?: 'production' | 'preview'
+    src?: never
 }
 
 /**
@@ -36,8 +37,3 @@ export const UsercentricsScript: FC<UsercentricsScriptProps> = ({
         src={`https://app.usercentrics.eu/browser-ui/${uiVersion}/loader.js`}
     />
 )
-
-UsercentricsScript.defaultProps = {
-    id: 'usercentrics-cmp',
-    uiVersion: 'latest',
-}

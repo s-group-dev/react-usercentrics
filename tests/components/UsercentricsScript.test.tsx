@@ -55,6 +55,21 @@ describe('Usercentrics', () => {
                     'sha384-PMBjS7JXD1R1uiHpU+QuCVc4KxgMdBegmc52UyT+uWQ2+BlptesLtmCBdPXxusIP'
                 )
             })
+
+            it('should not allow the src prop', () => {
+                const { container } = render(
+                    <UsercentricsScript
+                        settingsId="1234"
+                        /** @ts-expect-error: Type 'string' is not assignable to type 'undefined'. */
+                        src="test.js"
+                    />
+                )
+
+                expect(container.firstChild).toHaveAttribute(
+                    'src',
+                    'https://app.usercentrics.eu/browser-ui/latest/loader.js'
+                )
+            })
         })
     })
 })
