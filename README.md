@@ -35,7 +35,7 @@ ReactDOM.render(
             <MyApplication /** You can interact with Usercentrics inside the provider */ />
         </UsercentricsProvider>
     </>,
-    document.body
+    document.body,
 )
 ```
 
@@ -93,7 +93,7 @@ interface UsercentricsScriptProps
      * The specific version of Usercentrics UI to load instead of "latest", as a string value
      *
      * @default "latest"
-     * @example "3.21.1"
+     * @example "3.24.0"
      * @see https://releases.usercentrics.com/en?category=browser+ui&role=cmpv1%3Bcmpv2%3B
      */
     uiVersion?: string
@@ -112,7 +112,7 @@ interface UsercentricsScriptProps
 ;() => <UsercentricsScript settingsId="1234" version="preview" />
 
 /* Fixed UI version instead of latest */
-;() => <UsercentricsScript settingsId="1234" uiVersion="3.21.1" />
+;() => <UsercentricsScript settingsId="1234" uiVersion="3.24.0" />
 ```
 
 #### `UsercentricsProvider`
