@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.5.0...v1.5.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* version bump only ([3eaa6ef](https://github.com/s-group-dev/react-usercentrics/commit/3eaa6efa699b0b3c8701d70974ac41d3bbd54a79))
+
 ## [1.5.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.4.2...v1.5.0) (2023-05-12)
 
 
