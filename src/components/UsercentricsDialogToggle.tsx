@@ -28,7 +28,7 @@ export const UsercentricsDialogToggle: FC<UsercentricsDialogToggleProps> = ({ on
                 showFirstLayer()
             }
         },
-        [isUsercentricsInitialized, onClick]
+        [isUsercentricsInitialized, onClick],
     )
 
     return (

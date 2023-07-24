@@ -37,7 +37,7 @@ describe('Usercentrics', () => {
 
                 expect(container.firstChild).toHaveAttribute(
                     'src',
-                    'https://app.usercentrics.eu/browser-ui/3.21.1/loader.js'
+                    'https://app.usercentrics.eu/browser-ui/3.21.1/loader.js',
                 )
             })
 
@@ -47,12 +47,12 @@ describe('Usercentrics', () => {
                         settingsId="1234"
                         uiVersion="3.21.1"
                         integrity="sha384-PMBjS7JXD1R1uiHpU+QuCVc4KxgMdBegmc52UyT+uWQ2+BlptesLtmCBdPXxusIP"
-                    />
+                    />,
                 )
 
                 expect(container.firstChild).toHaveAttribute(
                     'integrity',
-                    'sha384-PMBjS7JXD1R1uiHpU+QuCVc4KxgMdBegmc52UyT+uWQ2+BlptesLtmCBdPXxusIP'
+                    'sha384-PMBjS7JXD1R1uiHpU+QuCVc4KxgMdBegmc52UyT+uWQ2+BlptesLtmCBdPXxusIP',
                 )
             })
 
@@ -62,12 +62,12 @@ describe('Usercentrics', () => {
                         settingsId="1234"
                         /** @ts-expect-error: Type 'string' is not assignable to type 'undefined'. */
                         src="test.js"
-                    />
+                    />,
                 )
 
                 expect(container.firstChild).toHaveAttribute(
                     'src',
-                    'https://app.usercentrics.eu/browser-ui/latest/loader.js'
+                    'https://app.usercentrics.eu/browser-ui/latest/loader.js',
                 )
             })
         })

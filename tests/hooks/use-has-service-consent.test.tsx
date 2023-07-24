@@ -29,12 +29,11 @@ describe('Usercentrics', () => {
             const getWrapper =
                 (context?: Partial<ContextType<typeof UsercentricsContext>>): FC<{ children: ReactNode }> =>
                 // eslint-disable-next-line react/display-name
-                ({ children }) =>
-                    (
-                        <UsercentricsContext.Provider value={{ ...CONTEXT, ...context }}>
-                            {children}
-                        </UsercentricsContext.Provider>
-                    )
+                ({ children }) => (
+                    <UsercentricsContext.Provider value={{ ...CONTEXT, ...context }}>
+                        {children}
+                    </UsercentricsContext.Provider>
+                )
 
             it('should return null during SSR', () => {
                 mockUseServiceInfo.mockReturnValue({
