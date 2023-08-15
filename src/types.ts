@@ -83,6 +83,12 @@ type UC_UI = {
      * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=acceptservice
      */
     acceptService?: (serviceId: ServiceId, consentType?: ConsentType) => Promise<void>
+
+    /**
+     * A method to check if all consents were accepted
+     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=areallconsentsaccepted
+     */
+    areAllConsentsAccepted?: () => boolean
 }
 
 /**
