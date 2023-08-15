@@ -47,7 +47,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(null)
             })
 
-            it('should return false when not all consent is given', () => {
+            it('should return false when not all consents are given', () => {
                 mockAreAllConsentsAccepted.mockReturnValue(false)
 
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
@@ -57,7 +57,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(false)
             })
 
-            it('should return true when all consent is given', () => {
+            it('should return true when all consents are given', () => {
                 mockAreAllConsentsAccepted.mockReturnValue(true)
 
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
