@@ -10,7 +10,7 @@ import { areAllConsentsAccepted } from '../utils.js'
  * @warn it's best to assume no consent until this hook returns `true`
  */
 export const useAreAllConsentsAccepted = (): boolean | null => {
-    const { isClientSide, isInitialized } = useContext(UsercentricsContext)
+    const { isClientSide, isInitialized, localStorageState } = useContext(UsercentricsContext)
 
     /** Consent status is unknown during SSR because CMP is only available client-side */
     if (!isClientSide) {
@@ -18,10 +18,11 @@ export const useAreAllConsentsAccepted = (): boolean | null => {
     }
 
     /**
-     * Until Usercentrics CMP has loaded, return `null`
+     * Until Usercentrics CMP has loaded, try to get consent status from localStorage.
+     * If it's not loaded, and there's nothing in localStorage, this will return `null`
      */
     if (!isInitialized) {
-        return null
+        return localStorageState.length > 0 ? localStorageState.every((service) => service.status === true) : null
     }
 
     return areAllConsentsAccepted()
