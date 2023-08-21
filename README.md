@@ -194,6 +194,25 @@ Returns `true` or `false` based on consent status, or `null` when unknown (not y
 }
 ```
 
+#### `useAreAllConsentsAccepted`
+
+Whether all Usercentrics services have been given consent.
+Returns `true` or `false` based on consent status, or `null` when unknown (not yet loaded).
+
+**Warning:** it's best to assume no consent until this hook returns `true`
+
+```tsx
+;() => {
+    const hasAllConsents = useAreAllConsentsAccepted()
+
+    useEffect(() => {
+        if (hasAllConsents) {
+            loadMyService()
+        }
+    }, [hasAllConsents])
+}
+```
+
 #### `useIsFailed`
 
 Returns `true` if Usercentrics failed to load inside the
@@ -382,6 +401,18 @@ const myService = services.find((service) => service.id === 'my-service-id')
 const hasConsent = hasServiceConsent(myService)
 
 if (hasConsent) {
+    loadMyService()
+}
+```
+
+#### `areAllConsentsAccepted`
+
+Returns true if all Usercentrics services have been given consent
+
+```tsx
+const hasAllConsents = areAllConsentsAccepted()
+
+if (hasAllConsents) {
     loadMyService()
 }
 ```

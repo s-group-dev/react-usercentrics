@@ -129,3 +129,9 @@ export const acceptService = async (serviceId: ServiceId, consentType?: ConsentT
         await (window as UCWindow).UC_UI?.acceptService?.(serviceId, consentType)
     }
 }
+
+/**
+ * A method to check if all consents were accepted
+ * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=areallconsentsaccepted
+ */
+export const areAllConsentsAccepted = () => !!(IS_BROWSER && (window as UCWindow).UC_UI?.areAllConsentsAccepted?.())
