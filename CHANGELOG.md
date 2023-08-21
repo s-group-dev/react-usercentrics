@@ -1,3 +1,10 @@
+## [1.6.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.5.1...v1.6.0) (2023-08-21)
+
+
+### Features
+
+* add useAreAllConsentsAccepted() hook ([#22](https://github.com/s-group-dev/react-usercentrics/issues/22)) ([c50588b](https://github.com/s-group-dev/react-usercentrics/commit/c50588b846204e43f9a69323bac42bcb91833415))
+
 ## [1.5.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.5.0...v1.5.1) (2023-07-24)
 
 
