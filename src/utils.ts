@@ -63,15 +63,15 @@ export const getServicesBaseInfo = (): ServiceInfo[] =>
  * const myService = services.find((service) => service.id === 'my-service-id')
  */
 export const getServicesFromLocalStorage = (): ServiceInfoFromLocalStorage[] => {
-    const ucSettings = IS_BROWSER && localStorage?.getItem('uc_settings')
-    if (ucSettings) {
-        try {
+    try {
+        const ucSettings = IS_BROWSER && localStorage?.getItem('uc_settings')
+        if (ucSettings) {
             const ucSettingsObj = JSON.parse(ucSettings) as SettingsFromLocalStorage
             /** Leave out any other untyped fields */
             return ucSettingsObj.services.map(({ id, status }) => ({ id, status }))
-        } catch {
-            /** Ignore failures */
         }
+    } catch {
+        /** Ignore failures */
     }
 
     return []
@@ -87,8 +87,12 @@ export const getServicesFromLocalStorage = (): ServiceInfoFromLocalStorage[] => 
  * }
  */
 export const hasUserInteracted = (): boolean => {
-    const userInteraction = IS_BROWSER && localStorage?.getItem('uc_user_interaction')
-    return userInteraction === 'true'
+    try {
+        const userInteraction = IS_BROWSER && localStorage?.getItem('uc_user_interaction')
+        return userInteraction === 'true'
+    } catch {
+        return false
+    }
 }
 
 /**
