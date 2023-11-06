@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.6.0...v1.6.1) (2023-11-06)
+
+
+### Bug Fixes
+
+* do not fail if localStorage access is denied ([#23](https://github.com/s-group-dev/react-usercentrics/issues/23)) ([86359c9](https://github.com/s-group-dev/react-usercentrics/commit/86359c9597b1c33c3173fe97c4287b74f5c8e7f1))
+
 ## [1.6.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.5.1...v1.6.0) (2023-08-21)
 
 
