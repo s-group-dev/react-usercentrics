@@ -468,3 +468,14 @@ A method to get array of all services from local storage
 const services = getServicesFromLocalStorage()
 const myService = services.find((service) => service.id === 'my-service-id')
 ```
+
+#### `updateLanguage`
+
+Programmatic way to set language for the CMP.
+The param `countryCode` is a two character country code, e.g. "en" = set language to English
+
+See also https://docs.usercentrics.com/#/cmp-v2-ui-api?id=updatelanguage
+
+```tsx
+updateLanguage('fi')
+```
