@@ -139,3 +139,16 @@ export const acceptService = async (serviceId: ServiceId, consentType?: ConsentT
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=areallconsentsaccepted
  */
 export const areAllConsentsAccepted = () => !!(IS_BROWSER && (window as UCWindow).UC_UI?.areAllConsentsAccepted?.())
+
+/**
+ * Programmatic way to set language for the CMP.
+ * @param countryCode Two character country code, e.g. "en" = set language to English
+ * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=updatelanguage
+ *
+ * @example updateLanguage("fi")
+ */
+export const updateLanguage = (countryCode: string) => {
+    if (IS_BROWSER) {
+        ;(window as UCWindow).UC_UI?.updateLanguage?.(countryCode)
+    }
+}

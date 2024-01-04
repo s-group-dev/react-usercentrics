@@ -89,6 +89,13 @@ type UC_UI = {
      * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=areallconsentsaccepted
      */
     areAllConsentsAccepted?: () => boolean
+
+    /**
+     * Programmatic way to set language for the CMP.
+     * @param countryCode Two character country code, e.g. "en" = set language to English
+     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=updatelanguage
+     */
+    updateLanguage?: (countryCode: string) => void
 }
 
 /**
