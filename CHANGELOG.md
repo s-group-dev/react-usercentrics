@@ -1,3 +1,11 @@
+## [1.7.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.6.1...v1.7.0) (2024-01-04)
+
+
+### Features
+
+* allow specifying initial language of `<UsercentricsScript />` via `language` prop ([1be9ba0](https://github.com/s-group-dev/react-usercentrics/commit/1be9ba0662a2ea52cfdcc7781bc54906b8d0e9b7))
+* expose `updateLanguage()` util for setting the language for the CMP ([2602f02](https://github.com/s-group-dev/react-usercentrics/commit/2602f0242c7479ff5abc51531217a383d8f519cf))
+
 ## [1.6.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.6.0...v1.6.1) (2023-11-06)
 
 
