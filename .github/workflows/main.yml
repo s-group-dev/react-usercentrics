@@ -9,11 +9,11 @@ jobs:
   Install:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - uses: actions/cache@v3
+          node-version: 20
+      - uses: actions/cache@v4
         id: cache-node_modules
         with:
           path: node_modules
@@ -28,11 +28,11 @@ jobs:
       - Install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - uses: actions/cache@v3
+          node-version: 20
+      - uses: actions/cache@v4
         id: cache-node_modules
         with:
           path: node_modules
@@ -46,11 +46,11 @@ jobs:
       - Install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - uses: actions/cache@v3
+          node-version: 20
+      - uses: actions/cache@v4
         id: cache-node_modules
         with:
           path: node_modules
@@ -64,11 +64,11 @@ jobs:
       - Install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - uses: actions/cache@v3
+          node-version: 20
+      - uses: actions/cache@v4
         id: cache-node_modules
         with:
           path: node_modules
@@ -82,11 +82,11 @@ jobs:
       - Install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - uses: actions/cache@v3
+          node-version: 20
+      - uses: actions/cache@v4
         id: cache-node_modules
         with:
           path: node_modules
@@ -105,13 +105,13 @@ jobs:
       - Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - uses: actions/cache@v3
+          node-version: 20
+      - uses: actions/cache@v4
         id: cache-node_modules
         with:
           path: node_modules
