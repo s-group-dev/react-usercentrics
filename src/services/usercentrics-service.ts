@@ -1,7 +1,7 @@
 /** State management singleton for internal use. This should not be used directly in applications. */
 
 import { UCUICMPEvent, UCUICMPEventType } from '../types.js'
-import { hasUserInteracted, IS_BROWSER } from '../utils.js'
+import { hasUserInteracted, IS_BROWSER, isOpen } from '../utils.js'
 
 export type ServiceState = {
     hasInteracted: boolean
@@ -56,7 +56,7 @@ const initializeState = () => {
 
     if (!state.isInitialized && IS_BROWSER && 'UC_UI' in window) {
         shouldUpdate = true
-        state = { ...state, isInitialized: true }
+        state = { ...state, isInitialized: true, isOpen: isOpen() }
     }
 
     const hasInteracted = hasUserInteracted()

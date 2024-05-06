@@ -152,3 +152,16 @@ export const updateLanguage = (countryCode: string) => {
         ;(window as UCWindow).UC_UI?.updateLanguage?.(countryCode)
     }
 }
+
+/**
+ * Returns true if the Usercentrics dialog is currently open.
+ */
+export const isOpen = (): boolean => {
+    if (IS_BROWSER) {
+        const usercentricsRoot = document.getElementById('usercentrics-root')
+        const dialog = usercentricsRoot?.shadowRoot?.querySelector('[role="dialog"]')
+        return !!dialog
+    }
+
+    return false
+}
