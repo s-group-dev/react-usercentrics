@@ -11,9 +11,6 @@ module.exports = {
             '@swc/jest',
             {
                 jsc: {
-                    experimental: {
-                        plugins: [['jest_workaround', {}]],
-                    },
                     transform: {
                         react: {
                             runtime: 'automatic',
