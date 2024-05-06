@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.1...v1.7.2) (2024-05-06)
+
+
+### Bug Fixes
+
+* detect UC dialog open state during initialization ([40451b6](https://github.com/s-group-dev/react-usercentrics/commit/40451b67867a13c5384e4d50ab3418d9aa2f0610))
+
 ## [1.7.1](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.0...v1.7.1) (2024-02-15)
 
 
