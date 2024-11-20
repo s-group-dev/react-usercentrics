@@ -1,6 +1,6 @@
 /** State management singleton for internal use. This should not be used directly in applications. */
 
-import { UCUICMPEvent, UCUICMPEventType } from '../types.js'
+import { type UCUICMPEvent, UCUICMPEventType } from '../types.js'
 import { hasUserInteracted, IS_BROWSER, isOpen } from '../utils.js'
 
 export type ServiceState = {
@@ -26,7 +26,9 @@ const update = () => listeners.forEach((s) => s(state))
 const subscribe = (x: (x: ServiceState) => void): (() => void) => {
     listeners.push(x)
     return () => {
-        listeners.indexOf(x) > -1 ? listeners.splice(listeners.indexOf(x), 1) : undefined
+        if (listeners.includes(x)) {
+            listeners.splice(listeners.indexOf(x), 1)
+        }
     }
 }
 
