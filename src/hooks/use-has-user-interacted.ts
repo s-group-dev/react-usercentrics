@@ -17,4 +17,7 @@ import { UsercentricsContext } from '../context.js'
  *  }, [hasUserInteracted])
  * }
  */
-export const useHasUserInteracted = (): boolean => useContext(UsercentricsContext).hasInteracted
+export const useHasUserInteracted = (): boolean => {
+    const { hasInteracted } = useContext(UsercentricsContext)
+    return hasInteracted
+}
