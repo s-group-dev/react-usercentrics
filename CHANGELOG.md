@@ -1,3 +1,9 @@
+## [1.7.3](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.2...v1.7.3) (2024-11-21)
+
+### Bug Fixes
+
+* **dependencies:** migrate to ESLint v9, update all other dependencies ([72dcdd7](https://github.com/s-group-dev/react-usercentrics/commit/72dcdd73c51e63df26a1765ef35c1053ff0254d5))
+
 ## [1.7.2](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.1...v1.7.2) (2024-05-06)
 
 
