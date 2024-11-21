@@ -32,7 +32,6 @@ export const UsercentricsDialogToggle: FC<UsercentricsDialogToggleProps> = ({ on
     )
 
     return (
-        // eslint-disable-next-line react/jsx-props-no-spreading
         <button {...rest} aria-haspopup disabled={!isUsercentricsInitialized} onClick={handleClick}>
             {children}
         </button>

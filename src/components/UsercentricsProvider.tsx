@@ -1,8 +1,8 @@
-import { FC, ReactNode, useMemo } from 'react'
+import { type FC, type ReactNode, useMemo } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import { ServiceState, UsercentericsService } from '../services/usercentrics-service.js'
+import { type ServiceState, UsercentericsService } from '../services/usercentrics-service.js'
 import { getServicesFromLocalStorage } from '../utils.js'
 
 interface UsercentricsProviderProps {
