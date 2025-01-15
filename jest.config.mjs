@@ -2,6 +2,7 @@ export default {
     moduleNameMapper: {
         '^(\\.{1,2}/.*)\\.js$': '$1',
     },
+    prettierPath: null,
     setupFilesAfterEnv: ['./jest-setup.ts'],
     testEnvironment: 'jsdom',
     testMatch: ['**/*.(spec|test).(ts|tsx|?js)'],
