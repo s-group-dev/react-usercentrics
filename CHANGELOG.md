@@ -1,3 +1,9 @@
+## [1.7.4](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.3...v1.7.4) (2025-01-15)
+
+### Bug Fixes
+
+* **dependencies:** update dev dependencies ([cfe991a](https://github.com/s-group-dev/react-usercentrics/commit/cfe991a745f8f0801fe9d308a5434304ac9f8e87))
+
 ## [1.7.3](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.2...v1.7.3) (2024-11-21)
 
 ### Bug Fixes
