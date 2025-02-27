@@ -60,6 +60,21 @@ describe('Usercentrics', () => {
 
                 expect(result).toMatch('src="https://app.usercentrics.eu/browser-ui/latest/loader.js"')
             })
+
+            it('should allow loading CMP v3 SDK script', () => {
+                const result = renderToStaticMarkup(<UsercentricsScript settingsId="1234" cmpVersion="3" />)
+
+                expect(result).toMatch('src="https://web.cmp.usercentrics.eu/ui/loader.js"')
+            })
+
+            it('should not allow uiVersion prop with CMP v3 SDK', () => {
+                const result = renderToStaticMarkup(
+                    /** @ts-expect-error: Type 'string' is not assignable to type 'undefined'.ts */
+                    <UsercentricsScript settingsId="1234" cmpVersion="3" uiVersion="3.24.0" />,
+                )
+
+                expect(result).toMatch('src="https://web.cmp.usercentrics.eu/ui/loader.js"')
+            })
         })
     })
 })
