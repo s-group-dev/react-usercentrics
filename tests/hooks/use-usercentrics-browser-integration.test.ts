@@ -1,10 +1,10 @@
 import { act, fireEvent, renderHook } from '@testing-library/react'
 
 import { useUsercentricsBrowserIntegration } from '../../src/hooks/use-usercentrics-browser-integration.js'
-import { type UCUICMPEvent, UCUICMPEventType, type UCWindow } from '../../src/types.js'
-import { getServicesFromLocalStorage, hasUserInteracted, isOpen } from '../../src/utils.js'
+import { type UCUICMPEvent, UCUICMPEventType, type UCWindow } from '../../src/types.v2.js'
+import { getServicesFromLocalStorage, hasUserInteracted, isOpen } from '../../src/utils.v2.js'
 
-jest.mock('../../src/utils.js', () => ({
+jest.mock('../../src/utils.v2.js', () => ({
     getServicesFromLocalStorage: jest.fn().mockReturnValue([]),
     hasUserInteracted: jest.fn().mockReturnValue(false),
     isOpen: jest.fn().mockReturnValue(false),

@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react'
 
 import { useServiceFullInfo, useServiceInfo } from '../../src/hooks/use-service-info.js'
-import type { ServiceFullInfo, ServiceInfo } from '../../src/types.js'
-import * as utils from '../../src/utils.js'
+import type { ServiceFullInfo, ServiceInfo } from '../../src/types.v2.js'
+import * as utils from '../../src/utils.v2.js'
 
 const mockGetServicesBaseInfo = jest.spyOn(utils, 'getServicesBaseInfo')
 const mockGetServicesFullInfo = jest.spyOn(utils, 'getServicesFullInfo')

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { SSR_INITIAL_STATE, type UsercentricsBrowserIntegrationState } from '../context.js'
-import { type UCUICMPEvent, UCUICMPEventType } from '../types.js'
-import { getServicesFromLocalStorage, hasUserInteracted, isOpen } from '../utils.js'
+import { type UCUICMPEvent, UCUICMPEventType } from '../types.v2.js'
+import { getServicesFromLocalStorage, hasUserInteracted, isOpen } from '../utils.v2.js'
 
 const UC_UI_CMP_EVENT = 'UC_UI_CMP_EVENT'
 

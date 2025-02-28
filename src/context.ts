@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { ServiceInfoFromLocalStorage } from './types.js'
+import type { ServiceInfoFromLocalStorage } from './types.v2.js'
 
 export type UsercentricsBrowserIntegrationState = {
     hasInteracted: boolean

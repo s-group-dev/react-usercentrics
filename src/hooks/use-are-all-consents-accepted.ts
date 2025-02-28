@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import { areAllConsentsAccepted } from '../utils.js'
+import { areAllConsentsAccepted } from '../utils.v2.js'
 
 /**
  * Whether all Usercentrics services have been given consent.

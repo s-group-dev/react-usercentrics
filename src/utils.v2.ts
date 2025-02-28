@@ -6,7 +6,7 @@ import type {
     ServiceInfoFromLocalStorage,
     SettingsFromLocalStorage,
     UCWindow,
-} from './types.js'
+} from './types.v2.js'
 
 export const IS_BROWSER = typeof window !== 'undefined'
 

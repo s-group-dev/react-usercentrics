@@ -4,7 +4,7 @@ import React from 'react'
 
 import { UsercentricsContext } from '../../src/context.js'
 import { useAreAllConsentsAccepted } from '../../src/hooks/use-are-all-consents-accepted.js'
-import * as utils from '../../src/utils.js'
+import * as utils from '../../src/utils.v2.js'
 
 const mockAreAllConsentsAccepted = jest.spyOn(utils, 'areAllConsentsAccepted')
 

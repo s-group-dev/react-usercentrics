@@ -1,6 +1,6 @@
-import type { ServiceInfoFromLocalStorage, SettingsFromLocalStorage, UCWindow } from '../src/types.js'
-import { ConsentType } from '../src/types.js'
-import * as utils from '../src/utils.js'
+import type { ServiceInfoFromLocalStorage, SettingsFromLocalStorage, UCWindow } from '../src/types.v2.js'
+import { ConsentType } from '../src/types.v2.js'
+import * as utils from '../src/utils.v2.js'
 
 describe('Usercentrics', () => {
     beforeAll(() => {

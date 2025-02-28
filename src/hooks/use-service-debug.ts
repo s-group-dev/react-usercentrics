@@ -1,8 +1,8 @@
 import { useContext, useDebugValue, useEffect } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import type { ServiceId } from '../types.js'
-import { getServicesBaseInfo } from '../utils.js'
+import type { ServiceId } from '../types.v2.js'
+import { getServicesBaseInfo } from '../utils.v2.js'
 
 export const useServiceDebug = (serviceId: ServiceId) => {
     const { isInitialized, ping, strictMode } = useContext(UsercentricsContext)
