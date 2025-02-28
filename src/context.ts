@@ -23,6 +23,7 @@ export const SSR_INITIAL_STATE: UsercentricsBrowserIntegrationState = {
 }
 
 type UsercentricsContextType = UsercentricsBrowserIntegrationState & {
+    isCMPv3?: boolean
     strictMode: boolean
 }
 

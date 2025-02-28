@@ -6,6 +6,16 @@ import { useUsercentricsBrowserIntegration } from '../hooks/use-usercentrics-bro
 
 interface UsercentricsProviderProps {
     children: ReactNode
+
+    /**
+     * The specific version of Usercentrics CMP SDK version.
+     *
+     * @default "2"
+     * @example "3"
+     * @see https://usercentrics.com/docs/web/v3/
+     */
+    cmpVersion?: '2' | '3'
+
     /**
      * Whether to throw if invalid Service Id has been used.
      * @default false
@@ -16,6 +26,7 @@ interface UsercentricsProviderProps {
      * script will be assumed to have failed.
      * @default 5000
      */
+
     timeout?: number
     /**
      * The configured window event name from Usercentrics admin interface.
@@ -26,6 +37,7 @@ interface UsercentricsProviderProps {
 
 export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({
     children,
+    cmpVersion = '2',
     strictMode = false,
     timeout,
     windowEventName,
@@ -37,6 +49,7 @@ export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({
             value={{
                 hasInteracted: state.hasInteracted,
                 isClientSide: state.isClientSide,
+                isCMPv3: cmpVersion === '3',
                 isFailed: state.isFailed,
                 isInitialized: state.isInitialized,
                 isOpen: state.isOpen,
