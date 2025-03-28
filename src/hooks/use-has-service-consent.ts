@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import type { ServiceId } from '../types.v2.js'
+import type { ServiceId } from '../types.v3.js'
 import { hasServiceConsent } from '../utils.v2.js'
 import { useServiceDebug } from './use-service-debug.js'
 import { useServiceInfo } from './use-service-info.js'

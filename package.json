@@ -11,7 +11,8 @@
     "bugs": "https://github.com/s-group-dev/react-usercentrics/issues",
     "type": "module",
     "exports": {
-        ".": "./dist/index.js"
+        ".": "./dist/index.js",
+        "./v2": "./dist/v2.js"
     },
     "types": "./dist/index.d.ts",
     "files": [

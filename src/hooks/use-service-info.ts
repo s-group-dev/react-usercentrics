@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import type { ServiceFullInfo, ServiceId, ServiceInfo } from '../types.v2.js'
+import type { ServiceFullInfo, ServiceInfo } from '../types.v2.js'
+import { type ServiceId } from '../types.v3.js'
 import { getServicesBaseInfo, getServicesFullInfo } from '../utils.v2.js'
 import { useServiceDebug } from './use-service-debug.js'
 

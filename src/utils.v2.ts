@@ -1,12 +1,12 @@
 import type {
     ConsentType,
     ServiceFullInfo,
-    ServiceId,
     ServiceInfo,
     ServiceInfoFromLocalStorage,
     SettingsFromLocalStorage,
     UCWindow,
 } from './types.v2.js'
+import type { ServiceId } from './types.v3.js'
 
 export const IS_BROWSER = typeof window !== 'undefined'
 

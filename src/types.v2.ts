@@ -1,9 +1,4 @@
-/**
- * This uses self-referenced import so that it can be augmented/re-declared in the target project
- * @see augmented.d.ts
- */
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-export type ServiceId = import('@s-group/react-usercentrics/augmented').ServiceId
+import type { ServiceId } from './types.v3.js'
 
 /** Partial type for a service's base info. Unused values are left out. */
 export type ServiceInfo = {
