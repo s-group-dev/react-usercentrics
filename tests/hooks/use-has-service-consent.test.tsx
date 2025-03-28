@@ -21,7 +21,7 @@ describe('Usercentrics', () => {
                 isFailed: false,
                 isInitialized: true,
                 isOpen: false,
-                localStorageState: [],
+                localStorageState: {},
                 ping: Symbol(),
                 strictMode: false,
             }
@@ -56,7 +56,7 @@ describe('Usercentrics', () => {
                 mockUseServiceInfo.mockReturnValue(null)
 
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
-                    wrapper: getWrapper({ isInitialized: false, localStorageState: [] }),
+                    wrapper: getWrapper({ isInitialized: false, localStorageState: {} }),
                 })
 
                 expect(result.current).toEqual(null)
@@ -66,7 +66,10 @@ describe('Usercentrics', () => {
                 mockUseServiceInfo.mockReturnValue(null)
 
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
-                    wrapper: getWrapper({ isInitialized: false, localStorageState: [{ id: 'test-id', status: true }] }),
+                    wrapper: getWrapper({
+                        isInitialized: false,
+                        localStorageState: { 'test-id': { consent: true, name: '' } },
+                    }),
                 })
 
                 expect(result.current).toEqual(true)

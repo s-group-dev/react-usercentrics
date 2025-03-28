@@ -12,7 +12,7 @@ describe('Usercentrics', () => {
         describe('useUsercentricsBrowserIntegration', () => {
             it('should return SSR-compatible initial state', () => {
                 const TestComponent = () => {
-                    const state = useUsercentricsBrowserIntegration(windowEventName)
+                    const state = useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName })
                     return <>{JSON.stringify(state)}</>
                 }
 
@@ -25,7 +25,7 @@ describe('Usercentrics', () => {
                         isFailed: false,
                         isInitialized: false,
                         isOpen: false,
-                        localStorageState: [],
+                        localStorageState: {},
                         ping: Symbol(),
                     }).replaceAll('"', '&quot;'),
                 )

@@ -17,7 +17,7 @@ describe('Usercentrics', () => {
                 isFailed: false,
                 isInitialized: true,
                 isOpen: false,
-                localStorageState: [],
+                localStorageState: {},
                 ping: Symbol(),
                 strictMode: false,
             }
@@ -54,10 +54,10 @@ describe('Usercentrics', () => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
-                        localStorageState: [
-                            { id: 'test-id', status: true },
-                            { id: 'test-id2', status: false },
-                        ],
+                        localStorageState: {
+                            'test-id': { consent: true, name: '' },
+                            'test-id2': { consent: false, name: '' },
+                        },
                     }),
                 })
 
@@ -68,10 +68,10 @@ describe('Usercentrics', () => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
-                        localStorageState: [
-                            { id: 'test-id', status: true },
-                            { id: 'test-id2', status: true },
-                        ],
+                        localStorageState: {
+                            'test-id': { consent: true, name: '' },
+                            'test-id2': { consent: true, name: '' },
+                        },
                     }),
                 })
 

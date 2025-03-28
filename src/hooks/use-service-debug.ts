@@ -1,19 +1,18 @@
 import { useContext, useDebugValue, useEffect } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import type { ServiceId } from '../types.v2.js'
-import { getServicesBaseInfo } from '../utils.v2.js'
+import type { ServiceId } from '../types.v3.js'
 
 export const useServiceDebug = (serviceId: ServiceId) => {
-    const { isInitialized, ping, strictMode } = useContext(UsercentricsContext)
+    const { isInitialized, ping, strictMode, localStorageState } = useContext(UsercentricsContext)
 
-    useDebugValue(getServicesBaseInfo(), (services) => services.find(({ id }) => serviceId === id))
+    useDebugValue(localStorageState[serviceId])
 
     useEffect(() => {
         if (!strictMode || !isInitialized) return
 
-        if (!getServicesBaseInfo().find(({ id }) => serviceId === id)) {
+        if (!localStorageState[serviceId]) {
             throw new Error(`Usercentrics Service not found for id "${serviceId}"`)
         }
-    }, [isInitialized, ping, serviceId, strictMode])
+    }, [isInitialized, localStorageState, ping, serviceId, strictMode])
 }

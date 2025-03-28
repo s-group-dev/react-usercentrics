@@ -26,7 +26,7 @@ export type SettingsFromLocalStorage = {
 
 /** Partial type for service info read from local storage, if available. Unused values are left out. */
 export type ServiceInfoFromLocalStorage = {
-    id: string
+    id: ServiceId
     status: boolean
 }
 

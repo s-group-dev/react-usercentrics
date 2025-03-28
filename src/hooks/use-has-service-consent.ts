@@ -27,8 +27,7 @@ export const useHasServiceConsent = (serviceId: ServiceId): boolean | null => {
      * If it's not loaded, and there's nothing in localStorage, this will return `null`
      */
     if (!isInitialized) {
-        const saved = localStorageState.find((service) => service.id === serviceId)
-        return saved ? saved.status : null
+        return localStorageState[serviceId]?.consent ?? null
     }
 
     return hasServiceConsent(serviceInfo)

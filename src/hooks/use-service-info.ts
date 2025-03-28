@@ -18,6 +18,19 @@ import { useServiceDebug } from './use-service-debug.js'
  */
 export const useServiceInfo = (serviceId: ServiceId): ServiceInfo | null => {
     useServiceDebug(serviceId)
+    const { isCMPv3, localStorageState } = useContext(UsercentricsContext)
+
+    if (isCMPv3) {
+        const consentStatus = localStorageState[serviceId]
+        return consentStatus
+            ? {
+                  id: serviceId,
+                  name: consentStatus.name,
+                  consent: { status: consentStatus.consent },
+              }
+            : null
+    }
+
     return getServicesBaseInfo().find(({ id }) => serviceId === id) || null
 }
 
@@ -33,6 +46,8 @@ export const useServiceInfo = (serviceId: ServiceId): ServiceInfo | null => {
  * - `description` text of the service
  *
  * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesfullinfo
+ *
+ * @deprecated not supported in CMP v3
  */
 export const useServiceFullInfo = (serviceId: ServiceId): ServiceFullInfo | null => {
     useServiceDebug(serviceId)

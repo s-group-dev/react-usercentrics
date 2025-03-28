@@ -25,7 +25,9 @@ describe('Usercentrics', () => {
 
         describe('useUsercentricsBrowserIntegration', () => {
             it('should return "isClientSide: true"', () => {
-                const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                const { result } = renderHook(() =>
+                    useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                )
 
                 expect(result.current).toEqual(
                     expect.objectContaining({
@@ -39,15 +41,19 @@ describe('Usercentrics', () => {
             it(`return service status from localStorage`, () => {
                 jest.mocked(getServicesFromLocalStorage).mockReturnValueOnce([{ id: 'test-id', status: true }])
 
-                const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                const { result } = renderHook(() =>
+                    useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                )
 
-                expect(result.current.localStorageState).toEqual([{ id: 'test-id', status: true }])
+                expect(result.current.localStorageState).toEqual({ 'test-id': { consent: true, name: '' } })
             })
 
             it('should return "isInitialized: true" when "UC_UI" in window', () => {
                 ;(window as UCWindow).UC_UI = {}
 
-                const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                const { result } = renderHook(() =>
+                    useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                )
 
                 expect(result.current).toEqual(
                     expect.objectContaining({
@@ -66,7 +72,9 @@ describe('Usercentrics', () => {
 
                 jest.mocked(isOpen).mockReturnValueOnce(true)
 
-                const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                const { result } = renderHook(() =>
+                    useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                )
 
                 expect(result.current).toEqual(
                     expect.objectContaining({
@@ -81,7 +89,9 @@ describe('Usercentrics', () => {
             })
 
             it('should set "isInitialized: true" after "UC_UI_INITIALIZED" window event', () => {
-                const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                const { result } = renderHook(() =>
+                    useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                )
 
                 expect(result.current).toEqual(
                     expect.objectContaining({
@@ -111,7 +121,9 @@ describe('Usercentrics', () => {
             })
 
             it('should set "isFailed: true" after timeout if not yet initialized', () => {
-                const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                const { result } = renderHook(() =>
+                    useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                )
 
                 act(() => {
                     jest.runAllTimers()
@@ -123,7 +135,9 @@ describe('Usercentrics', () => {
             it('should return "hasInteracted: true" when user has interacted with UC previously', () => {
                 jest.mocked(hasUserInteracted).mockReturnValueOnce(true)
 
-                const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                const { result } = renderHook(() =>
+                    useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                )
 
                 expect(result.current).toEqual(
                     expect.objectContaining({
@@ -138,7 +152,9 @@ describe('Usercentrics', () => {
 
             describe('Reacting to UC window events', () => {
                 it('should return "isOpen: true" on CMP_SHOWN event', () => {
-                    const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                    const { result } = renderHook(() =>
+                        useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                    )
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false }))
 
@@ -148,7 +164,9 @@ describe('Usercentrics', () => {
                 })
 
                 it('should return "isOpen: false, hasInteracted: true" on ACCEPT_ALL event', () => {
-                    const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                    const { result } = renderHook(() =>
+                        useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                    )
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false, hasInteracted: false }))
 
@@ -158,7 +176,9 @@ describe('Usercentrics', () => {
                 })
 
                 it('should return "isOpen: false, hasInteracted: true" on DENY_ALL event', () => {
-                    const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                    const { result } = renderHook(() =>
+                        useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                    )
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false, hasInteracted: false }))
 
@@ -168,7 +188,9 @@ describe('Usercentrics', () => {
                 })
 
                 it('should return "isOpen: false, hasInteracted: true" on SAVE event', () => {
-                    const { result } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                    const { result } = renderHook(() =>
+                        useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                    )
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false, hasInteracted: false }))
 
@@ -179,7 +201,9 @@ describe('Usercentrics', () => {
             })
 
             it(`should update ping on configured "window event name" (default "${windowEventName}")`, () => {
-                const { result, rerender } = renderHook(() => useUsercentricsBrowserIntegration(windowEventName))
+                const { result, rerender } = renderHook(() =>
+                    useUsercentricsBrowserIntegration({ isCMPv3: false, windowEventName }),
+                )
 
                 const ping1 = result.current.ping
 
