@@ -15,8 +15,9 @@
     },
     "types": "./dist/index.d.ts",
     "files": [
-        "dist",
-        "augmented.d.ts"
+        "dist/",
+        "augmented.d.ts",
+        "MIGRATION.md"
     ],
     "sideEffects": false,
     "scripts": {
