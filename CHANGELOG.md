@@ -1,3 +1,15 @@
+## [2.0.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.4...v2.0.0) (2025-03-28)
+
+### ⚠ BREAKING CHANGES
+
+* There are no functional changes. This version is
+only released to sync the package version with the supported
+Usercentrics Web CMP v2 version.
+
+### Documentation
+
+* bump major version to sync with Usercentrics Web CMP v2 version ([a4341d4](https://github.com/s-group-dev/react-usercentrics/commit/a4341d4ffb24c95d8acf1a5d54651ba47c3403ad))
+
 ## [1.7.4](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.3...v1.7.4) (2025-01-15)
 
 ### Bug Fixes
