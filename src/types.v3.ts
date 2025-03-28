@@ -114,3 +114,19 @@ export type UCUICMPEvent = CustomEvent<{
     source?: 'none' | 'button' | 'first' | 'second' | 'embeddings' | '__ucCmp'
     type?: UCUICMPEventType
 }>
+
+export enum UCUIView {
+    FIRST_LAYER = 'FIRST_LAYER',
+    NONE = 'NONE',
+    PRIVACY_BUTTON = 'PRIVACY_BUTTON',
+    SECOND_LAYER = 'SECOND_LAYER',
+}
+
+/**
+ * The event also holds additional information with more details about the user behaviour. It is possible to know the current and previous layer displayed to the user.
+ * @see https://usercentrics.com/docs/web/features/events/uc-ui-view-changed/
+ */
+export type UCUIVIewChanged = CustomEvent<{
+    view: UCUIView
+    previousView: UCUIView
+}>

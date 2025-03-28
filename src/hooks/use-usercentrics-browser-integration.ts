@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react'
 
 import { SSR_INITIAL_STATE, type UsercentricsBrowserIntegrationState } from '../context.js'
 import { type UCUICMPEvent as v2_UCUICMPEvent, UCUICMPEventType as v2_UCUICMPEventType } from '../types.v2.js'
-import { type ConsentStatusFromLocalStorage, type ServiceId, type UCUICMPEvent, UCUICMPEventType } from '../types.v3.js'
+import {
+    type ConsentStatusFromLocalStorage,
+    type ServiceId,
+    type UCUICMPEvent,
+    UCUICMPEventType,
+    UCUIView,
+    type UCUIVIewChanged,
+} from '../types.v3.js'
 import {
     getServicesFromLocalStorage as v2_getServicesFromLocalStorage,
     hasUserInteracted as v2_hasUserInteracted,
@@ -11,8 +18,10 @@ import {
 import { getServicesConsentsFromLocalStorage, hasUserInteracted, isOpen, setUserHasInteracted } from '../utils.v3.js'
 
 const UC_UI_CMP_EVENT = 'UC_UI_CMP_EVENT'
+const UC_UI_VIEW_CHANGED = 'UC_UI_VIEW_CHANGED'
 
 const isUCUICMPEvent = (event: Event): event is UCUICMPEvent | v2_UCUICMPEvent => event.type === UC_UI_CMP_EVENT
+const isUCUIViewEvent = (event: Event): event is UCUIVIewChanged => event.type === UC_UI_VIEW_CHANGED
 
 export const useUsercentricsBrowserIntegration = ({
     isCMPv3,
@@ -66,6 +75,22 @@ export const useUsercentricsBrowserIntegration = ({
             setState((current) => ({ ...current, hasInteracted: true }))
         }
 
+        const handleViewChangedEvent = (event: Event) => {
+            if (isUCUIViewEvent(event)) {
+                switch (event.detail.view) {
+                    case UCUIView.FIRST_LAYER:
+                    case UCUIView.SECOND_LAYER: {
+                        setState((current) => ({ ...current, isOpen: true }))
+                        break
+                    }
+                    case UCUIView.NONE: {
+                        setState((current) => ({ ...current, isOpen: false }))
+                        break
+                    }
+                }
+            }
+        }
+
         /** Keep track of UC dialog open/closed state */
         const handleCMPEvent = (event: Event) => {
             if (isUCUICMPEvent(event)) {
@@ -93,9 +118,11 @@ export const useUsercentricsBrowserIntegration = ({
             }
         }
 
+        window.addEventListener(UC_UI_VIEW_CHANGED, handleViewChangedEvent)
         window.addEventListener(UC_UI_CMP_EVENT, handleCMPEvent)
 
         return () => {
+            window.removeEventListener(UC_UI_VIEW_CHANGED, handleViewChangedEvent)
             window.removeEventListener(UC_UI_CMP_EVENT, handleCMPEvent)
         }
     }, [isCMPv3])
@@ -138,15 +165,6 @@ export const useUsercentricsBrowserIntegration = ({
                 window.removeEventListener('UC_CONSENT', handleWindowEvent)
             }
         } else if (windowEventName) {
-            /**
-             * This effects hooks into the configured UC_UI window event, and makes sure the internal
-             * state is updated whenever UC_UI updates its values. This typically means there are new
-             * consent settings, so hooks inside this provider should be updated.
-             *
-             * The event name is arbitrary and has to be configured in the Admin UI
-             * @see https://docs.usercentrics.com/#/v2-events?id=usage-as-window-event
-             */
-
             const handleWindowEvent = () => setState((current) => ({ ...current, ping: Symbol() }))
 
             window.addEventListener(windowEventName, handleWindowEvent)
