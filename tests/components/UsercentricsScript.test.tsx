@@ -12,7 +12,7 @@ describe('Usercentrics', () => {
                 const result = renderToStaticMarkup(<UsercentricsScript settingsId="1234" />)
 
                 expect(result).toMatchInlineSnapshot(
-                    `"<script async="" data-settings-id="1234" id="usercentrics-cmp" src="https://app.usercentrics.eu/browser-ui/latest/loader.js"></script>"`,
+                    `"<script async="" data-settings-id="1234" id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js"></script>"`,
                 )
             })
 
@@ -29,26 +29,6 @@ describe('Usercentrics', () => {
                 expect(result).toMatch('defer')
             })
 
-            it('should allow specifying UI version', () => {
-                const result = renderToStaticMarkup(<UsercentricsScript settingsId="1234" uiVersion="3.24.0" />)
-
-                expect(result).toMatch('src="https://app.usercentrics.eu/browser-ui/3.24.0/loader.js"')
-            })
-
-            it('should allow passing integrity prop', () => {
-                const result = renderToStaticMarkup(
-                    <UsercentricsScript
-                        settingsId="1234"
-                        uiVersion="3.24.0"
-                        integrity="sha384-WRloNuM/QNkzJ4GkUAZgJ5CWgTFhVjsLKVQbACSHGOifUvw2WJk1QaY9mphkn96U"
-                    />,
-                )
-
-                expect(result).toMatch(
-                    'integrity="sha384-WRloNuM/QNkzJ4GkUAZgJ5CWgTFhVjsLKVQbACSHGOifUvw2WJk1QaY9mphkn96U"',
-                )
-            })
-
             it('should not allow the src prop', () => {
                 const result = renderToStaticMarkup(
                     <UsercentricsScript
@@ -58,7 +38,7 @@ describe('Usercentrics', () => {
                     />,
                 )
 
-                expect(result).toMatch('src="https://app.usercentrics.eu/browser-ui/latest/loader.js"')
+                expect(result).toMatch('src="https://web.cmp.usercentrics.eu/ui/loader.js"')
             })
         })
     })

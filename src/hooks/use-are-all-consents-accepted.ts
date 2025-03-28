@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 
 import { UsercentricsContext } from '../context.js'
-import { areAllConsentsAccepted } from '../utils.js'
 
 /**
  * Whether all Usercentrics services have been given consent.
@@ -22,8 +21,10 @@ export const useAreAllConsentsAccepted = (): boolean | null => {
      * If it's not loaded, and there's nothing in localStorage, this will return `null`
      */
     if (!isInitialized) {
-        return localStorageState.length > 0 ? localStorageState.every((service) => service.status === true) : null
+        return Object.keys(localStorageState).length > 0
+            ? Object.values(localStorageState).every((service) => service.consent === true)
+            : null
     }
 
-    return areAllConsentsAccepted()
+    return Object.values(localStorageState).every((service) => service.consent === true)
 }

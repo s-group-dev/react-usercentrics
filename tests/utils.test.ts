@@ -1,16 +1,15 @@
-import type { ServiceInfoFromLocalStorage, SettingsFromLocalStorage, UCWindow } from '../src/types.js'
-import { ConsentType } from '../src/types.js'
+import type { UCDataFromLocalStorage, UCWindow } from '../src/types.js'
 import * as utils from '../src/utils.js'
 
 describe('Usercentrics', () => {
     beforeAll(() => {
-        ;(window as UCWindow).UC_UI = {
-            acceptService: jest.fn(),
-            getServicesBaseInfo: jest.fn(),
-            getServicesFullInfo: jest.fn(),
-            isInitialized: jest.fn(),
+        ;(window as UCWindow).__ucCmp = {
+            changeLanguage: jest.fn(),
+            getConsentDetails: jest.fn(),
             showFirstLayer: jest.fn(),
             showSecondLayer: jest.fn(),
+            showServiceDetails: jest.fn(),
+            updateServicesConsents: jest.fn(),
         }
     })
 
@@ -19,62 +18,61 @@ describe('Usercentrics', () => {
     })
 
     afterAll(() => {
-        delete (window as UCWindow).UC_UI
+        delete (window as UCWindow).__ucCmp
     })
 
     describe('utils', () => {
-        test('acceptService', async () => {
-            await utils.acceptService('test-id')
-            expect((window as UCWindow).UC_UI?.acceptService).toHaveBeenCalledWith('test-id', undefined)
-
-            await utils.acceptService('test-id', ConsentType.Explicit)
-            expect((window as UCWindow).UC_UI?.acceptService).toHaveBeenCalledWith('test-id', ConsentType.Explicit)
+        test('updateServicesConsents', async () => {
+            await utils.updateServicesConsents([{ consent: true, id: 'test-id' }])
+            expect((window as UCWindow).__ucCmp?.updateServicesConsents).toHaveBeenCalledWith([
+                { consent: true, id: 'test-id' },
+            ])
         })
 
-        test('getServicesBaseInfo', () => {
-            utils.getServicesBaseInfo()
-            expect((window as UCWindow).UC_UI?.getServicesBaseInfo).toHaveBeenCalledTimes(1)
+        test('showFirstLayer', async () => {
+            await utils.showFirstLayer()
+            expect((window as UCWindow).__ucCmp?.showFirstLayer).toHaveBeenCalledTimes(1)
         })
 
-        test('getServicesFullInfo', async () => {
-            await utils.getServicesFullInfo()
-            expect((window as UCWindow).UC_UI?.getServicesFullInfo).toHaveBeenCalledTimes(1)
+        test('showSecondLayer', async () => {
+            await utils.showSecondLayer()
+            expect((window as UCWindow).__ucCmp?.showSecondLayer).toHaveBeenCalledTimes(1)
         })
 
-        test('showFirstLayer', () => {
-            utils.showFirstLayer()
-            expect((window as UCWindow).UC_UI?.showFirstLayer).toHaveBeenCalledTimes(1)
+        test('showServiceDetails', async () => {
+            await utils.showServiceDetails('test-id')
+            expect((window as UCWindow).__ucCmp?.showServiceDetails).toHaveBeenCalledTimes(1)
+            expect((window as UCWindow).__ucCmp?.showServiceDetails).toHaveBeenCalledWith('test-id')
         })
 
-        test('showSecondLayer', () => {
-            utils.showSecondLayer()
-            expect((window as UCWindow).UC_UI?.showSecondLayer).toHaveBeenCalledTimes(1)
-
-            utils.showSecondLayer('test-id')
-            expect((window as UCWindow).UC_UI?.showSecondLayer).toHaveBeenCalledTimes(2)
-            expect((window as UCWindow).UC_UI?.showSecondLayer).toHaveBeenCalledWith('test-id')
-        })
-
-        describe('getServicesFromLocalStorage', () => {
+        describe('getServicesConsentsFromLocalStorage', () => {
             const mockGetItem = jest.spyOn(localStorage.__proto__, 'getItem')
 
-            it('should return empty array when no data', () => {
-                const services = utils.getServicesFromLocalStorage()
+            it('should return empty object when no data', () => {
+                const services = utils.getServicesConsentsFromLocalStorage()
                 expect(mockGetItem).toHaveBeenCalledTimes(1)
-                expect(services).toEqual([])
+                expect(services).toEqual({})
             })
 
-            it('should return empty array when invalid data', () => {
+            it('should return empty object when invalid data', () => {
                 mockGetItem.mockReturnValueOnce('foobar')
-                expect(utils.getServicesFromLocalStorage()).toEqual([])
+                expect(utils.getServicesConsentsFromLocalStorage()).toEqual({})
             })
 
-            it('should return service from localStorage', () => {
-                const service: ServiceInfoFromLocalStorage = { id: 'test-id', status: true }
-                const settings: SettingsFromLocalStorage = { services: [service] }
+            it('should return services from localStorage', () => {
+                const data = {
+                    consent: {
+                        services: {
+                            'test-id': {
+                                consent: true,
+                                name: 'Test Service',
+                            },
+                        },
+                    },
+                } satisfies UCDataFromLocalStorage
 
-                mockGetItem.mockReturnValueOnce(JSON.stringify(settings))
-                expect(utils.getServicesFromLocalStorage()).toEqual([service])
+                mockGetItem.mockReturnValueOnce(JSON.stringify(data))
+                expect(utils.getServicesConsentsFromLocalStorage()).toEqual(data.consent.services)
             })
         })
     })
