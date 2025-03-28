@@ -6,7 +6,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/s-group-dev/react-usercentrics.git"
+        "url": "git+https://github.com/s-group-dev/react-usercentrics.git"
     },
     "bugs": "https://github.com/s-group-dev/react-usercentrics/issues",
     "type": "module",
