@@ -36,16 +36,10 @@ export default tseslint.config(
     eslintPluginPrettierRecommended,
     {
         plugins: {
-            /** "eslint-plugin-react-hooks" doesn't work with TypeScript */
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             'react-hooks': hooksPlugin,
             'simple-import-sort': simpleImportSort,
         },
-        /** "eslint-plugin-react-hooks" doesn't work with TypeScript */
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         rules: {
-            /** "eslint-plugin-react-hooks" doesn't work with TypeScript */
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             ...hooksPlugin.configs.recommended.rules,
             '@typescript-eslint/consistent-type-definitions': 'off',
             '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
