@@ -58,6 +58,14 @@ type UC_CMP = {
     showSecondLayer: () => Promise<void>
 
     /**
+     * Programmatic way to show the details of a service
+     * @see https://usercentrics.com/docs/web/features/api/control-ui/#showservicedetails
+     *
+     * @example showServiceDetails('my-service-id')
+     */
+    showServiceDetails: (serviceId: ServiceId) => Promise<void>
+
+    /**
      * Updates consents for individual or multiple services.
      * @see https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
      *

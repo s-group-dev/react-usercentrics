@@ -58,6 +58,16 @@ export const showSecondLayer = async (): Promise<void> => {
 }
 
 /**
+ * Programmatic way to show the details of a service
+ * @see https://usercentrics.com/docs/web/features/api/control-ui/#showservicedetails
+ *
+ * @example showServiceDetails('my-service-id')
+ */
+export const showServiceDetails = async (serviceId: ServiceId): Promise<void> => {
+    await (window as UCWindow).__ucCmp?.showServiceDetails(serviceId)
+}
+
+/**
  * A method to get array of all service consent statuses from local storage
  *
  * @example
