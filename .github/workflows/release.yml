@@ -44,6 +44,13 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
             - run: npm run build
-            - run: npm publish --access public
+            - name: npm publish
+              if: ${{ ! contains(github.ref, 'beta') }}
+              run: npm publish --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: npm publish (beta)
+              if: ${{ contains(github.ref, 'beta') }}
+              run: npm publish --access public --tag beta
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
