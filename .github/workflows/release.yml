@@ -48,12 +48,12 @@ jobs:
                       ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
             - run: npm run build
             - name: npm publish (latest)
-              if: ${{ ! contains(github.ref, 'beta') }}
+              if: ${{ ! contains(github.ref_name, 'beta') }}
               run: npm publish --provenance --access public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
             - name: npm publish (beta)
-              if: ${{ contains(github.ref, 'beta') }}
+              if: ${{ contains(github.ref_name, 'beta') }}
               run: npm publish --provenance --access public --tag beta
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
