@@ -1,94 +1,94 @@
 name: Pull Requests
 
 on:
-  pull_request:
+    pull_request:
 
 jobs:
-  Install:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - uses: actions/cache@v4
-        id: cache-node_modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      - if: steps.cache-node_modules.outputs.cache-hit != 'true'
-        run: npm ci
+    Install:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+            - uses: actions/cache@v4
+              id: cache-node_modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+            - if: steps.cache-node_modules.outputs.cache-hit != 'true'
+              run: npm ci
 
-  Test:
-    needs:
-      - Install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - uses: actions/cache@v4
-        id: cache-node_modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      - run: npm run test
+    Test:
+        needs:
+            - Install
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+            - uses: actions/cache@v4
+              id: cache-node_modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+            - run: npm run test
 
-  Lint:
-    needs:
-      - Install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - uses: actions/cache@v4
-        id: cache-node_modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      - run: npm run lint
+    Lint:
+        needs:
+            - Install
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+            - uses: actions/cache@v4
+              id: cache-node_modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+            - run: npm run lint
 
-  Typecheck:
-    needs:
-      - Install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - uses: actions/cache@v4
-        id: cache-node_modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      - run: npm run typecheck
+    Typecheck:
+        needs:
+            - Install
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+            - uses: actions/cache@v4
+              id: cache-node_modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+            - run: npm run typecheck
 
-  Build:
-    needs:
-      - Install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - uses: actions/cache@v4
-        id: cache-node_modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      - run: npm run build
+    Build:
+        needs:
+            - Install
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+            - uses: actions/cache@v4
+              id: cache-node_modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+            - run: npm run build

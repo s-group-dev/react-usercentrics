@@ -1,49 +1,59 @@
 name: Release
 
 on:
-  push:
-    tags:
-      # Semver-like tags "v1.0.0"
-      - "v[0-9]+.[0-9]+.[0-9]+"
+    push:
+        tags:
+            # Semver-like tags "v1.0.0"
+            - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  Install:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - uses: actions/cache@v4
-        id: cache-node_modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      - if: steps.cache-node_modules.outputs.cache-hit != 'true'
-        run: npm ci
+    Install:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+            - uses: actions/cache@v4
+              id: cache-node_modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+            - if: steps.cache-node_modules.outputs.cache-hit != 'true'
+              run: npm ci
 
-  publish-npm:
-    name: Publish to npm
-    needs: Install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: actions/cache@v4
-        id: cache-node_modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      - run: npm run build
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    publish-npm:
+        name: Publish to npm
+        needs: Install
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+                  registry-url: https://registry.npmjs.org
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - uses: actions/cache@v4
+              id: cache-node_modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+            - run: npm run build
+            - name: npm publish (latest)
+              if: ${{ ! contains(github.ref_name, 'beta') }}
+              run: npm publish --provenance --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: npm publish (beta)
+              if: ${{ contains(github.ref_name, 'beta') }}
+              run: npm publish --provenance --access public --tag beta
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
