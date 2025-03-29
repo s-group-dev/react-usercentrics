@@ -5,105 +5,96 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 export type ServiceId = import('@s-group/react-usercentrics/augmented').ServiceId
 
-/** Partial type for a service's base info. Unused values are left out. */
-export type ServiceInfo = {
-    id: ServiceId
+/** Partial type for service info read from local storage, if available. Unused values are left out. */
+export type ConsentStatusFromLocalStorage = {
     name: string
+    consent: boolean
+}
+
+/** Partial type for uc data read from local storage, if available. Unused values are left out. */
+export type UCDataFromLocalStorage = {
     consent: {
-        status: boolean
+        services: Record<ServiceId, ConsentStatusFromLocalStorage>
     }
 }
 
-/** Partial type for a service's full info. Unused values are left out. */
-export type ServiceFullInfo = ServiceInfo & {
-    description: string
-}
-
-/** Partial type for uc settings read from local storage, if available. Unused values are left out. */
-export type SettingsFromLocalStorage = {
-    services: ServiceInfoFromLocalStorage[]
-}
-
-/** Partial type for service info read from local storage, if available. Unused values are left out. */
-export type ServiceInfoFromLocalStorage = {
-    id: string
-    status: boolean
-}
-
-/** When giving consent using the API (instead of customer clicking the Dialog),
- * consent can be either explicit (e.g. when clicking some custom button) or implicit. */
-export enum ConsentType {
-    Explicit = 'explicit',
-    Implicit = 'implicit',
+/**
+ * Partial type, unused values are left out.
+ * @see https://usercentrics.com/docs/web/features/api/interfaces/#consentdata
+ */
+type ConsentData = {
+    status: 'ALL_ACCEPTED' | 'ALL_DENIED' | 'SOME_ACCEPTED' | 'SOME_DENIED'
+    required: boolean
+    type: 'IMPLICIT' | 'EXPLICIT'
 }
 
 /**
- * Typing for the main `window.UC_UI` API used for integration
+ * Partial type, unused values are left out.
+ * @see https://usercentrics.com/docs/web/features/api/interfaces/#consentdetails
+ */
+type ConsentDetails = {
+    consent: ConsentData
+}
+
+/**
+ * Typing for the main `window.__ucCmp` API used for integration
  * Do not declare this globally, but prefer to use the included utility functions instead.
  */
-type UC_UI = {
-    /**
-     * A method to get array of all services with their basic information
-     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesbaseinfo
-     */
-    getServicesBaseInfo?: () => ServiceInfo[]
-
-    /**
-     * A method to get array of all services with their full information.
-     * An extra api request will be made, therefore the return represents
-     * the eventual completion (or failure) of an asynchronous operation
-     * and its returning value.
-     *
-     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesfullinfo
-     */
-    getServicesFullInfo?: () => Promise<ServiceFullInfo[]>
-
-    /**
-     * A method to check if app is initialized or not
-     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=isinitialized
-     */
-    isInitialized?: () => boolean
-
+type UC_CMP = {
     /**
      * Programmatic way to show First Layer.
-     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showfirstlayer
-     */
-    showFirstLayer?: () => void
-
-    /**
-     * Programmatic way to show Second Layer. If a service/vendor Id value is passed,
-     * Second Layer will open the right tab, scroll to the given service/vendor entry and expand it.
-     * If no Id is passed, Second Layer will be shown without srcolling to any specific service/vendor.
+     * @see https://usercentrics.com/docs/web/features/api/control-ui/#showfirstlayer
      *
-     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showsecondlayer
+     * @example showFirstLayer()
      */
-    showSecondLayer?: (serviceId?: ServiceId) => void
+    showFirstLayer: () => Promise<void>
 
     /**
-     * A method for accepting a single service.
-     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=acceptservice
+     * Programmatic way to show Second Layer.
+     * @see https://usercentrics.com/docs/web/features/api/control-ui/#showsecondlayer
+     *
+     * @example showSecondLayer()
      */
-    acceptService?: (serviceId: ServiceId, consentType?: ConsentType) => Promise<void>
+    showSecondLayer: () => Promise<void>
 
     /**
-     * A method to check if all consents were accepted
-     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=areallconsentsaccepted
+     * Programmatic way to show the details of a service
+     * @see https://usercentrics.com/docs/web/features/api/control-ui/#showservicedetails
+     *
+     * @example showServiceDetails('my-service-id')
      */
-    areAllConsentsAccepted?: () => boolean
+    showServiceDetails: (serviceId: ServiceId) => Promise<void>
+
+    /**
+     * Updates consents for individual or multiple services.
+     * @see https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
+     *
+     * @example updateServicesConsents([{ id: 'my-service-id', consent: true }])
+     */
+    updateServicesConsents: (servicesConsents: { id: ServiceId; consent: boolean }[]) => Promise<void>
+
+    /**
+     * Retrieves all the consent details
+     *
+     * @see https://usercentrics.com/docs/web/features/api/control-functionality/#getconsentdetails
+     */
+    getConsentDetails: () => Promise<ConsentDetails>
 
     /**
      * Programmatic way to set language for the CMP.
      * @param countryCode Two character country code, e.g. "en" = set language to English
-     * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=updatelanguage
+     * @see https://usercentrics.com/docs/web/features/api/control-functionality/#changelanguage
+     *
+     * @example changeLanguage("fi")
      */
-    updateLanguage?: (countryCode: string) => void
+    changeLanguage: (countryCode: string) => Promise<void>
 }
 
 /**
- * Augmented window type, possibly including the `UC_UI` API.
+ * Augmented window type, possibly including the `__ucCmp` API.
  * Do not declare this globally, but prefer to use the included utility functions instead.
  */
-export type UCWindow = Window & typeof globalThis & { UC_UI?: UC_UI }
+export type UCWindow = Window & typeof globalThis & { __ucCmp?: UC_CMP }
 
 export enum UCUICMPEventType {
     ACCEPT_ALL = 'ACCEPT_ALL',
@@ -116,10 +107,26 @@ export enum UCUICMPEventType {
 }
 
 /**
- * This event is triggered by the most important actions through the Consent Management Platform
- * @see https://docs.usercentrics.com/#/v2-events?id=uc_ui_cmp_event
+ * The `UC_UI_CMP_EVENT` event is triggered by the most important actions that can be performed in the CMP, enabling you to listen to user interactions.
+ * @see https://usercentrics.com/docs/web/features/events/uc-ui-cmp-event/
  */
 export type UCUICMPEvent = CustomEvent<{
-    source?: 'FIRST_LAYER' | 'SECOND_LAYER'
+    source?: 'none' | 'button' | 'first' | 'second' | 'embeddings' | '__ucCmp'
     type?: UCUICMPEventType
+}>
+
+export enum UCUIView {
+    FIRST_LAYER = 'FIRST_LAYER',
+    NONE = 'NONE',
+    PRIVACY_BUTTON = 'PRIVACY_BUTTON',
+    SECOND_LAYER = 'SECOND_LAYER',
+}
+
+/**
+ * The event also holds additional information with more details about the user behaviour. It is possible to know the current and previous layer displayed to the user.
+ * @see https://usercentrics.com/docs/web/features/events/uc-ui-view-changed/
+ */
+export type UCUIVIewChanged = CustomEvent<{
+    view: UCUIView
+    previousView: UCUIView
 }>

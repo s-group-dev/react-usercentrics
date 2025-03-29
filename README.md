@@ -80,7 +80,7 @@ consent can be either explicit (e.g. when clicking some custom button) or implic
 
 #### `UCWindow`
 
-Augmented window type, possibly including the `UC_UI` API.
+Augmented window type, possibly including the `__ucCmp` API.
 Do not declare this globally, but prefer to use the included utility functions instead.
 
 ### Components

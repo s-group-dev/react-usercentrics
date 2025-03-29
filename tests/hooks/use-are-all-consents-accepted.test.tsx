@@ -4,9 +4,6 @@ import React from 'react'
 
 import { UsercentricsContext } from '../../src/context.js'
 import { useAreAllConsentsAccepted } from '../../src/hooks/use-are-all-consents-accepted.js'
-import * as utils from '../../src/utils.js'
-
-const mockAreAllConsentsAccepted = jest.spyOn(utils, 'areAllConsentsAccepted')
 
 describe('Usercentrics', () => {
     describe('hooks', () => {
@@ -17,8 +14,7 @@ describe('Usercentrics', () => {
                 isFailed: false,
                 isInitialized: true,
                 isOpen: false,
-                localStorageState: [],
-                ping: Symbol(),
+                localStorageState: {},
                 strictMode: false,
             }
 
@@ -54,10 +50,10 @@ describe('Usercentrics', () => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
-                        localStorageState: [
-                            { id: 'test-id', status: true },
-                            { id: 'test-id2', status: false },
-                        ],
+                        localStorageState: {
+                            'test-id': { consent: true, name: '' },
+                            'test-id2': { consent: false, name: '' },
+                        },
                     }),
                 })
 
@@ -68,10 +64,10 @@ describe('Usercentrics', () => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
-                        localStorageState: [
-                            { id: 'test-id', status: true },
-                            { id: 'test-id2', status: true },
-                        ],
+                        localStorageState: {
+                            'test-id': { consent: true, name: '' },
+                            'test-id2': { consent: true, name: '' },
+                        },
                     }),
                 })
 
@@ -79,20 +75,28 @@ describe('Usercentrics', () => {
             })
 
             it('should return false when not all consents are given', () => {
-                mockAreAllConsentsAccepted.mockReturnValue(false)
-
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
-                    wrapper: getWrapper(),
+                    wrapper: getWrapper({
+                        isInitialized: true,
+                        localStorageState: {
+                            'test-id': { consent: true, name: '' },
+                            'test-id2': { consent: false, name: '' },
+                        },
+                    }),
                 })
 
                 expect(result.current).toEqual(false)
             })
 
             it('should return true when all consents are given', () => {
-                mockAreAllConsentsAccepted.mockReturnValue(true)
-
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
-                    wrapper: getWrapper(),
+                    wrapper: getWrapper({
+                        isInitialized: false,
+                        localStorageState: {
+                            'test-id': { consent: true, name: '' },
+                            'test-id2': { consent: true, name: '' },
+                        },
+                    }),
                 })
 
                 expect(result.current).toEqual(true)
