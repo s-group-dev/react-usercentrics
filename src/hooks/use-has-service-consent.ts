@@ -10,7 +10,7 @@ import type { ServiceId } from '../types.js'
  * @warn it's best to assume no consent until this hook returns `true`
  */
 export const useHasServiceConsent = (serviceId: ServiceId): boolean | null => {
-    const { isClientSide, isInitialized, localStorageState, strictMode } = useContext(UsercentricsContext)
+    const { consents, isInitialized, isClientSide, strictMode } = useContext(UsercentricsContext)
 
     /** Consent status is unknown during SSR because CMP is only available client-side */
     if (!isClientSide) {
@@ -22,12 +22,12 @@ export const useHasServiceConsent = (serviceId: ServiceId): boolean | null => {
      * If it's not loaded, and there's nothing in localStorage, this will return `null`
      */
     if (!isInitialized) {
-        return localStorageState[serviceId]?.consent ?? null
+        return consents[serviceId] ?? null
     }
 
-    if (strictMode && !localStorageState[serviceId]) {
+    if (strictMode) {
         throw new Error(`Usercentrics Service not found for id "${serviceId}"`)
     }
 
-    return !!localStorageState[serviceId]?.consent
+    return !!consents[serviceId]
 }

@@ -9,12 +9,12 @@ describe('Usercentrics', () => {
     describe('hooks', () => {
         describe('useAreAllConsentsAccepted', () => {
             const CONTEXT: ContextType<typeof UsercentricsContext> = {
+                consents: {},
                 hasInteracted: false,
                 isClientSide: true,
                 isFailed: false,
                 isInitialized: true,
                 isOpen: false,
-                localStorageState: {},
                 strictMode: false,
             }
 
@@ -50,9 +50,9 @@ describe('Usercentrics', () => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
-                        localStorageState: {
-                            'test-id': { consent: true, name: '' },
-                            'test-id2': { consent: false, name: '' },
+                        consents: {
+                            'test-id': true,
+                            'test-id2': false,
                         },
                     }),
                 })
@@ -64,9 +64,9 @@ describe('Usercentrics', () => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
-                        localStorageState: {
-                            'test-id': { consent: true, name: '' },
-                            'test-id2': { consent: true, name: '' },
+                        consents: {
+                            'test-id': true,
+                            'test-id2': true,
                         },
                     }),
                 })
@@ -78,9 +78,9 @@ describe('Usercentrics', () => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: true,
-                        localStorageState: {
-                            'test-id': { consent: true, name: '' },
-                            'test-id2': { consent: false, name: '' },
+                        consents: {
+                            'test-id': true,
+                            'test-id2': false,
                         },
                     }),
                 })
@@ -92,9 +92,9 @@ describe('Usercentrics', () => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
-                        localStorageState: {
-                            'test-id': { consent: true, name: '' },
-                            'test-id2': { consent: true, name: '' },
+                        consents: {
+                            'test-id': true,
+                            'test-id2': true,
                         },
                     }),
                 })

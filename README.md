@@ -339,12 +339,12 @@ See also https://usercentrics.com/docs/web/features/api/control-ui/#showserviced
 await showServiceDetails('my-service-id')
 ```
 
-#### `getServicesConsentsFromLocalStorage`
+#### `getConsentsFromLocalStorage`
 
-A method to get array of all service consent statuses from local storage.
+A method to get consent status saved to localStorage.
 
 ```tsx
-const consents = getServicesConsentsFromLocalStorage()
+const consents = getConsentsFromLocalStorage()
 const hasConsent = consents['my-service-id']?.consent === true
 ```
 

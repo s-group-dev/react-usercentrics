@@ -18,12 +18,12 @@ describe('Usercentrics', () => {
 
                 expect(stringified).toStrictEqual(
                     JSON.stringify({
+                        consents: {},
                         hasInteracted: false,
                         isClientSide: false,
                         isFailed: false,
                         isInitialized: false,
                         isOpen: false,
-                        localStorageState: {},
                     }).replaceAll('"', '&quot;'),
                 )
             })

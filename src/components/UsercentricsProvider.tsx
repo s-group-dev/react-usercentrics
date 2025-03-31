@@ -27,12 +27,12 @@ export const UsercentricsProvider: FC<UsercentricsProviderProps> = ({ children, 
     return (
         <UsercentricsContext.Provider
             value={{
+                consents: state.consents,
                 hasInteracted: state.hasInteracted,
                 isClientSide: state.isClientSide,
                 isFailed: state.isFailed,
                 isInitialized: state.isInitialized,
                 isOpen: state.isOpen,
-                localStorageState: state.localStorageState,
                 strictMode,
             }}
         >

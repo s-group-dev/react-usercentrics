@@ -14,7 +14,7 @@ describe('Usercentrics', () => {
                 isFailed: false,
                 isInitialized: true,
                 isOpen: false,
-                localStorageState: {},
+                consents: {},
                 strictMode: false,
             }
 
@@ -49,11 +49,8 @@ describe('Usercentrics', () => {
             it('should return false when no consent', () => {
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
                     wrapper: getWrapper({
-                        localStorageState: {
-                            'test-id': {
-                                consent: false,
-                                name: 'Test Service',
-                            },
+                        consents: {
+                            'test-id': false,
                         },
                     }),
                 })
@@ -64,11 +61,8 @@ describe('Usercentrics', () => {
             it('should return true when consent is given', () => {
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
                     wrapper: getWrapper({
-                        localStorageState: {
-                            'test-id': {
-                                consent: true,
-                                name: 'Test Service',
-                            },
+                        consents: {
+                            'test-id': true,
                         },
                     }),
                 })

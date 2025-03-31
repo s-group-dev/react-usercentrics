@@ -1,4 +1,4 @@
-import type { ConsentStatusFromLocalStorage, ServiceId, UCDataFromLocalStorage, UCWindow } from './types.js'
+import type { ServiceId, UCDataFromLocalStorage, UCWindow } from './types.js'
 
 /**
  * A method to check if user has interacted with the consent prompt and given consent information.
@@ -72,20 +72,17 @@ export const showServiceDetails = async (serviceId: ServiceId): Promise<void> =>
 }
 
 /**
- * A method to get array of all service consent statuses from local storage
+ * A method to get consent status saved to localStorage
  *
  * @example
- * const consents = getServicesConsentsFromLocalStorage()
+ * const consents = getConsentsFromLocalStorage()
  * const hasConsent = consents['my-service-id']?.consent === true
  */
-export const getServicesConsentsFromLocalStorage = (): Record<ServiceId, ConsentStatusFromLocalStorage> => {
+export const getConsentsFromLocalStorage = (): UCDataFromLocalStorage['consent']['services'] => {
     try {
-        const ucData = localStorage?.getItem('ucData')
-        if (ucData) {
-            const ucDataParsed = JSON.parse(ucData) as UCDataFromLocalStorage
-            /** Leave out any other untyped fields */
-            return ucDataParsed.consent.services
-        }
+        const data = localStorage?.getItem('ucData')
+        const consentDetails = data ? (JSON.parse(data) as UCDataFromLocalStorage) : { consent: { services: {} } }
+        return consentDetails.consent.services
     } catch {
         /** Ignore failures */
     }

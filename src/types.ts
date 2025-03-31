@@ -6,15 +6,11 @@
 export type ServiceId = import('@s-group/react-usercentrics/augmented').ServiceId
 
 /** Partial type for service info read from local storage, if available. Unused values are left out. */
-export type ConsentStatusFromLocalStorage = {
+export type ServiceData = {
     name: string
-    consent: boolean
-}
-
-/** Partial type for uc data read from local storage, if available. Unused values are left out. */
-export type UCDataFromLocalStorage = {
-    consent: {
-        services: Record<ServiceId, ConsentStatusFromLocalStorage>
+    consent?: {
+        given: boolean
+        type: 'IMPLICIT' | 'EXPLICIT'
     }
 }
 
@@ -25,15 +21,21 @@ export type UCDataFromLocalStorage = {
 type ConsentData = {
     status: 'ALL_ACCEPTED' | 'ALL_DENIED' | 'SOME_ACCEPTED' | 'SOME_DENIED'
     required: boolean
-    type: 'IMPLICIT' | 'EXPLICIT'
 }
 
 /**
  * Partial type, unused values are left out.
  * @see https://usercentrics.com/docs/web/features/api/interfaces/#consentdetails
  */
-type ConsentDetails = {
+export type ConsentDetails = {
     consent: ConsentData
+    services: Record<ServiceId, ServiceData>
+}
+
+export type UCDataFromLocalStorage = {
+    consent: {
+        services: Record<ServiceId, { name: string; consent: boolean }>
+    }
 }
 
 /**
@@ -95,6 +97,8 @@ type UC_CMP = {
  * Do not declare this globally, but prefer to use the included utility functions instead.
  */
 export type UCWindow = Window & typeof globalThis & { __ucCmp?: UC_CMP }
+
+export type UCConsentEvent = CustomEvent<ConsentDetails>
 
 export enum UCUICMPEventType {
     ACCEPT_ALL = 'ACCEPT_ALL',

@@ -1,4 +1,4 @@
-import type { UCDataFromLocalStorage, UCWindow } from '../src/types.js'
+import type { UCWindow } from '../src/types.js'
 import * as utils from '../src/utils.js'
 
 describe('Usercentrics', () => {
@@ -45,34 +45,31 @@ describe('Usercentrics', () => {
             expect((window as UCWindow).__ucCmp?.showServiceDetails).toHaveBeenCalledWith('test-id')
         })
 
-        describe('getServicesConsentsFromLocalStorage', () => {
+        describe('getConsentsFromLocalStorage', () => {
             const mockGetItem = jest.spyOn(localStorage.__proto__, 'getItem')
 
             it('should return empty object when no data', () => {
-                const services = utils.getServicesConsentsFromLocalStorage()
+                const services = utils.getConsentsFromLocalStorage()
                 expect(mockGetItem).toHaveBeenCalledTimes(1)
                 expect(services).toEqual({})
             })
 
             it('should return empty object when invalid data', () => {
                 mockGetItem.mockReturnValueOnce('foobar')
-                expect(utils.getServicesConsentsFromLocalStorage()).toEqual({})
+                expect(utils.getConsentsFromLocalStorage()).toEqual({})
             })
 
             it('should return services from localStorage', () => {
-                const data = {
+                const ucData = {
                     consent: {
                         services: {
-                            'test-id': {
-                                consent: true,
-                                name: 'Test Service',
-                            },
+                            'test-id': { consent: { given: true, type: 'EXPLICIT' }, name: 'Test Service' },
                         },
                     },
-                } satisfies UCDataFromLocalStorage
+                }
 
-                mockGetItem.mockReturnValueOnce(JSON.stringify(data))
-                expect(utils.getServicesConsentsFromLocalStorage()).toEqual(data.consent.services)
+                mockGetItem.mockReturnValueOnce(JSON.stringify(ucData))
+                expect(utils.getConsentsFromLocalStorage()).toEqual(ucData.consent.services)
             })
         })
     })

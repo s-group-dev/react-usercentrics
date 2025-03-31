@@ -1,11 +1,11 @@
 import { act, fireEvent, renderHook } from '@testing-library/react'
 
 import { useUsercentricsEventListener } from '../../src/hooks/use-usercentrics-event-listener.js'
-import { type UCUICMPEvent, UCUICMPEventType, type UCWindow } from '../../src/types.js'
-import { getServicesConsentsFromLocalStorage, hasUserInteracted, isOpen } from '../../src/utils.js'
+import { type UCUICMPEvent, UCUICMPEventType, UCUIView, type UCWindow } from '../../src/types.js'
+import { hasUserInteracted, isOpen } from '../../src/utils.js'
 
 jest.mock('../../src/utils.js', () => ({
-    getServicesConsentsFromLocalStorage: jest.fn().mockReturnValue([]),
+    getConsentsFromLocalStorage: jest.fn().mockReturnValue({}),
     hasUserInteracted: jest.fn().mockReturnValue(false),
     isOpen: jest.fn().mockReturnValue(false),
     setUserHasInteracted: jest.fn(),
@@ -33,19 +33,6 @@ describe('Usercentrics', () => {
                         hasInteracted: false,
                     }),
                 )
-            })
-
-            it(`return service status from localStorage`, () => {
-                jest.mocked(getServicesConsentsFromLocalStorage).mockReturnValueOnce({
-                    'test-id': {
-                        consent: true,
-                        name: 'Test Service',
-                    },
-                })
-
-                const { result } = renderHook(() => useUsercentricsEventListener({}))
-
-                expect(result.current.localStorageState).toEqual({ 'test-id': { consent: true, name: 'Test Service' } })
             })
 
             it('should return "isInitialized: true" when "__ucCmp" in window', () => {
@@ -139,14 +126,24 @@ describe('Usercentrics', () => {
             })
 
             describe('Reacting to UC window events', () => {
-                it('should return "isOpen: true" on CMP_SHOWN event', () => {
+                it('should return "isOpen: true" on UC_UI_VIEW_CHANGED -> FIST_LAYER event', () => {
                     const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false }))
 
-                    fireEvent(window, ucUICMPEvent(UCUICMPEventType.CMP_SHOWN))
+                    fireEvent(window, new CustomEvent('UC_UI_VIEW_CHANGED', { detail: { view: UCUIView.FIRST_LAYER } }))
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: true }))
+                })
+
+                it('should return "isOpen: false" on UC_UI_VIEW_CHANGED -> NONE event', () => {
+                    const { result } = renderHook(() => useUsercentricsEventListener({}))
+
+                    expect(result.current).toEqual(expect.objectContaining({ isOpen: false }))
+
+                    fireEvent(window, new CustomEvent('UC_UI_VIEW_CHANGED', { detail: { view: UCUIView.NONE } }))
+
+                    expect(result.current).toEqual(expect.objectContaining({ isOpen: false }))
                 })
 
                 it('should return "isOpen: false, hasInteracted: true" on ACCEPT_ALL event', () => {

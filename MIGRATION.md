@@ -7,7 +7,7 @@
 - The `uiVersion` prop for `<UsercentricsScript />` is no longer supported and should be removed. The CMP v3 loader script currently supports only the "latest" version.
     - This also means that hard-coding a version number and its [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) hash is no longer supported. Instead, use a random `nonce` value when implementing a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP).
 - The `showSecondLayer()` util no longer supports passing a service id argument to directly open to the service info. Instead, use the new `showServiceDetails(serviceId: ServiceId)` util.
-- The `getServicesFromLocalStorage(): ServiceInfoFromLocalStorage[]` util has been replaced with `getServicesConsentsFromLocalStorage(): Record<ServiceId, ConsentStatusFromLocalStorage>` with a different format.
+- The `getServicesFromLocalStorage()` util has been replaced with `getConsentsFromLocalStorage()` with a different format.
 - The following utils and hooks have been removed because CMP v3 no longer supports them:
     - `getServicesBaseInfo()`
     - `useServiceInfo()`
