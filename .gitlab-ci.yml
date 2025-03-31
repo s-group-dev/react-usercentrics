@@ -2,7 +2,7 @@
 ## This package is mirrored to an internal NPM registry
 #
 
-image: node:18-alpine
+image: node:22-alpine
 
 stages:
     - release
