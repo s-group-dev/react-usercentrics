@@ -1,3 +1,9 @@
+## [3.0.0-beta.2](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2025-03-31)
+
+### Bug Fixes
+
+* allow npm publish of beta tags ([9fba6ce](https://github.com/s-group-dev/react-usercentrics/commit/9fba6cecf8f7b8efa853838e8d37e7b4c409cbbb))
+
 ## [3.0.0-beta.1](https://github.com/s-group-dev/react-usercentrics/compare/v2.0.0...v3.0.0-beta.1) (2025-03-31)
 
 ### ⚠ BREAKING CHANGES
