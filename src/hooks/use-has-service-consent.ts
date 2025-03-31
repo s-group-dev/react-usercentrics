@@ -25,7 +25,7 @@ export const useHasServiceConsent = (serviceId: ServiceId): boolean | null => {
         return consents[serviceId] ?? null
     }
 
-    if (strictMode) {
+    if (strictMode && !(serviceId in consents)) {
         throw new Error(`Usercentrics Service not found for id "${serviceId}"`)
     }
 
