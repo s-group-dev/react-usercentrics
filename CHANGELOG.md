@@ -1,3 +1,14 @@
+## [3.0.0-beta.1](https://github.com/s-group-dev/react-usercentrics/compare/v2.0.0...v3.0.0-beta.1) (2025-03-31)
+
+### ⚠ BREAKING CHANGES
+
+* This package has migrated to Usercentrics Web CMP v3.
+Please read the provided migration guide in `MIGRATION.md`.
+
+### Features
+
+* migrate to Usercentrics Web CMP v3 ([e352e21](https://github.com/s-group-dev/react-usercentrics/commit/e352e212b824f2b2bddc229467a6f1fafcfef313))
+
 ## [2.0.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.4...v2.0.0) (2025-03-28)
 
 ### ⚠ BREAKING CHANGES
