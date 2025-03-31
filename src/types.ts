@@ -5,12 +5,14 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 export type ServiceId = import('@s-group/react-usercentrics/augmented').ServiceId
 
+export type ConsentType = 'EXPLICIT' | 'IMPLICIT'
+
 /** Partial type for service info read from local storage, if available. Unused values are left out. */
 export type ServiceData = {
     name: string
     consent?: {
         given: boolean
-        type: 'IMPLICIT' | 'EXPLICIT'
+        type: ConsentType
     }
 }
 
@@ -21,6 +23,12 @@ export type ServiceData = {
 type ConsentData = {
     status: 'ALL_ACCEPTED' | 'ALL_DENIED' | 'SOME_ACCEPTED' | 'SOME_DENIED'
     required: boolean
+    language: string
+    setting: {
+        id: string
+        type: string
+        version: string
+    }
 }
 
 /**
@@ -72,8 +80,18 @@ type UC_CMP = {
      * @see https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
      *
      * @example updateServicesConsents([{ id: 'my-service-id', consent: true }])
+     *
+     * @warn Updating consents doesn't save them! Remember to also call `saveConsents`.
      */
     updateServicesConsents: (servicesConsents: { id: ServiceId; consent: boolean }[]) => Promise<void>
+
+    /**
+     * Saves the consents after being updated.
+     * @see https://usercentrics.com/docs/web/features/api/control-functionality/#saveconsents
+     *
+     * @example saveConsents()
+     */
+    saveConsents: () => Promise<void>
 
     /**
      * Retrieves all the consent details
@@ -134,3 +152,17 @@ export type UCUIVIewChanged = CustomEvent<{
     view: UCUIView
     previousView: UCUIView
 }>
+
+/**
+ * The i18n localization content for the Web CMP. Unused values are left out.
+ */
+export type CMPi18nContent = {
+    services: Record<
+        ServiceId,
+        {
+            id: ServiceId
+            name: string
+            description: string
+        }
+    >
+}

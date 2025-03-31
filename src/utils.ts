@@ -1,4 +1,4 @@
-import type { ServiceId, UCDataFromLocalStorage, UCWindow } from './types.js'
+import type { CMPi18nContent, ServiceId, UCDataFromLocalStorage, UCWindow } from './types.js'
 
 /**
  * A method to check if user has interacted with the consent prompt and given consent information.
@@ -95,11 +95,23 @@ export const getConsentsFromLocalStorage = (): UCDataFromLocalStorage['consent']
  * @see https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
  *
  * @example updateServicesConsents([{ id: 'my-service-id', consent: true }])
+ *
+ * @warn Updating consents doesn't save them! Remember to also call `saveConsents`.
  */
 export const updateServicesConsents = async (
     servicesConsents: { id: ServiceId; consent: boolean }[],
 ): Promise<void> => {
     await (window as UCWindow).__ucCmp?.updateServicesConsents(servicesConsents)
+}
+
+/**
+ * Saves the consents after being updated.
+ * @see https://usercentrics.com/docs/web/features/api/control-functionality/#saveconsents
+ *
+ * @example saveConsents()
+ */
+export async function saveConsents(): Promise<void> {
+    await (window as UCWindow).__ucCmp?.saveConsents()
 }
 
 /**
@@ -122,4 +134,36 @@ export const isOpen = (): boolean => {
     }
 
     return false
+}
+
+/**
+ * Programmatic way to get the translated i18n content of the Web CMP modal.
+ * Useful for rendering custom UI with like listing services' names and descriptions.
+ * @param [countryCode] Two character country code, e.g. "en" = set language to English; defaults to configured language
+ *
+ * @example
+ * const services = await getServiceInfo()
+ * const { name, description } = services['my-service-id']
+ */
+export const getServiceInfo = async (countryCode?: string): Promise<CMPi18nContent['services']> => {
+    const consentDetails = await (window as UCWindow).__ucCmp!.getConsentDetails()
+    const language = countryCode ?? consentDetails.consent.language
+    const { id, type, version } = consentDetails.consent.setting
+
+    const response = await window.fetch(
+        `https://v1.api.service.cmp.usercentrics.eu/latest/i18n/${language}/${type}/${id}/${version}`,
+    )
+
+    const i18n = (await response.json()) as CMPi18nContent
+    return Object.values(i18n.services).reduce(
+        (acc, service) => ({
+            ...acc,
+            [service.id]: {
+                id: service.id,
+                name: service.name,
+                description: service.description,
+            },
+        }),
+        {} as CMPi18nContent['services'],
+    )
 }
