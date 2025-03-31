@@ -1,3 +1,14 @@
+## [3.0.0-beta.3](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2025-03-31)
+
+### Features
+
+* add `getServiceInfo()` method ([df5383f](https://github.com/s-group-dev/react-usercentrics/commit/df5383fcaddef92b1ebd2dfe3e42608810e1672b))
+* add missing method `saveConsents()` to use with `updateServicesConsents()` ([20347c7](https://github.com/s-group-dev/react-usercentrics/commit/20347c7f325548b745651fe743e4500910652c24))
+
+### Bug Fixes
+
+* only throw in strict mode when service id missing ([8f03b2b](https://github.com/s-group-dev/react-usercentrics/commit/8f03b2b22c28d863ae8fc80481424b71af8c3e9a))
+
 ## [3.0.0-beta.2](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2025-03-31)
 
 ### Bug Fixes
