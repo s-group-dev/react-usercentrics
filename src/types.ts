@@ -23,6 +23,12 @@ export type ServiceData = {
 type ConsentData = {
     status: 'ALL_ACCEPTED' | 'ALL_DENIED' | 'SOME_ACCEPTED' | 'SOME_DENIED'
     required: boolean
+    language: string
+    setting: {
+        id: string
+        type: string
+        version: string
+    }
 }
 
 /**
@@ -146,3 +152,17 @@ export type UCUIVIewChanged = CustomEvent<{
     view: UCUIView
     previousView: UCUIView
 }>
+
+/**
+ * The i18n localization content for the Web CMP. Unused values are left out.
+ */
+export type CMPi18nContent = {
+    services: Record<
+        ServiceId,
+        {
+            id: ServiceId
+            name: string
+            description: string
+        }
+    >
+}

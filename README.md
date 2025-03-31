@@ -342,8 +342,7 @@ Updates consents for individual or multiple services.
 
 See also https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
 
-> [!CAUTION]  
-> Updating consents doesn't save them! Remember to also call `saveConsents`.
+**Warning:** Updating consents doesn't save them! Remember to also call `saveConsents`.
 
 ```tsx
 await updateServicesConsents([{ id: 'my-service-id', consent: true }])
@@ -368,4 +367,14 @@ See also https://usercentrics.com/docs/web/features/api/control-functionality/#c
 
 ```tsx
 updateLanguage('fi')
+```
+
+#### `getServiceInfo`
+
+Programmatic way to get the translated i18n content of the Web CMP modal.
+Useful for rendering custom UI with like listing services' names and descriptions.
+
+```tsx
+const services = await getServiceInfo()
+const { name, description } = services['my-service-id']
 ```
