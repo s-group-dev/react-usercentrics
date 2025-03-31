@@ -1,26 +1,31 @@
 import { createContext } from 'react'
 
-import type { ServiceInfoFromLocalStorage } from './types.js'
+import type { ConsentStatusFromLocalStorage, ServiceId } from './types.js'
 
-interface UsercentricsContextType {
+export type UsercentricsBrowserIntegrationState = {
     hasInteracted: boolean
     isClientSide: boolean
     isFailed: boolean
     isInitialized: boolean
     isOpen: boolean
-    localStorageState: ServiceInfoFromLocalStorage[]
-    ping: symbol
-    strictMode: boolean
+    localStorageState: Record<ServiceId, ConsentStatusFromLocalStorage>
 }
 
-const INITIAL_STATE: UsercentricsContextType = {
+export const SSR_INITIAL_STATE: UsercentricsBrowserIntegrationState = {
     hasInteracted: false,
     isClientSide: false,
     isFailed: false,
     isInitialized: false,
     isOpen: false,
-    localStorageState: [],
-    ping: Symbol(),
+    localStorageState: {},
+}
+
+type UsercentricsContextType = UsercentricsBrowserIntegrationState & {
+    strictMode: boolean
+}
+
+const INITIAL_STATE: UsercentricsContextType = {
+    ...SSR_INITIAL_STATE,
     strictMode: false,
 }
 
