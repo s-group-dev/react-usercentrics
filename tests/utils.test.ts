@@ -6,6 +6,7 @@ describe('Usercentrics', () => {
         ;(window as UCWindow).__ucCmp = {
             changeLanguage: jest.fn(),
             getConsentDetails: jest.fn(),
+            saveConsents: jest.fn(),
             showFirstLayer: jest.fn(),
             showSecondLayer: jest.fn(),
             showServiceDetails: jest.fn(),
@@ -27,6 +28,11 @@ describe('Usercentrics', () => {
             expect((window as UCWindow).__ucCmp?.updateServicesConsents).toHaveBeenCalledWith([
                 { consent: true, id: 'test-id' },
             ])
+        })
+
+        test('saveConsents', async () => {
+            await utils.saveConsents()
+            expect((window as UCWindow).__ucCmp?.saveConsents).toHaveBeenCalledWith()
         })
 
         test('showFirstLayer', async () => {

@@ -5,12 +5,14 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 export type ServiceId = import('@s-group/react-usercentrics/augmented').ServiceId
 
+export type ConsentType = 'EXPLICIT' | 'IMPLICIT'
+
 /** Partial type for service info read from local storage, if available. Unused values are left out. */
 export type ServiceData = {
     name: string
     consent?: {
         given: boolean
-        type: 'IMPLICIT' | 'EXPLICIT'
+        type: ConsentType
     }
 }
 
@@ -72,8 +74,18 @@ type UC_CMP = {
      * @see https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
      *
      * @example updateServicesConsents([{ id: 'my-service-id', consent: true }])
+     *
+     * @warn Updating consents doesn't save them! Remember to also call `saveConsents`.
      */
     updateServicesConsents: (servicesConsents: { id: ServiceId; consent: boolean }[]) => Promise<void>
+
+    /**
+     * Saves the consents after being updated.
+     * @see https://usercentrics.com/docs/web/features/api/control-functionality/#saveconsents
+     *
+     * @example saveConsents()
+     */
+    saveConsents: () => Promise<void>
 
     /**
      * Retrieves all the consent details

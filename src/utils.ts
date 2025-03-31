@@ -95,11 +95,23 @@ export const getConsentsFromLocalStorage = (): UCDataFromLocalStorage['consent']
  * @see https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
  *
  * @example updateServicesConsents([{ id: 'my-service-id', consent: true }])
+ *
+ * @warn Updating consents doesn't save them! Remember to also call `saveConsents`.
  */
 export const updateServicesConsents = async (
     servicesConsents: { id: ServiceId; consent: boolean }[],
 ): Promise<void> => {
     await (window as UCWindow).__ucCmp?.updateServicesConsents(servicesConsents)
+}
+
+/**
+ * Saves the consents after being updated.
+ * @see https://usercentrics.com/docs/web/features/api/control-functionality/#saveconsents
+ *
+ * @example saveConsents()
+ */
+export async function saveConsents(): Promise<void> {
+    await (window as UCWindow).__ucCmp?.saveConsents()
 }
 
 /**

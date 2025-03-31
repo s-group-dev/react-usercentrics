@@ -69,18 +69,6 @@ declare module '@s-group/react-usercentrics/augmented' {
 
 ## API
 
-### Types
-
-#### `ConsentType`
-
-When giving consent using the API (instead of customer clicking the Dialog),
-consent can be either explicit (e.g. when clicking some custom button) or implicit.
-
-#### `UCWindow`
-
-Augmented window type, possibly including the `__ucCmp` API.
-Do not declare this globally, but prefer to use the included utility functions instead.
-
 ### Components
 
 #### `UsercentricsScript`
@@ -354,8 +342,21 @@ Updates consents for individual or multiple services.
 
 See also https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
 
+> [!CAUTION]  
+> Updating consents doesn't save them! Remember to also call `saveConsents`.
+
 ```tsx
-updateServicesConsents([{ id: 'my-service-id', consent: true }])
+await updateServicesConsents([{ id: 'my-service-id', consent: true }])
+```
+
+#### `saveConsents`
+
+Saves the consents after being updated.
+
+See also https://usercentrics.com/docs/web/features/api/control-functionality/#saveconsents
+
+```tsx
+await saveConsents()
 ```
 
 #### `updateLanguage`
