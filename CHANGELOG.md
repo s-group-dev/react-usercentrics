@@ -1,3 +1,9 @@
+## [3.0.0-beta.4](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0-beta.3...v3.0.0-beta.4) (2025-04-03)
+
+### Features
+
+* export USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL constant ([0ce4253](https://github.com/s-group-dev/react-usercentrics/commit/0ce42538470e120c5cda4eab7a7e8566d251aac8))
+
 ## [3.0.0-beta.3](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2025-03-31)
 
 ### Features
