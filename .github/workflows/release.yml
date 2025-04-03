@@ -3,8 +3,10 @@ name: Release
 on:
     push:
         tags:
-            # Semver-like tags "v1.0.0"
+            # Latest release tags, e.g. "v2.0.0"
             - 'v[0-9]+.[0-9]+.[0-9]+'
+            # Beta release tags, e.g. "v3.0.0-beta.1"
+            - 'v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
 
 jobs:
     Install:

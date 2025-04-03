@@ -1,3 +1,37 @@
+## [3.0.0-beta.4](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0-beta.3...v3.0.0-beta.4) (2025-04-03)
+
+### Features
+
+* export USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL constant ([0ce4253](https://github.com/s-group-dev/react-usercentrics/commit/0ce42538470e120c5cda4eab7a7e8566d251aac8))
+
+## [3.0.0-beta.3](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2025-03-31)
+
+### Features
+
+* add `getServiceInfo()` method ([df5383f](https://github.com/s-group-dev/react-usercentrics/commit/df5383fcaddef92b1ebd2dfe3e42608810e1672b))
+* add missing method `saveConsents()` to use with `updateServicesConsents()` ([20347c7](https://github.com/s-group-dev/react-usercentrics/commit/20347c7f325548b745651fe743e4500910652c24))
+
+### Bug Fixes
+
+* only throw in strict mode when service id missing ([8f03b2b](https://github.com/s-group-dev/react-usercentrics/commit/8f03b2b22c28d863ae8fc80481424b71af8c3e9a))
+
+## [3.0.0-beta.2](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2025-03-31)
+
+### Bug Fixes
+
+* allow npm publish of beta tags ([9fba6ce](https://github.com/s-group-dev/react-usercentrics/commit/9fba6cecf8f7b8efa853838e8d37e7b4c409cbbb))
+
+## [3.0.0-beta.1](https://github.com/s-group-dev/react-usercentrics/compare/v2.0.0...v3.0.0-beta.1) (2025-03-31)
+
+### ⚠ BREAKING CHANGES
+
+* This package has migrated to Usercentrics Web CMP v3.
+Please read the provided migration guide in `MIGRATION.md`.
+
+### Features
+
+* migrate to Usercentrics Web CMP v3 ([e352e21](https://github.com/s-group-dev/react-usercentrics/commit/e352e212b824f2b2bddc229467a6f1fafcfef313))
+
 ## [2.0.0](https://github.com/s-group-dev/react-usercentrics/compare/v1.7.4...v2.0.0) (2025-03-28)
 
 ### ⚠ BREAKING CHANGES
