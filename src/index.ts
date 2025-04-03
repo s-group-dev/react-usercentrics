@@ -1,6 +1,7 @@
 export { UsercentricsDialogToggle } from './components/UsercentricsDialogToggle.js'
 export { UsercentricsProvider } from './components/UsercentricsProvider.js'
 export { UsercentricsScript } from './components/UsercentricsScript.js'
+export { USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL } from './constants.js'
 export { UsercentricsContext } from './context.js'
 export { useHasServiceConsent } from './hooks/use-has-service-consent.js'
 export { useHasUserInteracted } from './hooks/use-has-user-interacted.js'

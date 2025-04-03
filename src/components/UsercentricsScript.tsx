@@ -1,6 +1,8 @@
 import type { FC } from 'react'
 import React from 'react'
 
+import { USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL } from '../constants.js'
+
 interface UsercentricsScriptProps
     extends React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement> {
     /**
@@ -31,12 +33,6 @@ interface UsercentricsScriptProps
  * @example <caption>Preview mode for development</caption>
  * () => <UsercentricsScript settingsId="1234" version="preview" />
  *
- * @example <caption>Use SDK v3 instead of previous v2</caption>
- * () => <UsercentricsScript cmpVersion="3" settingsId="1234" />
- *
- * @example <caption>Fixed UI version instead of latest</caption>
- * () => <UsercentricsScript settingsId="1234" uiVersion="3.24.0" />
- *
  * @example <caption>Fixed language code</caption>
  * () => <UsercentricsScript settingsId="1234" language="fi" />
  *
@@ -56,7 +52,7 @@ export const UsercentricsScript: FC<UsercentricsScriptProps> = ({
             data-settings-id={settingsId}
             data-version={version}
             id={id}
-            src="https://web.cmp.usercentrics.eu/ui/loader.js"
+            src={USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL}
         />
     )
 }

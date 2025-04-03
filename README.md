@@ -33,7 +33,7 @@ import MyApplication from './app'
 ReactDOM.render(
     <>
         <UsercentricsScript settingsId={USERCENTRICS_SETTINGS_ID} />
-        <UsercentricsProvider windowEventName={USERCENTRICS_EVENT_NAME}>
+        <UsercentricsProvider>
             <MyApplication /** You can interact with Usercentrics inside the provider */ />
         </UsercentricsProvider>
     </>,
@@ -68,6 +68,19 @@ declare module '@s-group/react-usercentrics/augmented' {
 ```
 
 ## API
+
+### Constants
+
+#### `USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL`
+
+The url of the Usercentercis Web CMP v3 loader script. Useful when generating Link headers, for example.
+
+```ts
+response.headers.append(
+    'Link',
+    `<${USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL}>; rel=prefetch; as=script; fetchpriority="high"`,
+)
+```
 
 ### Components
 
