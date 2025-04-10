@@ -1,81 +1,4 @@
-import type {
-    ConsentType,
-    ServiceFullInfo,
-    ServiceId,
-    ServiceInfo,
-    ServiceInfoFromLocalStorage,
-    SettingsFromLocalStorage,
-    UCWindow,
-} from './types.js'
-
-export const IS_BROWSER = typeof window !== 'undefined'
-
-/**
- * Programmatic way to show First Layer.
- * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showfirstlayer
- *
- * @example showFirstLayer()
- */
-export const showFirstLayer = (): void => {
-    if (IS_BROWSER) {
-        /**
-         * This file type-casts the Window to possibly include `window.UC_UI`, which is the
-         * main entry point for Usercentrics integration. It is intentionally not declared
-         * globally so that it wouldn't get used directly somewhere else in the code, but
-         * always through these utils.
-         */
-        ;(window as UCWindow).UC_UI?.showFirstLayer?.()
-    }
-}
-
-/**
- * Programmatic way to show Second Layer. If a service/vendor Id value is passed,
- * Second Layer will open the right tab, scroll to the given service/vendor entry and expand it.
- * If no Id is passed, Second Layer will be shown without srcolling to any specific service/vendor.
- *
- * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=showsecondlayer
- *
- * @example showSecondLayer('my-service-id')
- * @example showSecondLayer()
- */
-export const showSecondLayer = (serviceId?: ServiceId): void => {
-    if (IS_BROWSER) {
-        ;(window as UCWindow).UC_UI?.showSecondLayer?.(serviceId)
-    }
-}
-
-/**
- * A method to get array of all services with their basic information
- * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesbaseinfo
- *
- * @example
- * const services = getServicesBaseInfo()
- * const myService = services.find((service) => service.id === 'my-service-id')
- */
-export const getServicesBaseInfo = (): ServiceInfo[] =>
-    (IS_BROWSER && (window as UCWindow).UC_UI?.getServicesBaseInfo?.()) || []
-
-/**
- * A method to get array of all services from local storage
- *
- * @example
- * const services = getServicesFromLocalStorage()
- * const myService = services.find((service) => service.id === 'my-service-id')
- */
-export const getServicesFromLocalStorage = (): ServiceInfoFromLocalStorage[] => {
-    try {
-        const ucSettings = IS_BROWSER && localStorage?.getItem('uc_settings')
-        if (ucSettings) {
-            const ucSettingsObj = JSON.parse(ucSettings) as SettingsFromLocalStorage
-            /** Leave out any other untyped fields */
-            return ucSettingsObj.services.map(({ id, status }) => ({ id, status }))
-        }
-    } catch {
-        /** Ignore failures */
-    }
-
-    return []
-}
+import type { CMPi18nContent, ServiceId, UCDataFromLocalStorage, UCWindow } from './types.js'
 
 /**
  * A method to check if user has interacted with the consent prompt and given consent information.
@@ -85,10 +8,16 @@ export const getServicesFromLocalStorage = (): ServiceInfoFromLocalStorage[] => 
  * if (userInteracted) {
  *  actionRequiredConsentInfoGiven()
  * }
+ *
+ * @see `setUserHasInteracted`
  */
 export const hasUserInteracted = (): boolean => {
+    if (typeof window === 'undefined') {
+        return false
+    }
+
     try {
-        const userInteraction = IS_BROWSER && localStorage?.getItem('uc_user_interaction')
+        const userInteraction = localStorage?.getItem('uc_user_interaction')
         return userInteraction === 'true'
     } catch {
         return false
@@ -96,72 +25,145 @@ export const hasUserInteracted = (): boolean => {
 }
 
 /**
- * A method to get array of all services with their full information.
- * An extra api request will be made, therefore the return represents
- * the eventual completion (or failure) of an asynchronous operation
- * and its returning value.
+ * A method to set that user has interacted with the consent prompt and given consent information.
  *
- * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=getservicesfullinfo
+ * @example setUserHasInteracted()
  *
- * @example
- * const services = await getServicesFullInfo()
- * const myService = services.find((service) => service.id === 'my-service-id')
+ * @see `hasUserInteracted`
  */
-export const getServicesFullInfo = async (): Promise<ServiceFullInfo[]> =>
-    (IS_BROWSER && (window as UCWindow).UC_UI?.getServicesFullInfo?.()) || []
-
-/**
- * Returns true if Usercentrics service has been given consent
- *
- * @example
- * const services = getServicesBaseInfo()
- * const myService = services.find((service) => service.id === 'my-service-id')
- * const hasConsent = hasServiceConsent(myService)
- *
- * if (hasConsent) {
- *   loadMyService()
- * }
- */
-export const hasServiceConsent = (service: ServiceInfo | null): boolean => !!service?.consent.status
-
-/**
- * A method for accepting a single service.
- * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=acceptservice
- */
-export const acceptService = async (serviceId: ServiceId, consentType?: ConsentType) => {
-    if (IS_BROWSER) {
-        await (window as UCWindow).UC_UI?.acceptService?.(serviceId, consentType)
-    }
+export const setUserHasInteracted = (): void => {
+    localStorage?.setItem('uc_user_interaction', 'true')
 }
 
 /**
- * A method to check if all consents were accepted
- * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=areallconsentsaccepted
+ * Programmatic way to show First Layer.
+ * @see https://usercentrics.com/docs/web/features/api/control-ui/#showfirstlayer
+ *
+ * @example showFirstLayer()
  */
-export const areAllConsentsAccepted = () => !!(IS_BROWSER && (window as UCWindow).UC_UI?.areAllConsentsAccepted?.())
+export const showFirstLayer = async (): Promise<void> => {
+    /**
+     * This file type-casts the Window to possibly include `window.UC_UI`, which is the
+     * main entry point for Usercentrics integration. It is intentionally not declared
+     * globally so that it wouldn't get used directly somewhere else in the code, but
+     * always through these utils.
+     */
+    await (window as UCWindow).__ucCmp?.showFirstLayer?.()
+}
+
+/**
+ * Programmatic way to show Second Layer.
+ * @see https://usercentrics.com/docs/web/features/api/control-ui/#showsecondlayer
+ *
+ * @example showSecondLayer()
+ */
+export const showSecondLayer = async (): Promise<void> => {
+    await (window as UCWindow).__ucCmp?.showSecondLayer?.()
+}
+
+/**
+ * Programmatic way to show the details of a service
+ * @see https://usercentrics.com/docs/web/features/api/control-ui/#showservicedetails
+ *
+ * @example showServiceDetails('my-service-id')
+ */
+export const showServiceDetails = async (serviceId: ServiceId): Promise<void> => {
+    await (window as UCWindow).__ucCmp?.showServiceDetails(serviceId)
+}
+
+/**
+ * A method to get consent status saved to localStorage
+ *
+ * @example
+ * const consents = getConsentsFromLocalStorage()
+ * const hasConsent = consents['my-service-id']?.consent === true
+ */
+export const getConsentsFromLocalStorage = (): UCDataFromLocalStorage['consent']['services'] => {
+    try {
+        const data = localStorage?.getItem('ucData')
+        const consentDetails = data ? (JSON.parse(data) as UCDataFromLocalStorage) : { consent: { services: {} } }
+        return consentDetails.consent.services
+    } catch {
+        /** Ignore failures */
+    }
+
+    return {}
+}
+
+/**
+ * Updates consents for individual or multiple services.
+ * @see https://usercentrics.com/docs/web/features/api/control-functionality/#updateservicesconsents
+ *
+ * @example updateServicesConsents([{ id: 'my-service-id', consent: true }])
+ *
+ * @warn Updating consents doesn't save them! Remember to also call `saveConsents`.
+ */
+export const updateServicesConsents = async (
+    servicesConsents: { id: ServiceId; consent: boolean }[],
+): Promise<void> => {
+    await (window as UCWindow).__ucCmp?.updateServicesConsents(servicesConsents)
+}
+
+/**
+ * Saves the consents after being updated.
+ * @see https://usercentrics.com/docs/web/features/api/control-functionality/#saveconsents
+ *
+ * @example saveConsents()
+ */
+export async function saveConsents(): Promise<void> {
+    await (window as UCWindow).__ucCmp?.saveConsents()
+}
 
 /**
  * Programmatic way to set language for the CMP.
  * @param countryCode Two character country code, e.g. "en" = set language to English
- * @see https://docs.usercentrics.com/#/cmp-v2-ui-api?id=updatelanguage
+ * @see https://usercentrics.com/docs/web/features/api/control-functionality/#changelanguage
  *
- * @example updateLanguage("fi")
+ * @example changeLanguage("fi")
  */
-export const updateLanguage = (countryCode: string) => {
-    if (IS_BROWSER) {
-        ;(window as UCWindow).UC_UI?.updateLanguage?.(countryCode)
-    }
+export const changeLanguage = async (countryCode: string): Promise<void> => {
+    await (window as UCWindow).__ucCmp?.changeLanguage?.(countryCode)
 }
 
-/**
- * Returns true if the Usercentrics dialog is currently open.
- */
+/** @returns `true` if the Usercentrics dialog is currently open. */
 export const isOpen = (): boolean => {
-    if (IS_BROWSER) {
-        const usercentricsRoot = document.getElementById('usercentrics-root')
+    if (typeof window !== 'undefined') {
+        const usercentricsRoot = document.getElementById('usercentrics-cmp-ui')
         const dialog = usercentricsRoot?.shadowRoot?.querySelector('[role="dialog"]')
         return !!dialog
     }
 
     return false
+}
+
+/**
+ * Programmatic way to get the translated i18n content of the Web CMP modal.
+ * Useful for rendering custom UI with like listing services' names and descriptions.
+ * @param [countryCode] Two character country code, e.g. "en" = set language to English; defaults to configured language
+ *
+ * @example
+ * const services = await getServiceInfo()
+ * const { name, description } = services['my-service-id']
+ */
+export const getServiceInfo = async (countryCode?: string): Promise<CMPi18nContent['services']> => {
+    const consentDetails = await (window as UCWindow).__ucCmp!.getConsentDetails()
+    const language = countryCode ?? consentDetails.consent.language
+    const { id, type, version } = consentDetails.consent.setting
+
+    const response = await window.fetch(
+        `https://v1.api.service.cmp.usercentrics.eu/latest/i18n/${language}/${type}/${id}/${version}`,
+    )
+
+    const i18n = (await response.json()) as CMPi18nContent
+    return Object.values(i18n.services).reduce(
+        (acc, service) => ({
+            ...acc,
+            [service.id]: {
+                id: service.id,
+                name: service.name,
+                description: service.description,
+            },
+        }),
+        {} as CMPi18nContent['services'],
+    )
 }

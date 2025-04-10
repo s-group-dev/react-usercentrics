@@ -2,9 +2,6 @@ import { useContext } from 'react'
 
 import { UsercentricsContext } from '../context.js'
 import type { ServiceId } from '../types.js'
-import { hasServiceConsent } from '../utils.js'
-import { useServiceDebug } from './use-service-debug.js'
-import { useServiceInfo } from './use-service-info.js'
 
 /**
  * Whether the specific Usercentrics service has been given consent.
@@ -13,9 +10,7 @@ import { useServiceInfo } from './use-service-info.js'
  * @warn it's best to assume no consent until this hook returns `true`
  */
 export const useHasServiceConsent = (serviceId: ServiceId): boolean | null => {
-    useServiceDebug(serviceId)
-    const serviceInfo = useServiceInfo(serviceId)
-    const { isClientSide, isInitialized, localStorageState } = useContext(UsercentricsContext)
+    const { consents, isInitialized, isClientSide, strictMode } = useContext(UsercentricsContext)
 
     /** Consent status is unknown during SSR because CMP is only available client-side */
     if (!isClientSide) {
@@ -27,9 +22,12 @@ export const useHasServiceConsent = (serviceId: ServiceId): boolean | null => {
      * If it's not loaded, and there's nothing in localStorage, this will return `null`
      */
     if (!isInitialized) {
-        const saved = localStorageState.find((service) => service.id === serviceId)
-        return saved ? saved.status : null
+        return consents[serviceId] ?? null
     }
 
-    return hasServiceConsent(serviceInfo)
+    if (strictMode && !(serviceId in consents)) {
+        throw new Error(`Usercentrics Service not found for id "${serviceId}"`)
+    }
+
+    return !!consents[serviceId]
 }
