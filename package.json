@@ -1,6 +1,6 @@
 {
     "name": "@s-group/react-usercentrics",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "description": "React utils for interacting with the Usercentrics Web CMP v3",
     "author": "Iiro Jäppinen <iiro.jappinen@sok.fi>",
     "license": "MIT",

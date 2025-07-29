@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.0...v3.0.1) (2025-07-29)
+
+### Bug Fixes
+
+* **deps:** update dependencies ([3c59535](https://github.com/s-group-dev/react-usercentrics/commit/3c595355598ff0779dd0a3ca0e277d3eb47d43d8))
+
 ## [3.0.0](https://github.com/s-group-dev/react-usercentrics/compare/v2.0.0...v3.0.0) (2025-04-10)
 
 ### ⚠ BREAKING CHANGES
