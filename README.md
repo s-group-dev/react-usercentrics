@@ -102,10 +102,11 @@ interface UsercentricsScriptProps
     settingsId: string
 
     /**
-     * Whether to run Usercentrics in "production" or "preview" mode
-     * @default "production"
+     * Whether to run Usercentrics in draft mode
+     * @default `false`
+     * @see https://usercentrics.com/docs/web/implementation/ui/optional-steps/#draft-script
      */
-    version?: 'production' | 'preview'
+    draft?: boolean
 
     src?: never
 }
@@ -114,7 +115,7 @@ interface UsercentricsScriptProps
 ;() => <UsercentricsScript settingsId="1234" />
 
 /** Preview mode for development */
-;() => <UsercentricsScript settingsId="1234" version="preview" />
+;() => <UsercentricsScript settingsId="1234" draft={true} />
 
 /* Fixed language code */
 ;() => <UsercentricsScript settingsId="1234" language="fi" />

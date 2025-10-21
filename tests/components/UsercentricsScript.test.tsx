@@ -17,9 +17,9 @@ describe('Usercentrics', () => {
             })
 
             it('should render preview attribute', () => {
-                const result = renderToStaticMarkup(<UsercentricsScript settingsId="1234" version="preview" />)
+                const result = renderToStaticMarkup(<UsercentricsScript settingsId="1234" draft={true} />)
 
-                expect(result).toMatch('data-version="preview"')
+                expect(result).toMatch('data-draft="true"')
             })
 
             it('should allow disabling default async prop', () => {

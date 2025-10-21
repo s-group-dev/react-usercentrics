@@ -16,10 +16,11 @@ interface UsercentricsScriptProps
     settingsId: string
 
     /**
-     * Whether to run Usercentrics in "production" or "preview" mode.
-     * @default "production"
+     * Whether to run Usercentrics in draft mode
+     * @default `false`
+     * @see https://usercentrics.com/docs/web/implementation/ui/optional-steps/#draft-script
      */
-    version?: 'production' | 'preview'
+    draft?: boolean
 
     src?: never
 }
@@ -41,7 +42,7 @@ export const UsercentricsScript: FC<UsercentricsScriptProps> = ({
     id = 'usercentrics-cmp',
     language,
     settingsId,
-    version,
+    draft = false,
     ...rest
 }) => {
     return (
@@ -50,7 +51,7 @@ export const UsercentricsScript: FC<UsercentricsScriptProps> = ({
             async={'async' in rest ? rest.async : true}
             data-language={language}
             data-settings-id={settingsId}
-            data-version={version}
+            data-draft={draft ? true : undefined}
             id={id}
             src={USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL}
         />
