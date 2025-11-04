@@ -392,3 +392,7 @@ Useful for rendering custom UI with like listing services' names and description
 const services = await getServiceInfo()
 const { name, description } = services['my-service-id']
 ```
+
+## Development
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
