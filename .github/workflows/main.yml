@@ -6,6 +6,9 @@ on:
             - main
             - beta
 
+permissions:
+    contents: read
+
 jobs:
     Install:
         runs-on: ubuntu-latest
@@ -104,6 +107,10 @@ jobs:
     Release:
         # Prevent infinite release loop
         if: ${{ !startsWith(github.event.head_commit.message, 'chore(release)') }}
+        permissions:
+            contents: write
+            issues: write
+            pull_requests: write
         needs:
             - Lint
             - Typecheck
