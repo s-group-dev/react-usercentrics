@@ -110,7 +110,7 @@ jobs:
         permissions:
             contents: write
             issues: write
-            pull_requests: write
+            pull-requests: write
         needs:
             - Lint
             - Typecheck
