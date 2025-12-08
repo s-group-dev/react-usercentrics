@@ -3,8 +3,10 @@ import React from 'react'
 
 import { USERCENTRICS_WEB_CMP_LOADER_SCRIPT_URL } from '../constants.js'
 
-interface UsercentricsScriptProps
-    extends React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement> {
+interface UsercentricsScriptProps extends React.DetailedHTMLProps<
+    React.ScriptHTMLAttributes<HTMLScriptElement>,
+    HTMLScriptElement
+> {
     /**
      * The language code the Usercentrics UI should load by default. If not set, it will be automatically selected.
      *

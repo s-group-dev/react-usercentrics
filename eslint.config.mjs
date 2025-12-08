@@ -39,9 +39,7 @@ export default tseslint.config(
             'react-hooks': hooksPlugin,
             'simple-import-sort': simpleImportSort,
         },
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         rules: {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             ...hooksPlugin.configs.recommended.rules,
             '@typescript-eslint/consistent-type-definitions': 'off',
             '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
