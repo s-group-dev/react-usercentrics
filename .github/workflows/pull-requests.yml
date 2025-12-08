@@ -102,6 +102,8 @@ jobs:
             - run: npm run build
 
     Release-dry-run:
+        needs:
+            - Install
         name: Release (dry-run)
         runs-on: ubuntu-latest
         steps:
