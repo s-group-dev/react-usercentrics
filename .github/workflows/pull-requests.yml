@@ -10,12 +10,12 @@ jobs:
     Install:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v6
             - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
                   package-manager-cache: false
-            - uses: actions/cache@v4
+            - uses: actions/cache@v5
               id: cache-node_modules
               with:
                   path: node_modules
@@ -30,12 +30,12 @@ jobs:
             - Install
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v6
             - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
                   package-manager-cache: false
-            - uses: actions/cache@v4
+            - uses: actions/cache@v5
               id: cache-node_modules
               with:
                   path: node_modules
@@ -49,12 +49,12 @@ jobs:
             - Install
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v6
             - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
                   package-manager-cache: false
-            - uses: actions/cache@v4
+            - uses: actions/cache@v5
               id: cache-node_modules
               with:
                   path: node_modules
@@ -68,12 +68,12 @@ jobs:
             - Install
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v6
             - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
                   package-manager-cache: false
-            - uses: actions/cache@v4
+            - uses: actions/cache@v5
               id: cache-node_modules
               with:
                   path: node_modules
@@ -87,12 +87,12 @@ jobs:
             - Install
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v6
             - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
                   package-manager-cache: false
-            - uses: actions/cache@v4
+            - uses: actions/cache@v5
               id: cache-node_modules
               with:
                   path: node_modules
@@ -107,7 +107,7 @@ jobs:
         name: Release (dry-run)
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v6
               with:
                   token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
                   ref: ${{ github.head_ref }}
@@ -116,7 +116,7 @@ jobs:
               with:
                   node-version-file: .node-version
                   package-manager-cache: false
-            - uses: actions/cache@v4
+            - uses: actions/cache@v5
               id: cache-node_modules
               with:
                   path: node_modules
