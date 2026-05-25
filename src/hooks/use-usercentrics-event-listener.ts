@@ -33,10 +33,10 @@ export const useUsercentricsEventListener = ({
     useEffect(() => {
         const consentsFromLocalStorage = getConsentsFromLocalStorage()
         const consents = Object.entries(consentsFromLocalStorage).reduce(
-            (acc, [serviceId, status]) => ({
-                ...acc,
-                [serviceId]: status.consent,
-            }),
+            (acc, [serviceId, status]) => {
+                acc[serviceId] = status.consent
+                return acc
+            },
             {} as Record<ServiceId, boolean>,
         )
 
@@ -52,7 +52,11 @@ export const useUsercentricsEventListener = ({
 
         if ('__ucCmp' in window) {
             /** UC_UI already started before this mounted, dialog might be open */
-            setState((current) => ({ ...current, isInitialized: true, isOpen: isOpen() }))
+            setState((current) => ({
+                ...current,
+                isInitialized: true,
+                isOpen: isOpen(),
+            }))
         } else {
             /** Otherwise, start waiting for initialization. There will be a separate event when dialog opens. */
             window.addEventListener(
@@ -88,7 +92,11 @@ export const useUsercentricsEventListener = ({
                     case UCUICMPEventType.DENY_ALL:
                     case UCUICMPEventType.SAVE: {
                         setUserHasInteracted()
-                        setState((current) => ({ ...current, isOpen: false, hasInteracted: true }))
+                        setState((current) => ({
+                            ...current,
+                            isOpen: false,
+                            hasInteracted: true,
+                        }))
                         break
                     }
                 }
@@ -98,10 +106,10 @@ export const useUsercentricsEventListener = ({
         const handleConsentEvent = (event: Event) => {
             if (isUCConsentEvent(event)) {
                 const consents = Object.entries(event.detail.services).reduce(
-                    (acc, [serviceId, data]) => ({
-                        ...acc,
-                        [serviceId]: data.consent?.given === true,
-                    }),
+                    (acc, [serviceId, data]) => {
+                        acc[serviceId] = data.consent?.given === true
+                        return acc
+                    },
                     {} as Record<ServiceId, boolean>,
                 )
 

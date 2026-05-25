@@ -17,8 +17,8 @@ jobs:
     CodeQL:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v6
-            - uses: github/codeql-action/init@v4
+            - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # https://github.com/actions/checkout/releases/tag/v6.0.2
+            - uses: github/codeql-action/init@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # https://github.com/github/codeql-action/releases/tag/v4.36.0
               with:
                   languages: javascript-typescript
-            - uses: github/codeql-action/analyze@v4
+            - uses: github/codeql-action/analyze@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # https://github.com/github/codeql-action/releases/tag/v4.36.0

@@ -1,17 +1,18 @@
 import { act, fireEvent, renderHook } from '@testing-library/react'
+import { beforeEach, describe, it, vi } from 'vitest'
 
 import { useUsercentricsEventListener } from '../../src/hooks/use-usercentrics-event-listener.js'
 import { type UCUICMPEvent, UCUICMPEventType, UCUIView, type UCWindow } from '../../src/types.js'
 import { hasUserInteracted, isOpen } from '../../src/utils.js'
 
-jest.mock('../../src/utils.js', () => ({
-    getConsentsFromLocalStorage: jest.fn().mockReturnValue({}),
-    hasUserInteracted: jest.fn().mockReturnValue(false),
-    isOpen: jest.fn().mockReturnValue(false),
-    setUserHasInteracted: jest.fn(),
+vi.mock('../../src/utils.js', () => ({
+    getConsentsFromLocalStorage: vi.fn().mockReturnValue({}),
+    hasUserInteracted: vi.fn().mockReturnValue(false),
+    isOpen: vi.fn().mockReturnValue(false),
+    setUserHasInteracted: vi.fn(),
 }))
 
-jest.useFakeTimers()
+vi.useFakeTimers()
 
 const ucUICMPEvent = (type: UCUICMPEventType): UCUICMPEvent =>
     new CustomEvent('UC_UI_CMP_EVENT', { detail: { type } }) as UCUICMPEvent
@@ -19,11 +20,11 @@ const ucUICMPEvent = (type: UCUICMPEventType): UCUICMPEvent =>
 describe('Usercentrics', () => {
     describe('hooks', () => {
         beforeEach(() => {
-            jest.clearAllMocks()
+            vi.clearAllMocks()
         })
 
         describe('useUsercentricsEventListener', () => {
-            it('should return "isClientSide: true"', () => {
+            it('should return "isClientSide: true"', ({ expect }) => {
                 const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                 expect(result.current).toEqual(
@@ -35,7 +36,7 @@ describe('Usercentrics', () => {
                 )
             })
 
-            it('should return "isInitialized: true" when "__ucCmp" in window', () => {
+            it('should return "isInitialized: true" when "__ucCmp" in window', ({ expect }) => {
                 ;(window as UCWindow).__ucCmp = {} as UCWindow['__ucCmp']
 
                 const { result } = renderHook(() => useUsercentricsEventListener({}))
@@ -52,10 +53,10 @@ describe('Usercentrics', () => {
                 delete (window as UCWindow).__ucCmp
             })
 
-            it('should return "isOpen: true" when "UC_UI" in window and dialog already visible', () => {
+            it('should return "isOpen: true" when "UC_UI" in window and dialog already visible', ({ expect }) => {
                 ;(window as UCWindow).__ucCmp = {} as UCWindow['__ucCmp']
 
-                jest.mocked(isOpen).mockReturnValueOnce(true)
+                vi.mocked(isOpen).mockReturnValueOnce(true)
 
                 const { result } = renderHook(() => useUsercentricsEventListener({}))
 
@@ -71,7 +72,7 @@ describe('Usercentrics', () => {
                 delete (window as UCWindow).__ucCmp
             })
 
-            it('should set "isInitialized: true" after "UC_UI_INITIALIZED" window event', () => {
+            it('should set "isInitialized: true" after "UC_UI_INITIALIZED" window event', ({ expect }) => {
                 const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                 expect(result.current).toEqual(
@@ -95,24 +96,24 @@ describe('Usercentrics', () => {
                 )
 
                 act(() => {
-                    jest.runAllTimers()
+                    vi.runAllTimers()
                 })
 
                 expect(result.current.isFailed).toEqual(false)
             })
 
-            it('should set "isFailed: true" after timeout if not yet initialized', () => {
+            it('should set "isFailed: true" after timeout if not yet initialized', ({ expect }) => {
                 const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                 act(() => {
-                    jest.runAllTimers()
+                    vi.runAllTimers()
                 })
 
                 expect(result.current.isFailed).toEqual(true)
             })
 
-            it('should return "hasInteracted: true" when user has interacted with UC previously', () => {
-                jest.mocked(hasUserInteracted).mockReturnValueOnce(true)
+            it('should return "hasInteracted: true" when user has interacted with UC previously', ({ expect }) => {
+                vi.mocked(hasUserInteracted).mockReturnValueOnce(true)
 
                 const { result } = renderHook(() => useUsercentricsEventListener({}))
 
@@ -126,27 +127,37 @@ describe('Usercentrics', () => {
             })
 
             describe('Reacting to UC window events', () => {
-                it('should return "isOpen: true" on UC_UI_VIEW_CHANGED -> FIST_LAYER event', () => {
+                it('should return "isOpen: true" on UC_UI_VIEW_CHANGED -> FIST_LAYER event', ({ expect }) => {
                     const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false }))
 
-                    fireEvent(window, new CustomEvent('UC_UI_VIEW_CHANGED', { detail: { view: UCUIView.FIRST_LAYER } }))
+                    fireEvent(
+                        window,
+                        new CustomEvent('UC_UI_VIEW_CHANGED', {
+                            detail: { view: UCUIView.FIRST_LAYER },
+                        }),
+                    )
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: true }))
                 })
 
-                it('should return "isOpen: false" on UC_UI_VIEW_CHANGED -> NONE event', () => {
+                it('should return "isOpen: false" on UC_UI_VIEW_CHANGED -> NONE event', ({ expect }) => {
                     const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false }))
 
-                    fireEvent(window, new CustomEvent('UC_UI_VIEW_CHANGED', { detail: { view: UCUIView.NONE } }))
+                    fireEvent(
+                        window,
+                        new CustomEvent('UC_UI_VIEW_CHANGED', {
+                            detail: { view: UCUIView.NONE },
+                        }),
+                    )
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false }))
                 })
 
-                it('should return "isOpen: false, hasInteracted: true" on ACCEPT_ALL event', () => {
+                it('should return "isOpen: false, hasInteracted: true" on ACCEPT_ALL event', ({ expect }) => {
                     const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false, hasInteracted: false }))
@@ -156,7 +167,7 @@ describe('Usercentrics', () => {
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false, hasInteracted: true }))
                 })
 
-                it('should return "isOpen: false, hasInteracted: true" on DENY_ALL event', () => {
+                it('should return "isOpen: false, hasInteracted: true" on DENY_ALL event', ({ expect }) => {
                     const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false, hasInteracted: false }))
@@ -166,7 +177,7 @@ describe('Usercentrics', () => {
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false, hasInteracted: true }))
                 })
 
-                it('should return "isOpen: false, hasInteracted: true" on SAVE event', () => {
+                it('should return "isOpen: false, hasInteracted: true" on SAVE event', ({ expect }) => {
                     const { result } = renderHook(() => useUsercentricsEventListener({}))
 
                     expect(result.current).toEqual(expect.objectContaining({ isOpen: false, hasInteracted: false }))

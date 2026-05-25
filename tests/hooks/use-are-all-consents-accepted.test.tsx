@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import type { ContextType, FC, ReactNode } from 'react'
 import React from 'react'
+import { describe, it } from 'vitest'
 
 import { UsercentricsContext } from '../../src/context.js'
 import { useAreAllConsentsAccepted } from '../../src/hooks/use-are-all-consents-accepted.js'
@@ -30,7 +31,7 @@ describe('Usercentrics', () => {
                 return Wrapper
             }
 
-            it('should return null during SSR', () => {
+            it('should return null during SSR', ({ expect }) => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({ isClientSide: false }),
                 })
@@ -38,7 +39,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(null)
             })
 
-            it('should return null when not initialized and localStorage is empty', () => {
+            it('should return null when not initialized and localStorage is empty', ({ expect }) => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({ isInitialized: false }),
                 })
@@ -46,7 +47,9 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(null)
             })
 
-            it('should return false when not initialized and some services in localStorage do not have consent', () => {
+            it('should return false when not initialized and some services in localStorage do not have consent', ({
+                expect,
+            }) => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
@@ -60,7 +63,9 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(false)
             })
 
-            it('should return true when not initialized and all services in localStorage have consent', () => {
+            it('should return true when not initialized and all services in localStorage have consent', ({
+                expect,
+            }) => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,
@@ -74,7 +79,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(true)
             })
 
-            it('should return false when not all consents are given', () => {
+            it('should return false when not all consents are given', ({ expect }) => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: true,
@@ -88,7 +93,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(false)
             })
 
-            it('should return true when all consents are given', () => {
+            it('should return true when all consents are given', ({ expect }) => {
                 const { result } = renderHook(() => useAreAllConsentsAccepted(), {
                     wrapper: getWrapper({
                         isInitialized: false,

@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import type { ContextType, FC, ReactNode } from 'react'
 import React from 'react'
+import { describe, it } from 'vitest'
 
 import { UsercentricsContext } from '../../src/context.js'
 import { useHasServiceConsent } from '../../src/hooks/use-has-service-consent.js'
@@ -30,7 +31,7 @@ describe('Usercentrics', () => {
                 return Wrapper
             }
 
-            it('should return null during SSR', () => {
+            it('should return null during SSR', ({ expect }) => {
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
                     wrapper: getWrapper({ isClientSide: false }),
                 })
@@ -38,7 +39,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(null)
             })
 
-            it('should return false when service not found', () => {
+            it('should return false when service not found', ({ expect }) => {
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
                     wrapper: getWrapper(),
                 })
@@ -46,7 +47,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(false)
             })
 
-            it('should return false when no consent', () => {
+            it('should return false when no consent', ({ expect }) => {
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
                     wrapper: getWrapper({
                         consents: {
@@ -58,7 +59,7 @@ describe('Usercentrics', () => {
                 expect(result.current).toEqual(false)
             })
 
-            it('should return true when consent is given', () => {
+            it('should return true when consent is given', ({ expect }) => {
                 const { result } = renderHook(() => useHasServiceConsent('test-id'), {
                     wrapper: getWrapper({
                         consents: {

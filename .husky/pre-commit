@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
 
-npx --no-install lint-staged
+oxfmt
+oxlint
+git update-index --again
