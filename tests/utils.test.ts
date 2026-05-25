@@ -1,3 +1,5 @@
+import { afterAll, afterEach, beforeAll, describe, it, test, vi } from 'vitest'
+
 import type { UCWindow } from '../src/types.js'
 import * as utils from '../src/utils.js'
 
@@ -12,24 +14,24 @@ const TEST_SERVICE_INFO = {
 describe('Usercentrics', () => {
     beforeAll(() => {
         ;(window as UCWindow).__ucCmp = {
-            changeLanguage: jest.fn(),
-            getConsentDetails: jest.fn(),
-            saveConsents: jest.fn(),
-            showFirstLayer: jest.fn(),
-            showSecondLayer: jest.fn(),
-            showServiceDetails: jest.fn(),
-            updateServicesConsents: jest.fn(),
+            changeLanguage: vi.fn(),
+            getConsentDetails: vi.fn(),
+            saveConsents: vi.fn(),
+            showFirstLayer: vi.fn(),
+            showSecondLayer: vi.fn(),
+            showServiceDetails: vi.fn(),
+            updateServicesConsents: vi.fn(),
         }
 
-        global.fetch = jest.fn().mockReturnValue({
-            json: jest.fn().mockReturnValue({
+        global.fetch = vi.fn().mockReturnValue({
+            json: vi.fn().mockReturnValue({
                 services: TEST_SERVICE_INFO,
             }),
         })
     })
 
     afterEach(() => {
-        jest.clearAllMocks()
+        vi.clearAllMocks()
     })
 
     afterAll(() => {
@@ -37,49 +39,49 @@ describe('Usercentrics', () => {
     })
 
     describe('utils', () => {
-        test('updateServicesConsents', async () => {
+        test('updateServicesConsents', async ({ expect }) => {
             await utils.updateServicesConsents([{ consent: true, id: 'test-id' }])
             expect((window as UCWindow).__ucCmp?.updateServicesConsents).toHaveBeenCalledWith([
                 { consent: true, id: 'test-id' },
             ])
         })
 
-        test('saveConsents', async () => {
+        test('saveConsents', async ({ expect }) => {
             await utils.saveConsents()
             expect((window as UCWindow).__ucCmp?.saveConsents).toHaveBeenCalledWith()
         })
 
-        test('showFirstLayer', async () => {
+        test('showFirstLayer', async ({ expect }) => {
             await utils.showFirstLayer()
             expect((window as UCWindow).__ucCmp?.showFirstLayer).toHaveBeenCalledTimes(1)
         })
 
-        test('showSecondLayer', async () => {
+        test('showSecondLayer', async ({ expect }) => {
             await utils.showSecondLayer()
             expect((window as UCWindow).__ucCmp?.showSecondLayer).toHaveBeenCalledTimes(1)
         })
 
-        test('showServiceDetails', async () => {
+        test('showServiceDetails', async ({ expect }) => {
             await utils.showServiceDetails('test-id')
             expect((window as UCWindow).__ucCmp?.showServiceDetails).toHaveBeenCalledTimes(1)
             expect((window as UCWindow).__ucCmp?.showServiceDetails).toHaveBeenCalledWith('test-id')
         })
 
         describe('getConsentsFromLocalStorage', () => {
-            const mockGetItem = jest.spyOn(localStorage.__proto__, 'getItem')
+            const mockGetItem = vi.spyOn(localStorage.__proto__, 'getItem')
 
-            it('should return empty object when no data', () => {
+            it('should return empty object when no data', ({ expect }) => {
                 const services = utils.getConsentsFromLocalStorage()
                 expect(mockGetItem).toHaveBeenCalledTimes(1)
                 expect(services).toEqual({})
             })
 
-            it('should return empty object when invalid data', () => {
+            it('should return empty object when invalid data', ({ expect }) => {
                 mockGetItem.mockReturnValueOnce('foobar')
                 expect(utils.getConsentsFromLocalStorage()).toEqual({})
             })
 
-            it('should return services from localStorage', () => {
+            it('should return services from localStorage', ({ expect }) => {
                 const ucData = {
                     consent: {
                         services: {
@@ -97,8 +99,8 @@ describe('Usercentrics', () => {
         })
 
         describe('getServiceInfo', () => {
-            it('should call upstream API with configured values', async () => {
-                jest.mocked((window as UCWindow).__ucCmp?.getConsentDetails)?.mockResolvedValueOnce({
+            it('should call upstream API with configured values', async ({ expect }) => {
+                vi.mocked((window as UCWindow).__ucCmp?.getConsentDetails)?.mockResolvedValueOnce({
                     consent: {
                         language: 'fi',
                         required: false,

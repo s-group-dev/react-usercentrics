@@ -1,14 +1,15 @@
-/** @jest-environment node */
+/** @vitest-environment node */
 
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
+import { describe, it } from 'vitest'
 
 import { UsercentricsScript } from '../../src/components/UsercentricsScript.js'
 
 describe('Usercentrics', () => {
     describe('components', () => {
         describe('UsercentricsScript', () => {
-            it('should render basic props', () => {
+            it('should render basic props', ({ expect }) => {
                 const result = renderToStaticMarkup(<UsercentricsScript settingsId="1234" />)
 
                 expect(result).toMatchInlineSnapshot(
@@ -16,20 +17,20 @@ describe('Usercentrics', () => {
                 )
             })
 
-            it('should render preview attribute', () => {
+            it('should render preview attribute', ({ expect }) => {
                 const result = renderToStaticMarkup(<UsercentricsScript settingsId="1234" draft={true} />)
 
                 expect(result).toMatch('data-draft="true"')
             })
 
-            it('should allow disabling default async prop', () => {
+            it('should allow disabling default async prop', ({ expect }) => {
                 const result = renderToStaticMarkup(<UsercentricsScript settingsId="1234" async={undefined} defer />)
 
                 expect(result).not.toMatch('async')
                 expect(result).toMatch('defer')
             })
 
-            it('should not allow the src prop', () => {
+            it('should not allow the src prop', ({ expect }) => {
                 const result = renderToStaticMarkup(
                     <UsercentricsScript
                         settingsId="1234"
