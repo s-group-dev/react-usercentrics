@@ -15,7 +15,8 @@
         },
         "skipLibCheck": true,
         "strict": true,
-        "target": "ESNext"
+        "target": "ESNext",
+        "types": ["jest", "react", "react-dom", "node"]
     },
     "include": ["**/*.mjs", "**/*.js", "**/*.ts", "**/*.tsx", "./jest-setup.ts"],
     "exclude": ["node_modules"]

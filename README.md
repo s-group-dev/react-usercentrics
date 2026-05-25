@@ -89,8 +89,10 @@ response.headers.append(
 The script tag that loads the Usercentrics Browser CMP.
 
 ```tsx
-interface UsercentricsScriptProps
-    extends React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement> {
+interface UsercentricsScriptProps extends React.DetailedHTMLProps<
+    React.ScriptHTMLAttributes<HTMLScriptElement>,
+    HTMLScriptElement
+> {
     /**
      * The language code the Usercentrics UI should load by default. If not set, it will be automatically selected.
      *

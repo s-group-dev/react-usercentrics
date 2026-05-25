@@ -61,6 +61,7 @@ jobs:
                   key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
                   restore-keys: |
                       ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+            - run: npm run fmt
             - run: npm run lint
 
     Typecheck:

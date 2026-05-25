@@ -1,0 +1,10 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "ignorePatterns": ["cdk.out", "node_modules", "next-env.d.ts", "package-lock.json", "src/generated"],
+    "printWidth": 120,
+    "objectWrap": "preserve",
+    "semi": false,
+    "singleQuote": true,
+    "sortImports": true,
+    "tabWidth": 4
+}

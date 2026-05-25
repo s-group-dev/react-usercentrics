@@ -83,7 +83,10 @@ describe('Usercentrics', () => {
                 const ucData = {
                     consent: {
                         services: {
-                            'test-id': { consent: { given: true, type: 'EXPLICIT' }, name: 'Test Service' },
+                            'test-id': {
+                                consent: { given: true, type: 'EXPLICIT' },
+                                name: 'Test Service',
+                            },
                         },
                     },
                 }

@@ -1,0 +1,25 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "categories": {
+        "correctness": "error",
+        "perf": "error"
+    },
+    "options": {
+        "typeAware": true,
+        "typeCheck": true
+    },
+    "plugins": ["import", "eslint", "typescript", "oxc", "react"],
+    "rules": {
+        "import/extensions": [
+            "error",
+            "always",
+            {
+                "ts": "never",
+                "tsx": "always",
+                "ignorePackages": true
+            }
+        ],
+        "jsx-no-constructed-context-values": "off",
+        "no-accumulating-spread": "off"
+    }
+}
