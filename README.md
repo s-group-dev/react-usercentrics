@@ -41,6 +41,28 @@ ReactDOM.render(
 )
 ```
 
+### Content-Security Policy
+
+If you have a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy) on your website, you might need to add some configuration for loading the Usercentrics script. The Web CMP v3 only supports loading the "_latest_" version from a static URL, so a [Subresource Integrity hash](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Subresource_Integrity) cannot be calculated. However, a nonce attribute can be used instead. You can read more at:
+
+- [nonce HTML global attribute | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce)
+- [Script Implementation - UsercentricsDocs](https://usercentrics.com/docs/web/features/v2/browser_ui/browser_ui/#adding-a-nonce-to-the-script-tag)
+- [Guides: Content Security Policy | Next.js](https://nextjs.org/docs/app/guides/content-security-policy#nonces)
+
+#### Next.js App Router example
+
+Assuming the `x-nonce` header is calculated in `proxy.ts` ([see example](https://nextjs.org/docs/app/guides/content-security-policy#adding-a-nonce-with-proxy)):
+
+```tsx
+import { UsercentricsScript } from '@s-group/react-usercentrics'
+import { headers } from 'next/headers'
+
+export default async function Layout() {
+    const nonce = (await headers()).get('x-nonce')
+    return <UsercentricsScript nonce={nonce} settingsId={USERCENTRICS_SETTINGS_ID} />
+}
+```
+
 ### Augmented type-checks for `ServiceId`
 
 Service-specific code needs to target a specific `serviceId`, for example
