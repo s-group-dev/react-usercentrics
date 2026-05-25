@@ -156,14 +156,14 @@ export const getServiceInfo = async (countryCode?: string): Promise<CMPi18nConte
 
     const i18n = (await response.json()) as CMPi18nContent
     return Object.values(i18n.services).reduce(
-        (acc, service) => ({
-            ...acc,
-            [service.id]: {
+        (acc, service) => {
+            acc[service.id] = {
                 id: service.id,
                 name: service.name,
                 description: service.description,
-            },
-        }),
+            }
+            return acc
+        },
         {} as CMPi18nContent['services'],
     )
 }

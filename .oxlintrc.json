@@ -19,7 +19,6 @@
                 "ignorePackages": true
             }
         ],
-        "jsx-no-constructed-context-values": "off",
-        "no-accumulating-spread": "off"
+        "jsx-no-constructed-context-values": "off"
     }
 }

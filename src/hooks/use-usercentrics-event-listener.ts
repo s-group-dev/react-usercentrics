@@ -33,10 +33,10 @@ export const useUsercentricsEventListener = ({
     useEffect(() => {
         const consentsFromLocalStorage = getConsentsFromLocalStorage()
         const consents = Object.entries(consentsFromLocalStorage).reduce(
-            (acc, [serviceId, status]) => ({
-                ...acc,
-                [serviceId]: status.consent,
-            }),
+            (acc, [serviceId, status]) => {
+                acc[serviceId] = status.consent
+                return acc
+            },
             {} as Record<ServiceId, boolean>,
         )
 
@@ -106,10 +106,10 @@ export const useUsercentricsEventListener = ({
         const handleConsentEvent = (event: Event) => {
             if (isUCConsentEvent(event)) {
                 const consents = Object.entries(event.detail.services).reduce(
-                    (acc, [serviceId, data]) => ({
-                        ...acc,
-                        [serviceId]: data.consent?.given === true,
-                    }),
+                    (acc, [serviceId, data]) => {
+                        acc[serviceId] = data.consent?.given === true
+                        return acc
+                    },
                     {} as Record<ServiceId, boolean>,
                 )
 
