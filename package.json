@@ -1,6 +1,6 @@
 {
     "name": "@s-group/react-usercentrics",
-    "version": "3.0.5",
+    "version": "3.0.6",
     "description": "React utils for interacting with the Usercentrics Web CMP v3",
     "bugs": "https://github.com/s-group-dev/react-usercentrics/issues",
     "license": "MIT",

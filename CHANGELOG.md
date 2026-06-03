@@ -1,3 +1,9 @@
+## [3.0.6](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.5...v3.0.6) (2026-06-03)
+
+### Bug Fixes
+
+- update `<UsercentricsScript />` JSDoc to show `draft` prop ([f77508f](https://github.com/s-group-dev/react-usercentrics/commit/f77508f24ba097bed56489b7c07bcfa55ac0ffb0))
+
 ## [3.0.5](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.4...v3.0.5) (2026-05-25)
 
 ### Bug Fixes
