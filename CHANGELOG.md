@@ -2,11 +2,11 @@
 
 ### Bug Fixes
 
-* update dependencies ([db5cd6c](https://github.com/s-group-dev/react-usercentrics/commit/db5cd6cb4c090103554ec8dfcb4a9b4861391618))
+- update dependencies ([db5cd6c](https://github.com/s-group-dev/react-usercentrics/commit/db5cd6cb4c090103554ec8dfcb4a9b4861391618))
 
 ### Performance Improvements
 
-* do not spread accumulators in `Array.prototype.reduce()` ([afeae1f](https://github.com/s-group-dev/react-usercentrics/commit/afeae1f24d57d35a64dfead6a14a034c52896818))
+- do not spread accumulators in `Array.prototype.reduce()` ([afeae1f](https://github.com/s-group-dev/react-usercentrics/commit/afeae1f24d57d35a64dfead6a14a034c52896818))
 
 ## [3.0.4](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.3...v3.0.4) (2025-10-21)
 

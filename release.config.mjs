@@ -15,6 +15,12 @@ export default {
         ],
         '@semantic-release/changelog',
         [
+            '@semantic-release/exec',
+            {
+                prepareCmd: 'oxfmt CHANGELOG.md',
+            },
+        ],
+        [
             '@semantic-release/npm',
             {
                 npmPublish: false,

@@ -33,8 +33,8 @@ interface UsercentricsScriptProps extends React.DetailedHTMLProps<
  * @example <caption>Default production mode</caption>
  * () => <UsercentricsScript settingsId="1234" />
  *
- * @example <caption>Preview mode for development</caption>
- * () => <UsercentricsScript settingsId="1234" version="preview" />
+ * @example <caption>Draft mode for development</caption>
+ * () => <UsercentricsScript settingsId="1234" draft={true} />
  *
  * @example <caption>Fixed language code</caption>
  * () => <UsercentricsScript settingsId="1234" language="fi" />
