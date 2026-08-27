@@ -1,5 +1,15 @@
 # @s-group/react-usercentrics
 
+## 3.1.0
+
+### Minor Changes
+
+- [#49](https://github.com/s-group-dev/react-usercentrics/pull/49) [`3ee2329`](https://github.com/s-group-dev/react-usercentrics/commit/3ee23292e57808212d39990d59e9eb46244ef428) - Use `react/jsx-runtime` for JSX. The React runtime requirement is slightly bumped from `>=16.8` to `>=16.14`, but this is not considered a breaking change since the major version remains the same.
+
+### Patch Changes
+
+- [#49](https://github.com/s-group-dev/react-usercentrics/pull/49) [`3ee2329`](https://github.com/s-group-dev/react-usercentrics/commit/3ee23292e57808212d39990d59e9eb46244ef428) - Update all dependencies to resolve security issues reported by `npm audit`
+
 ## 3.0.6
 
 ### Bug Fixes
