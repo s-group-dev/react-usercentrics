@@ -56,9 +56,9 @@ jobs:
               with:
                   commit-message: 'chore(changeset): release' # this is not used because of the custom version script
                   create-github-releases: true
-                  publish-script: npm run tag # do not actually publish via Changeset, handled separately in Actions
+                  publish-script: npm run changeset:tag
                   pr-title: '🦋 Changeset release'
-                  version-script: npm run version
+                  version-script: npm run changeset:version
 
     Publish:
         name: Publish to npm
