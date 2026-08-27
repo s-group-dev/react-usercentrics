@@ -1,5 +1,3 @@
-[![npm version](https://badge.fury.io/js/@s-group%2Freact-usercentrics.svg)](https://www.npmjs.com/package/@s-group/react-usercentrics) [![Release](https://github.com/s-group-dev/react-usercentrics/actions/workflows/release.yml/badge.svg)](https://github.com/s-group-dev/react-usercentrics/actions/workflows/release.yml)
-
 # `@s-group/react-usercentrics`
 
 React utils for interacting with the [Usercentrics Web CMP](https://usercentrics.com/docs/web/intro/).
