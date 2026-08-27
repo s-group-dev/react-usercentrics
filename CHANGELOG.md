@@ -1,4 +1,6 @@
-## [3.0.6](https://github.com/s-group-dev/react-usercentrics/compare/v3.0.5...v3.0.6) (2026-06-03)
+# @s-group/react-usercentrics
+
+## 3.0.6
 
 ### Bug Fixes
 
