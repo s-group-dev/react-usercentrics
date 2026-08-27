@@ -1,0 +1,13 @@
+{
+    "$schema": "https://unpkg.com/@changesets/config@4.0.0/schema.json",
+    "access": "public",
+    "baseBranch": "main",
+    "changelog": [
+        "@changesets/changelog-github",
+        {
+            "disableThanks": true,
+            "repo": "s-group-dev/react-usercentrics"
+        }
+    ],
+    "format": "oxfmt"
+}

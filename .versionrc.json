@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "postchangelog": "oxfmt --write CHANGELOG.md"
+    }
+}

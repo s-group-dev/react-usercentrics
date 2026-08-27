@@ -22,40 +22,35 @@
     },
     "scripts": {
         "prepare": "husky",
-        "fmt": "oxfmt",
-        "lint": "oxlint",
+        "lint": "oxfmt && oxlint",
         "test": "vitest",
         "typecheck": "tsc --project tsconfig.json",
-        "build": "tsc --project tsconfig.build.json"
+        "build": "tsc --project tsconfig.build.json",
+        "changeset": "changeset",
+        "changeset:tag": "changeset tag",
+        "changeset:version": "changeset version && npm i --package-lock-only && git commit -am \"chore(changeset): release\""
     },
     "devDependencies": {
-        "@commitlint/cli": "21.0.2",
-        "@commitlint/config-conventional": "21.0.2",
-        "@semantic-release/changelog": "6.0.3",
-        "@semantic-release/commit-analyzer": "13.0.1",
-        "@semantic-release/exec": "7.1.0",
-        "@semantic-release/git": "10.0.1",
-        "@semantic-release/github": "12.0.8",
-        "@semantic-release/npm": "13.1.5",
-        "@semantic-release/release-notes-generator": "14.1.1",
+        "@changesets/changelog-github": "1.0.0",
+        "@changesets/cli": "3.0.1",
+        "@commitlint/cli": "21.2.2",
+        "@commitlint/config-conventional": "21.2.2",
         "@testing-library/react": "16.3.2",
-        "@types/node": "25.9.1",
-        "@types/react": "19.2.16",
-        "@types/react-dom": "19.2.3",
-        "conventional-changelog-conventionalcommits": "9.3.1",
-        "happy-dom": "20.9.0",
+        "@types/node": "26.4.0",
+        "@types/react": "19.2.18",
+        "@types/react-dom": "19.2.5",
+        "happy-dom": "20.11.8",
         "husky": "9.1.7",
-        "oxfmt": "0.53.0",
-        "oxlint": "1.68.0",
-        "oxlint-tsgolint": "0.23.0",
-        "react": "19.2.7",
-        "react-dom": "19.2.7",
-        "semantic-release": "25.0.3",
-        "typescript": "6.0.3",
-        "vitest": "4.1.8"
+        "oxfmt": "0.65.0",
+        "oxlint": "1.80.0",
+        "oxlint-tsgolint": "7.0.2001",
+        "react": "19.2.8",
+        "react-dom": "19.2.8",
+        "typescript": "7.0.2",
+        "vitest": "4.1.11"
     },
     "peerDependencies": {
-        "react": ">=16.8",
-        "react-dom": ">=16.8"
+        "react": ">=16.14",
+        "react-dom": ">=16.14"
     }
 }
