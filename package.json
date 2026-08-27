@@ -22,8 +22,7 @@
     },
     "scripts": {
         "prepare": "husky",
-        "fmt": "oxfmt",
-        "lint": "oxlint",
+        "lint": "oxfmt && oxlint",
         "test": "vitest",
         "typecheck": "tsc --project tsconfig.json",
         "build": "tsc --project tsconfig.build.json"
@@ -55,7 +54,7 @@
         "vitest": "4.1.11"
     },
     "peerDependencies": {
-        "react": ">=16.8",
-        "react-dom": ">=16.8"
+        "react": ">=16.14",
+        "react-dom": ">=16.14"
     }
 }
