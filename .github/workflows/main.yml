@@ -6,7 +6,11 @@ on:
             - main
 
 permissions:
-    contents: read
+    contents: write
+    issues: read
+    packages: write
+    pull-requests: write
+    id-token: write
 
 jobs:
     Install:
