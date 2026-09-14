@@ -18,7 +18,8 @@
     "sideEffects": false,
     "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./dist/index.js"
+        ".": "./dist/index.js",
+        "./augmented": "./augmented.d.ts"
     },
     "scripts": {
         "prepare": "husky",
