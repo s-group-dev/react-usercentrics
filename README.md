@@ -22,11 +22,11 @@ You will need to set up a Usercentrics service and note down its `settingsId`. A
 
 ```tsx
 import { UsercentricsScript, UsercentricsProvider } from '@s-group/react-usercentrics'
-import ReactDOM from 'react-dom'
 import React from 'react'
+import ReactDOM from 'react-dom'
 
-import { USERCENTRICS_SETTINGS_ID, USERCENTRICS_EVENT_NAME } from './config'
 import MyApplication from './app'
+import { USERCENTRICS_SETTINGS_ID, USERCENTRICS_EVENT_NAME } from './config'
 
 ReactDOM.render(
     <>

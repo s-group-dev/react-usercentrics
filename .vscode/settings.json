@@ -1,0 +1,12 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.format.oxc": "always",
+        "source.fixAll.oxc": "always"
+    },
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": false,
+    "editor.formatOnSaveMode": "file",
+    "js/ts.experimental.useTsgo": true,
+    "js/ts.tsdk.path": "node_modules/typescript/lib",
+    "oxc.enable": true
+}
