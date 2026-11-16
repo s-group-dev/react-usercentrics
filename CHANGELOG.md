@@ -1,5 +1,13 @@
 # @s-group/react-usercentrics
 
+## 3.1.1
+
+### Patch Changes
+
+- [#51](https://github.com/s-group-dev/react-usercentrics/pull/51) [`20fba18`](https://github.com/s-group-dev/react-usercentrics/commit/20fba18e6a15a7afca3fb2b7180cc85790e0da35) - Add `@s-group/react-usercentrics/augmented` to `package.json` `exports` field.
+
+- [#51](https://github.com/s-group-dev/react-usercentrics/pull/51) [`8942511`](https://github.com/s-group-dev/react-usercentrics/commit/8942511927fc0db2c83898f5e08c577b2dff6a09) - Update (dev) dependencies to address vulnerability reports.
+
 ## 3.1.0
 
 ### Minor Changes
